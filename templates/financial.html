@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock World-金融行业</title>
+    <link href="../static/images/stok-word-logo-0.png" rel="shortcut icon">
+	<link rel="stylesheet" href="../static/css/style.css" 	type="text/css" media="all">
+    <link rel="stylesheet" type="text/css" href="../static/css/styles.css">
+	 <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+	 <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.min.css" />
+    <style type="text/css">
+        *{
+        margin: 0;
+        padding: 0;
+        }
+        body{
+            border: 0;
+            background-color:hsla(0,0%,18%,1.00);
+            overflow: auto;
+            display: block;
+            margin: 0 0 50px 0;
+        }
+
+        .hidden{
+            transition: all 0.5s ease-in;
+            transform: translate(200px, -150px) rotateX(80deg) scale(0.5);
+            filter: opacity(0%);
+        }
+        .show{
+            transition: all 0.5s ease-in;
+            transform: translate(0, 50px) scale(1);
+            filter: opacity(100%);
+        }
+        .cha{
+            position: absolute;
+            right: 20px;
+            top:20px;
+        }
+        .cha:hover{
+            transition: all 0.2s;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+		.fuzzy{
+			transition: all 0.5s ease-in;
+			-webkit-filter: blur(7px);
+            filter: blur(7px);
+		}
+		.fuz{
+            transition: all 0.5s ease-in;
+			-webkit-filter:blur(0);
+            filter: blur(0);
+        }
+        .login {
+            position: absolute;
+            right:20px;
+          top: 10px;
+                    /*transform: translate(-100px);*/
+          /*-webkit-transition-timing-function: cubic-bezier(0.68, -0.25, 0.265, 0.85);*/
+          /*-webkit-transition-property: -webkit-transform,opacity,box-shadow,top,left;*/
+                  /*transition-property: transform,opacity,box-shadow,top,left;*/
+          /*-webkit-transition-duration: .5s;*/
+                  /*transition-duration: .5s;*/
+          /*-webkit-transform-origin: 161px 100%;*/
+              /*-ms-transform-origin: 161px 100%;*/
+                  /*transform-origin: 161px 100%;*/
+          /*-webkit-transform: rotateX(0deg) translate(550px, -100px) scale(0.5);*/
+                  /*transform: rotateX(0deg) translate(550px, -100px) scale(0.5);*/
+          /*position: relative;*/
+          width: 240px;
+          border-top: 2px solid #D8312A;
+          height: 300px;
+          /*position: absolute;*/
+          /*left: 0;*/
+          /*right: 0;*/
+          margin: auto;
+          /*top: 0;*/
+          /*bottom: 0;*/
+          padding: 100px 40px 40px 40px;
+          background: #35394a;
+          /* Old browsers */
+          /* FF3.6+ */
+          background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, #35394a), color-stop(100%, #1f222e));
+          /* Chrome,Safari4+ */
+          background: -webkit-linear-gradient(45deg, #35394a 0%, #1f222e 100%);
+          /* Chrome10+,Safari5.1+ */
+          /* Opera 11.10+ */
+          /* IE10+ */
+          background: linear-gradient(45deg, #35394a 0%, #1f222e 100%);
+          /* W3C */
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35394a', endColorstr='#1f222e',GradientType=1 );
+          /* IE6-9 fallback on horizontal gradient */
+}
+		a{
+			text-decoration:none;
+		}
+		ul,li{
+			color:white;
+			 list-style:none;
+		}
+		#menu li{
+			float: left;
+			width: 120px;
+        line-height: 3em;
+        /*height: 3em;*/
+        text-align: center;
+        cursor:pointer;
+		}
+		.ul{
+			position:absolute;
+			top:25px;
+			display: none;
+		}
+		.ul li{
+			float:none;
+			border-bottom: 1px solid #c7c7c7;
+		}
+		.ul li a{
+			text-align: center;
+			min-height: 35px;
+			line-height: 35px;
+			background-color: white;
+		}
+		#menu li:hover ul{
+			display: block;
+		}
+		.ul li:hover a {
+			background-color: #424668;
+			color: white;
+		}
+   </style>
+
+
+	<style>
+
+
+    .contain {
+    width: 1800px;
+    height:550px;
+    margin: 100px auto;
+    position:relative;top:100px;left:250px;
+
+}
+
+.contain li {
+    float: left;
+    list-style: none;
+    width: 340px;
+    height:550px;
+    transition: all 2s;
+    position: relative;
+    overflow: hidden;
+    border-left: 2px solid rgba(255, 255, 255, .8);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
+
+}
+
+.contain ul:hover li {
+    width: 80px;
+}
+
+.contain ul li:hover {
+    width: 1000px;
+}
+
+.contain li .title {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    background-color: rgba(0, 0, 0, .5);
+    text-indent: 2em;
+    line-height: 50px;
+    bottom: -50px;
+    left: 0;
+    <!--transform:translate(0, 50px);-->
+}
+
+.contain a {
+    color: #fff;
+    text-decoration: none;
+}
+/*<!--#chartdiv {-->*/
+  /*<!--width		: 500px;-->*/
+  /*<!--height	: 600px;     */
+        /*!*&lt;!&ndash;tiao kuai da xiao&ndash;&gt;-->*!*/
+
+  /*<!--font-size	: 11px;-->*/
+/*<!--}-->*/
+
+
+#chartdiv{
+
+background:white;
+  width: 1000px;
+  height: 500px;
+  <!--transform:translate(0, 50px);-->
+}
+
+#chartdiv2{
+background:white;
+  width: 1000px;
+  height: 500px;
+}
+
+#chartdiv3{
+background:white;
+  width: 1000px;
+  height: 500px;
+}
+
+.headline {
+	color:white;
+	font-size:30px;
+	 position:absolute;top:100px;left:200px;
+
+	  text-align: center;
+        background-image: -webkit-linear-gradient(left, #147B96, #E6D205 25%, #147B96 50%, #E6D205 75%, #147B96);
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -webkit-background-size: 200% 100%;
+        -webkit-animation: masked-animation 4s infinite linear;
+      }
+    @-webkit-keyframes masked-animation {
+         0%{ background-position: 0 0;}
+         100% { background-position: -100% 0;}
+    }
+
+
+	 .biaoti{
+            /*font-family: "Microsoft Himalaya";*/
+            font-size: 26px;
+            border-bottom:1px dashed #CCCCCC;
+            color: #255e95;
+
+        }
+
+        .btgn{
+            /*font-family: "Microsoft YaHei UI";*/
+            font-size: 16px;
+            color: #255e95;
+            background-color: #e9faff;
+            text-align: center;
+
+        }
+
+     .bg {
+     	color: #e9faff;
+     	position:relative;top:50px;bottom:200px;left:300px;
+     	text-align:center;
+     	}
+		td:hover{
+			cursor: pointer;
+		}
+    </style>
+
+
+    <style>
+        body {
+              background-image:url(../static/img/prism.png);
+              }
+    </style>
+
+
+	<style>
+
+	.zzsc-footer{width: 100%;padding-top: 10px;}
+	.zzsc-small{font-size: 0.8em;}
+	.center{text-align: center;}
+	.mt50{margin-top: 50px;}
+		.box{
+    position:relative;left:0px;
+    perspective: 1000px;
+}
+.box img{
+    width: 100%;
+    height: auto;
+    opacity:1;
+    transform: translateY(0) rotateX(0);
+    transition: all 0.6s ease-in-out 0s;
+}
+.box:hover img{
+    transform: translateY(-100%) rotateX(90deg);
+    transform-origin: center bottom 0;
+    opacity:0;
+}
+.box .over-layer{
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    opacity:0;
+    background:#333d4b;
+    text-align:center;
+    padding: 0 20px;
+    transition: all 0.60s ease-in-out 0s;
+}
+.box:hover .over-layer{
+    opacity:1;
+}
+.box .title,
+.box .description,
+.box .social-links{
+    position: relative;
+    top: 5%;
+    color: #d3d3d3;
+}
+.box .title{
+    text-transform: capitalize;
+    margin: 70px;
+}
+.box .title:after,
+.box .description:after{
+    content:"";
+    width: 50%;
+    display: block;
+    margin: 10px auto 0;
+    border-bottom: 1px solid #fff;
+}
+.box .social-links{
+    padding:0;
+    margin:0;
+    list-style: none;
+}
+.box .social-links li{
+    margin: 10px;
+    display: inline-block;
+}
+.box .social-links li a{
+    color: #fff;
+    font-size: 20px;
+}
+.box .social-links li a:hover{
+    color: #d3d3d3;
+    text-decoration: none;
+}
+@media only screen and (max-width: 990px){
+    .box{  margin-bottom:20px; }
+}
+
+.description {
+		font-size:16px;
+		}
+.summary {
+		font-size:20px;
+		color: #e9faff;
+		}
+.总结 {
+		 position:relative;top:100px;left:350px;
+		 }
+.title {
+		transform:translate(0,-52px);
+		text-align:center;
+		z-index:99;
+		}
+	</style>
+
+</head>
+
+<body>
+
+
+<div id="base">
+<nav class="navbar navbar-default" style="background-color:transparent;border:0;">
+			<div class="container-fluid">
+				<div class="navbar-header" style="position: absolute;left: 9%;top:8px;width: 290px">
+					<img src="../static/images/stok-word-logo-0.png" width="80" style="filter: invert(1); cursor: pointer; float: left;">
+					<a class="navbar-brand" href="/" style="text-decoration: none ; position: absolute; top:15px;right: 0;color:white;">STOCK WORLD<br>
+						<p style="font-size:medium;color: #9f9f9f; border-top: 1px solid white; position: relative; top: 5px; text-align: center">An Art of Stock</p></a>
+				</div>
+
+				<div id="navbar" class="navbar-collapse navbar-right collapse hover-effect">
+					<ul id="menu" class="nav navbar-nav" style="position: absolute;right: 10%;color:white;">
+						<li><a href="/">首页</a></li>
+						<li><a href="#">市场</a>
+							<ul class="ul">
+								<li><a href="/sh">上海证券</a></li>
+								<li><a href="/sz">深圳证券</a></li>
+							</ul>
+						</li>
+						<li><a href="#">行业</a>
+							<ul class="ul">
+								<li><a href="#">能源</a></li>
+								<li><a href="/financial">金融</a></li>
+								<li><a href="#">互联网</a></li>
+							</ul>
+						</li>
+						<li><a href="#team">工具</a></li>
+						<li><a href="#contact" id="login">登录</a></li>
+					</ul>
+				</div>
+
+			</div>
+		</nav>
+<img src="../static/images/lang.png" width="60" style="position:absolute; top: 10px;right: 30px; filter: invert(1.1) contrast(1.1) brightness(1.1); cursor: pointer">
+
+    <!--请在此div中添加内容-->
+
+    <div class="headline" style="height:100px;width:1100px;">
+		<h1 style="font-size:60px;">金融行业十家公司三大指标对比<br></h1>
+	</div>
+
+	 <div class="contain">
+            <ul>
+
+                <li>
+                    <a href="#">
+						<div id="chartdiv"></div>
+						<script src="https://www.amcharts.com/lib/4/core.js"></script>
+						<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+						<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+						<script src="../static/js/index1.js"></script>
+
+                    </a>
+                    <div class="title">
+                        <a href="#" style="transform:translate(0, 50px);">每股净资产</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">
+                        <div id="chartdiv2"></div>
+						<script src="https://www.amcharts.com/lib/4/core.js"></script>
+						<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+						<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    					<script src="../static/js/index2.js"></script>
+                    </a>
+                    <div class="title">
+                        <a href="#">每股收益</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">
+                        <div id="chartdiv3"></div>
+						<script src="https://www.amcharts.com/lib/4/core.js"></script>
+						<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+						<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    					<script src="../static/js/index3.js"></script>
+                    </a>
+                    <div class="title">
+                        <a href="#">每股现金流量</a>
+                    </div>
+                </li>
+
+            </ul>
+        </div>  <!--amchart图-->
+<br><br>
+<hr style="height:100%;">
+
+<div class="zzsc-container">
+	<div class="container mt50">
+		<div class="row" style="width:1500px;" >
+			<h2 style="color: #e9faff;"><li>相关分析</li></h2>
+			<br><br>
+			<div class="col-md-4 col-sm-6" style="height:400px;width:400px;">
+				<div class="box" style="height:400px;width:400px;">
+					<img src="../static/img/1.jpg" alt="">
+					<h3 class="title">每股净资产图</h3>
+					<div class="over-layer" style="height:400px;width:400px;">
+
+						<p class="description"> 每股净资产是指股东权益与总股数的比率。
+							其计算公式为:每股净资产= 股东权益 / 总股数。
+							这一指标反映每股股票所拥有的资产现值。
+							每股净资产越高，股东拥有的每股资产价值越多;
+							每股净资产越少，股东拥有的每股资产价值越少。
+							通常每股净资产越高越好。<br>
+							由图1每股净资产图我们可以看出，
+							招商银行和兴业银行的指标最高且二者相差无几，
+							工商银行、光大银行、农业银行三家公司相差不大位于末尾。
+							最高的兴业银行和最低的农业银行相差78.55%。
+							每股净资产指标反映了在会计期末每一股份在公司账面上到底值多少钱，
+							如在公司性质相同、股票市价相近的条件下，
+							兴业银行和招商银行两家公司股票的每股净资产较高，
+							说明其公司发展潜力与其股票的投资价值较大，
+							投资者所承担的投资风险较小。</p>
+						<ul class="social-links">
+							<!--<li><a href="#" class="fa fa-download"></a></li>-->
+							<!--<li><a href="#" class="fa fa-link"></a></li>-->
+							<!--<li><a href="#" class="fa fa-search"></a></li>-->
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-sm-6" style="height:400px;width:400px;">
+				<div class="box" style="height:400px;width:400px;">
+					<img src="../static/img/2.jpg" alt="">
+					<h3 class="title">每股收益图</h3>
+					<div class="over-layer" style="height:400px;width:400px;">
+
+						<p class="description">每股收益即每股盈利，又称每股税后利润、每股盈余，
+							指税后利润与股本总数的比率。
+							是普通股股东每持有一股所能享有的企业净利润或需承担的企业净亏损。
+							它是测定股票投资价值的重要指标之一，是分析每股价值的一个基础性指标，
+							是综合反映公司获利能力的重要指标，它是公司某一时期净利润与股份数的比率。
+							该比率反映了每股创造的税后利润, 比率越高, 表明所创造的利润就越多。<br>
+							由图2每股收益图我们可以看出，招商银行位于首位，农业银行位于末尾。
+							经过计算，我们发现招商银行大约是农业银行的5.51倍。
+							每股收益通常被用来反映企业的经营成果，衡量普通股的获利水平及投资风险，
+							由此可见游族网络这家公司的盈利能力较强，预测企业成长潜力较大。</p>
+						<ul class="social-links">
+							<!--<li><a href="#" class="fa fa-download"></a></li>-->
+							<!--<li><a href="#" class="fa fa-link"></a></li>-->
+							<!--<li><a href="#" class="fa fa-search"></a></li>-->
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-sm-6" style="height:400px;width:410px;">
+				<div class="box" style="height:400px;width:400px;">
+					<img src="../static/img/3.jpg" alt="">
+					<h3 class="title">每股现金流量图</h3>
+
+					<div class="over-layer" style="height:400px;width:450px;">
+						<p class="description">每股现金流量是
+							公司经营活动所产生的净现金流量减去优先股股利与流通在外的普通股股数的比率。
+							一家公司的每股现金流量越高，
+							说明这家公司的每股普通股在一个会计年度内所赚得的现金流量越多;
+							反之，则表示每股普通股所赚得的现金流量越少。
+							虽然每股现金流量在短期内比每股盈余更能显示公司在资本性支出和支付股利方面的能力，
+							但每股现金流量决不能用来代替每股盈余作为公司盈利能力的主要指标的作用。<br>
+							由图3每股现金流量图我们可以看出，
+							兴业银行和招商银行最高并且遥遥领先，
+							然而农业银行和工商银行两家公司是负数，
+							还有一家公司虽然是正数但是也是在0附近徘徊。
+							不过每股收益不反映股票所含有的风险；股票是一个"份额"概念，
+							不同股票的每一股在经济上不等量，
+							它们所含有的净资产和市价不同即换取每股收益的投入量不相同，
+							限制了每股收益的公司间比较；每股收益多，不一定意味着多分红，
+							还要看公司股利分配政策。</p>
+						<ul class="social-links">
+							<!--<li><a href="#" class="fa fa-download"></a></li>-->
+							<!--<li><a href="#" class="fa fa-link"></a></li>-->
+							<!--<li><a href="#" class="fa fa-search"></a></li>-->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div style="text-align:center;clear:both;">
+<!--<script src="/gg_bd_ad_720x90.js" type="text/javascript"></script>-->
+<!--<script src="/follow.js" type="text/javascript"></script>-->
+</div>
+
+	<div class="总结">
+		<h2 style="color: #e9faff;"><li>综合对比</li></h2>
+	<br><br>
+		<p class="summary">
+			 经过三张图的综合比较，
+			我们发现，<br>
+			在十家银行中招商银行和营业银行这两家银行<br>
+			在每股净资产、每股收益、每股现金流量三个方面都表现突出，<br>
+			以绝对优势胜于其余八家公司，<br>
+			所以我们暂且将这两家银行列为优势股票。
+		</p>
+	</div>
+
+
+
+<br><br><br><br><br><br>
+<hr style="height:100%;">
+<div class="bg">
+	<table width="60%" border="0">
+    <tr>
+        <td align="center" class="biaoti" height="60" style="
+            font-size: 26px;
+            border-bottom:1px dashed #CCCCCC;
+            color: #e9faff;">
+            十家银行同行业对比相关数据
+        </td>
+    </tr>
+    <tr>
+        <td align="right" height="25">
+            2017-01-02---2017-05-02
+        </td>
+    </tr>
+</table>
+<table width="60%" border="2" cellspacing="1" cellpadding="4">
+    <tr>
+        <td colspan="2" class="btgn" rowspan="2">相关指标</td>
+        <td rowspan="2" class="btgn">每股净资产</td>
+        <td rowspan="2" class="btgn">每股收益</td>
+        <td rowspan="2" class="btgn">每股现金流量</td>
+        <td colspan="2" class="btgn">毛利率</td>
+    </tr>
+    <tr>
+
+
+    </tr>
+    <tr>
+        <td rowspan="10" >十家银行</td>
+        <td><a href="/spdb" target="_blank" style="color: #e9faff;"> 浦发银行</a></td>
+        <td>15.05</td>
+        <td>0.4762</td>
+        <td>1.369</td>
+        <td>--</td>
+
+
+
+
+    </tr>
+    <tr>
+        <td>民生银行</td>
+        <td>9.37</td>
+        <td>0.2874</td>
+        <td>0.661</td>
+        <td>--</td>
+
+
+
+    </tr>
+    <tr>
+        <td><a href="/cmbc" target="_blank" style="color: #e9faff;">招商银行</a></td>
+        <td>20.0657</td>
+        <td>0.7986</td>
+        <td>3.301</td>
+        <td>--</td>
+
+
+
+    </tr>
+    <tr>
+        <td>兴业银行</td>
+        <td>21.1824</td>
+        <td>0.7295</td>
+        <td>3.796</td>
+        <td>--</td>
+
+
+
+    </tr>
+    <tr>
+        <td>北京银行</td>
+        <td>8.2585</td>
+        <td>0.2365</td>
+        <td>0.316</td>
+        <td>--</td>
+
+
+
+
+    </tr>
+    <tr>
+        <td>上海银行</td>
+        <td>12.9317</td>
+        <td>0.4126</td>
+        <td>0.03</td>
+        <td>--</td>
+
+
+
+    </tr>
+
+    <tr>
+        <td>农业银行</td>
+        <td>4.5442</td>
+        <td>0.1449</td>
+        <td>-0.065</td>
+        <td>--</td>
+
+
+
+    </tr>
+    <tr>
+        <td>交通银行</td>
+        <td>8.5982</td>
+        <td>0.2479</td>
+        <td> 0.196</td>
+        <td>--</td>
+
+
+
+    </tr>
+    <tr>
+        <td>工商银行</td>
+        <td>6.296</td>
+        <td>0.2088</td>
+        <td>-0.03</td>
+        <td>--</td>
+
+
+
+    </tr>
+    <tr>
+        <td>光大银行</td>
+        <td>5.456</td>
+        <td>0.1603</td>
+        <td>0.757</td>
+        <td>--</td>
+
+
+
+    </tr>
+
+</table>
+</div>
+
+
+
+
+
+</div>
+<br><br><br>
+<div class='login hidden' id="logbar">
+    <img src="../static/img/cha.png" style="filter: invert(80%); height: 20px" class="cha">
+	  <div class='login_title'>
+	    <span>登录</span>
+	  </div>
+	  <div class='login_fields'>
+	    <div class='login_fields__user'>
+	      <div class='icon'>
+	        <img src='../static/img/user_icon_copy.png'>
+	      </div>
+	      <input placeholder='用户名/邮箱' type='text'>
+	        <div class='validation'>
+	          <img src='../static/img/tick.png'>
+	        </div>
+	    </div>
+	    <div class='login_fields__password'>
+	      <div class='icon'>
+	        <img src='../static/img/lock_icon_copy.png'>
+	      </div>
+	      <input placeholder='密码' type='password'>
+	      <div class='validation'>
+	        <img src='../static/img/tick.png'>
+	      </div>
+	    </div>
+	    <div class='login_fields__submit'>
+	      <input type='submit' value='登录'>
+	      <div class='forgot'>
+	        <a href='#'>忘记密码?</a>
+	      </div>
+	    </div>
+	  </div>
+	  <div class='success'>
+          <h2>认证成功</h2>
+	    <p>欢迎回来</p>
+	  </div>
+	  <div class='disclaimer'>
+	    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper laoreet placerat. Nullam semper auctor justo, rutrum posuere odio vulputate nec.</p>
+	  </div>
+</div>
+	<div class='authent'>
+	  <img src='../static/img/puff.svg'>
+	  <p>认证中...</p>
+	</div>
+	<script type="text/javascript" src='../static/js/stopExecutionOnTimeout.js?t=1'></script>
+	<script type="text/javascript" src="../static/js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../static/js/jquery-ui.min.js"></script>
+	<script>
+	$('input[type="submit"]').click(function () {
+	    $('.login').addClass('test');
+	    setTimeout(function () {
+	        $('.login').addClass('testtwo');
+	    }, 300);
+	    setTimeout(function () {
+	        $('.authent').show().animate({ right: -320 }, {
+	            easing: 'easeOutQuint',
+	            duration: 600,
+	            queue: false
+	        });
+	        $('.authent').animate({ opacity: 1 }, {
+	            duration: 200,
+	            queue: false
+	        }).addClass('visible');
+	    }, 500);
+	    setTimeout(function () {
+	        $('.authent').show().animate({ right: 90 }, {
+	            easing: 'easeOutQuint',
+	            duration: 600,
+	            queue: false
+	        });
+	        $('.authent').animate({ opacity: 0 }, {
+	            duration: 200,
+	            queue: false
+	        }).addClass('visible');
+	        $('.login').removeClass('testtwo');
+	    }, 2500);
+	    setTimeout(function () {
+	        $('.login').removeClass('test');
+	        $('.login div').fadeOut(123);
+	    }, 2800);
+	    setTimeout(function () {
+	        $('.success').fadeIn();
+	    }, 3200);
+	});
+	$('input[type="text"],input[type="password"]').focus(function () {
+	    $(this).prev().animate({ 'opacity': '1' }, 200);
+	});
+	$('input[type="text"],input[type="password"]').blur(function () {
+	    $(this).prev().animate({ 'opacity': '.5' }, 200);
+	});
+	$('input[type="text"],input[type="password"]').keyup(function () {
+	    if (!$(this).val() == '') {
+	        $(this).next().animate({
+	            'opacity': '1',
+	            'right': '30'
+	        }, 200);
+	    } else {
+	        $(this).next().animate({
+	            'opacity': '0',
+	            'right': '20'
+	        }, 200);
+	    }
+	});
+	var open = 0;
+	$('.tab').click(function () {
+	    $(this).fadeOut(200, function () {
+	        $(this).parent().animate({ 'left': '0' });
+	    });
+	});
+	</script>
+<script>
+    var log=document.getElementById('login');
+    var login=document.getElementById('logbar');
+    var cha = document.getElementsByClassName('cha');
+    var body = document.getElementById('base');
+    log.addEventListener("click", function () {
+        login.classList.replace('hidden', 'show');
+		body.className='fuzzy';
+    });
+    cha[0].onclick=function () {
+        login.classList.replace('show','hidden');
+		body.className='fuz';
+    };
+
+</script>
+
+</body>
+</html>

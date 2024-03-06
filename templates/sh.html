@@ -1,0 +1,3728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock World-沪市</title>
+    <link href="../static/images/stok-word-logo-0.png" rel="shortcut icon">
+
+	<!--<link rel="stylesheet" href="../statics/css/bootstrap.min.css" 	type="text/css" media="all">-->
+	<link rel="stylesheet" href="../static/css/style.css" 	type="text/css" media="all">
+
+    <link rel="stylesheet" type="text/css" href="../static/css/styles.css">
+
+    <style type="text/css">
+        *{
+        margin: 0;
+        padding: 0;
+        }
+        body{
+            border: 0;
+            background-color:hsla(0,0%,18%,1.00);
+            overflow: auto;
+            display: block;
+        }
+
+        .hidden{
+            transition: all 0.5s ease-in;
+            transform: translate(200px, -150px) rotateX(80deg) scale(0.5);
+            filter: opacity(0%);
+        }
+        .show{
+            transition: all 0.5s ease-in;
+            transform: translate(0, 50px) scale(1);
+            filter: opacity(100%);
+        }
+        .cha{
+            position: absolute;
+            right: 20px;
+            top:20px;
+        }
+        .cha:hover{
+            transition: all 0.2s;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+		.fuzzy{
+			transition: all 0.5s ease-in;
+			-webkit-filter: blur(7px);
+            filter: blur(7px);
+		}
+		.fuz{
+            transition: all 0.5s ease-in;
+			-webkit-filter:blur(0);
+            filter: blur(0);
+        }
+        .login {
+            position: absolute;
+            right:20px;
+          top: 10px;
+                    /*transform: translate(-100px);*/
+          /*-webkit-transition-timing-function: cubic-bezier(0.68, -0.25, 0.265, 0.85);*/
+          /*-webkit-transition-property: -webkit-transform,opacity,box-shadow,top,left;*/
+                  /*transition-property: transform,opacity,box-shadow,top,left;*/
+          /*-webkit-transition-duration: .5s;*/
+                  /*transition-duration: .5s;*/
+          /*-webkit-transform-origin: 161px 100%;*/
+              /*-ms-transform-origin: 161px 100%;*/
+                  /*transform-origin: 161px 100%;*/
+          /*-webkit-transform: rotateX(0deg) translate(550px, -100px) scale(0.5);*/
+                  /*transform: rotateX(0deg) translate(550px, -100px) scale(0.5);*/
+          /*position: relative;*/
+          width: 240px;
+          border-top: 2px solid #D8312A;
+          height: 300px;
+          /*position: absolute;*/
+          /*left: 0;*/
+          /*right: 0;*/
+          margin: auto;
+          /*top: 0;*/
+          /*bottom: 0;*/
+          padding: 100px 40px 40px 40px;
+          background: #35394a;
+          /* Old browsers */
+          /* FF3.6+ */
+          background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, #35394a), color-stop(100%, #1f222e));
+          /* Chrome,Safari4+ */
+          background: -webkit-linear-gradient(45deg, #35394a 0%, #1f222e 100%);
+          /* Chrome10+,Safari5.1+ */
+          /* Opera 11.10+ */
+          /* IE10+ */
+          background: linear-gradient(45deg, #35394a 0%, #1f222e 100%);
+          /* W3C */
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35394a', endColorstr='#1f222e',GradientType=1 );
+          /* IE6-9 fallback on horizontal gradient */
+}
+		a{
+			text-decoration:none;
+		}
+		ul,li{
+			 list-style:none;
+		}
+		#menu li{
+			float: left;
+			width: 120px;
+        line-height: 3em;
+        /*height: 3em;*/
+        text-align: center;
+        cursor:pointer;
+		}
+		.ul{
+			position:absolute;
+			top:25px;
+			display: none;
+		}
+		.ul li{
+			float:none;
+			border-bottom: 1px solid #c7c7c7;
+		}
+		.ul li a{
+			text-align: center;
+			min-height: 35px;
+			line-height: 35px;
+			background-color: white;
+		}
+		#menu li:hover ul{
+			display: block;
+		}
+		.ul li:hover a {
+			background-color: #424668;
+			color: white;
+		}
+   </style>
+<!--叠层图style-->
+	<style>
+    .contain {
+    width: 1600px;
+    margin: 100px auto;
+    position:absolute;top:130px;left:23%;
+        transition: all 2s;
+}
+    .contain:hover{
+        transform: translate(-100px,0);
+        transition: all 2s;
+    }
+
+.contain li {
+    float: left;
+    list-style: none;
+    width: 200px;
+    height:550px;
+    transition: all 2s;
+    position: relative;
+    overflow: hidden;
+    border-left: 2px solid rgba(255, 255, 255, .8);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
+}
+
+.contain ul:hover li {
+    width: 80px;
+}
+
+.contain ul li:hover {
+    width: 1000px;
+}
+
+.contain li .title {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    background-color: rgba(0, 0, 0, .5);
+    text-indent: 2em;
+    line-height: 50px;
+    bottom: 0;
+    left: 0
+}
+
+.contain a {
+    color: #fff;
+    text-decoration: none;
+}
+/*<!--#chartdiv {-->*/
+/*<!--  width		: 1000px;-->*/
+/*<!--  height	: 600px;-->*/
+
+/*<!--  font-size	: 11px;-->*/
+/*<!--}-->*/
+#title{
+      color:white;
+      font-size:30px;
+      position:absolute;
+      top:150px;
+    left: 250px;
+    text-align: center;
+}
+
+#title2{
+        color:white;
+        font-size:30px;
+        position:absolute;
+        top:900px;
+        left:250px;
+    text-align: center;
+}
+
+#text1{
+      color:white;
+      position:absolute;
+    top: 970px;
+      left:250px;
+      width:1000px
+
+}
+
+#text2{
+      color:white;
+      position:absolute;
+      top:1200px;
+      left:250px;
+      width:1000px
+
+}
+#text3{
+      color:white;
+      position:absolute;
+      top:1420px;
+      left:250px;
+      width:1000px
+
+}
+#text4{
+      color:white;
+      position:absolute;
+      top:1650px;
+      left:250px;
+      width:1000px
+
+}
+
+
+
+    </style>
+
+<!--    图表style-->
+    <style>
+/*<!--        每股净资产-->*/
+         #chartdiv1 {
+     width: 1000px;
+     height: 500px;
+     background-color: white;
+   }
+
+         #chartdiv2 {
+     width: 1000px;
+     height: 500px;
+     background-color: white;
+   }
+        #chartdiv3 {
+     width: 1000px;
+     height: 500px;
+     background-color: white;
+}
+       #chartdiv4 {
+     width: 1000px;
+     height: 500px;
+     background-color: white;
+}
+        .btgn{
+            /*font-family: "Microsoft YaHei UI";*/
+            font-size: 16px;
+            color: #255e95;
+            background-color: #e9faff;
+            text-align: center;
+
+        }
+        .biaoti{
+            /*font-family: "Microsoft Himalaya";*/
+            font-size: 26px;
+            border-bottom:1px dashed #CCCCCC;
+            color: #255e95;
+
+        }
+        .bg {
+     	color: #e9faff;
+     	position:absolute;top:1800px;left:300px;
+     	text-align:center;
+            width: 100%;
+            margin: 0 0 50px 0;
+     	}
+        td:hover{
+            cursor: pointer;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+
+<div id="base">
+<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header" style="position: absolute;left: 9%;top:8px;width: 290px">
+					<img src="../static/images/stok-word-logo-0.png" width="80" style="filter: invert(1); cursor: pointer; float: left;">
+					<a class="navbar-brand" href="/" style="text-decoration: none ; position: absolute; top:15px;right: 0;">STOCK WORLD<br>
+						<p style="font-size:medium;color: #9f9f9f; border-top: 1px solid white; position: relative; top: 5px; text-align: center">An Art of Stock</p></a>
+				</div>
+
+				<div id="navbar" class="navbar-collapse navbar-right collapse hover-effect">
+					<ul id="menu" class="nav navbar-nav" style="position: absolute;right: 10%;">
+						<li><a href="/">首页</a></li>
+						<li><a href="#">市场</a>
+							<ul class="ul">
+								<li><a href="/sh">上海证券</a></li>
+								<li><a href="/sz">深圳证券</a></li>
+							</ul>
+						</li>
+						<li><a href="#">行业</a>
+							<ul class="ul">
+								<li><a href="#">能源</a></li>
+								<li><a href="/financial">金融</a></li>
+								<li><a href="#">互联网</a></li>
+							</ul>
+						</li>
+						<li><a href="#team">工具</a></li>
+						<li><a href="#" id="login">登录</a></li>
+					</ul>
+				</div>
+
+			</div>
+		</nav>
+<img src="../static/images/lang.png" width="60" style="position:absolute; top: 10px;right: 30px; filter: invert(1.1) contrast(1.1) brightness(1.1); cursor: pointer">
+
+    <!--请在此div中添加内容-->
+<div id="title" >
+	<hr style="width:1000px">
+	沪市50家公司四大指标对比图
+	<hr style="width:1000px">
+</div>
+	 <div class="contain">
+            <ul>
+
+                <li>
+                    <a href=“”>
+                       <div id="chartdiv1" style=" width: 1000px;height: 500px;background-color: white;"></div>
+                        <script src="https://www.amcharts.com/lib/4/core.js"></script>
+                        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+                        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+                    </a>
+                    <div class="title">
+                        <a href="#">每股净资产</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="">
+                        <div id="chartdiv2"></div>
+                        <script src="https://www.amcharts.com/lib/4/core.js"></script>
+                        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+                        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+                    </a>
+                    <div class="title">
+                        <a href="#">每股收益</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">
+						<div id="chartdiv3"></div>
+                        <script src="https://www.amcharts.com/lib/4/core.js"></script>
+                        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+                        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+                    </a>
+                    <div class="title">
+                        <a href="#">每股现金流量</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">
+                        <div id="chartdiv4"></div>
+                        <script src="https://www.amcharts.com/lib/4/core.js"></script>
+                        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+                        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+                    </a>
+                    <div class="title">
+                        <a href="#">毛利率</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    <div id="title2">
+	<hr style="width:1000px">
+
+	  图表分析
+
+	<hr style="width:1000px">
+</div>
+
+
+	<div id="text1" font size="120">
+		<h1 align="center"><font size="5">图1每股净资产图</font></h1>
+		<hr>
+
+股票的净资产是上市公司每股股票所包含的实际资产的数量，又称股票的账面价值或净值，指的是用会计的方法计算出的股票所包含的资产价值。它标志着上市公司的经济实力，因为任何一个企业的经营都是以其净资产数量为依据的。如果一个企业负债过多而实际拥有的净资产较少，它意味着其经营成果的绝大部分都将用来还债;如负债过多出现资不抵债的现象，企业将会面临着破产的危险。
+由图1每股净资产图我们可以看出，在大盘中，招商银行明显优胜于其他所有股票，以绝对优势名列第一名。浦发银行、华夏银行在大盘中的表现也不错，表现明显好于50支股票的绝大部分股票。在大盘中的50支股票中，上海机场、中信证券、海信电器等四家公司的每股净资产指标也较高。由于股票的收益决定于股票的数量而并非股票的价格，且每股股票所包含的净资产决定着上市公司的经营实力，决定着上市公司的经营业绩，每股股票所包含的净资产就对股价起决定性的影响。
+    </div>
+
+	<div id="text2" font size="120">
+     <h1 align="center"><font size="5">图2每股收益图</font></h1>
+		<hr>
+每股收益，是衡量上市公司盈利能力最重要的财务指标。它反映普通股的获利水平。在分析时，可以进行公司间的比较，以评价该公司相对的盈利能力；可以进行不同时期的比较，了解该公司盈利能力的变化趋势；可以进行经营实绩和盈利预测的比较，掌握该公司的管理能力。
+    由图2每股收益图我们可以看出，在大盘中，招商银行以绝对优势优胜于其他所有的股票，位于首位。其次浦发银行的表现也不错，明显好于大盘中50家公司的平均水平；而华夏银行和民生银行基本与大盘中50家股票的平均水平持平。在大盘中表现最好的是上海机场和胜利股份。投资者在使用该指标时一定要结合其他财务信息、非财务信息等相关要素，如公司的净利润增长率、净资产收益率、销售利润率、资产周转率等指标的变化以及公司所处行业的周期、行业地位、宏观环境变化等因素，进行综合分析后理性投资。
+    </div>
+
+	<div id="text3" font size="120">
+    <h1 align="center"><font size="5">图3每股现金流量图</font></h1>
+    <hr>
+总的来说，从短期来看，每股现金流量比每股盈余更能显示从事资本性支出及支付股利的能力。每股现金流量一般比每股盈余要高，原因是公司正常营业业务所带来的净现金流量还会包括一些从利润中扣除出去，但又不影响现金流出的费用调整项目，比如折旧费等。但每股现金流量也有可能低于每股盈余。
+		由图3每股现金流量图我们可以看出，在大盘中，招商银行再次取胜，以绝对优势优胜于其他所有的股票，位于首位。其次是浦发银行，基本与大盘中50家股票中的优势股票的水平持平。在大盘中的所有股票中，一共有23家公司是负数，其中华夏银行位于末尾；还有9家公司虽然是正数但是也很接近于0。这一指标主要反映平均每股所获得的现金流量。该指标隐含了上市公司在维持期初现金流量情况下，有能力发给股东的最高现金股利金额。从这一点上来说，每股现金流量显得更实际更直接。公司现金流强劲，很大程度上表明主营业务收入回款力度较大，产品竞争性强，公司信用度高，经营发展前景有潜力。
+     </div>
+
+     <div id="text4" font size="120">
+       <h1 align="center"><font size="5">综合对比</font></h1>
+		 <hr>
+经过三张图的综合比较，我们发现，将十家银行放入沪市后，招商银行和营业银行这两家银行，在每股净资产、每股收益、每股现金流量三个方面都表现突出，以绝对优势胜于其余八家公司，所以我们暂且将这两家银行列为优势股票。
+     </div>
+
+<script>
+  var chart = AmCharts.makeChart( "chartdiv", {
+  "type": "serial",
+  "theme": "none",
+  "dataDateFormat":"YYYY-MM-DD",
+  "valueAxes": [ {
+    "position": "left"
+  } ],
+  "graphs": [ {
+    "id": "g1",
+    "proCandlesticks": true,
+    "balloonText": "Open:<b>[[open]]</b><br>Low:<b>[[low]]</b><br>High:<b>[[high]]</b><br>Close:<b>[[close]]</b><br>",
+    "closeField": "close",
+    "fillColors": "#7f8da9",
+    "highField": "high",
+    "lineColor": "#7f8da9",
+    "lineAlpha": 1,
+    "lowField": "low",
+    "fillAlphas": 0.9,
+    "negativeFillColors": "#db4c3c",
+    "negativeLineColor": "#db4c3c",
+    "openField": "open",
+    "title": "Price:",
+    "type": "candlestick",
+    "valueField": "close"
+  } ],
+  "chartScrollbar": {
+    "graph": "g1",
+    "graphType": "line",
+    "scrollbarHeight": 30
+  },
+  "chartCursor": {
+    "valueLineEnabled": true,
+    "valueLineBalloonEnabled": true
+  },
+  "categoryField": "date",
+  "categoryAxis": {
+    "parseDates": true
+  },
+  "dataProvider": [ {
+    "date": "2019-01-15",
+    "open": "2537.37",
+    "high": "2571.50",
+    "low": "2532.43",
+    "close": "2570.34"
+  }, {
+    "date": "2019-01-16",
+    "open": "2569.07",
+    "high": "2574.24",
+    "low": "2563.01",
+    "close": "2570.42"
+  }, {
+    "date": "2019-01-17",
+    "open": "2573.58",
+    "high": "2582.56",
+    "low": "2557.71",
+    "close": "2559.64"
+  }, {
+    "date": "2019-01-18",
+    "open": "2567.74",
+    "high": "2598.88",
+    "low": "2565.90",
+    "close": "2596.01"
+  }, {
+    "date": "2019-01-21",
+    "open": "2599.06",
+    "high": "2618.98",
+    "low": "2599.06",
+    "close": "2610.51"
+  }, {
+    "date": "2019-01-22",
+    "open": "2609.64",
+    "high": "2609.64",
+    "low": "2573.06",
+    "close": "2579.70"
+  }, {
+    "date": "2019-01-23",
+    "open": "2575.26",
+    "high": "2589.51",
+    "low": "2572.41",
+    "close": "2581.00"
+  }, {
+    "date": "2019-01-24",
+    "open": "2584.65",
+    "high": "2597.29",
+    "low": "2569.70",
+    "close": "2591.69"
+  }, {
+    "date": "2019-01-25",
+    "open": "2596.26",
+    "high": "2617.00",
+    "low": "2595.63",
+    "close": "2601.72"
+  }, {
+    "date": "2019-01-28",
+    "open": "2615.71",
+    "high": "2630.32",
+    "low": "2591.10",
+    "close": "2596.78"
+  }, {
+    "date": "2019-01-29",
+    "open": "2592.35",
+    "high": "2601.74",
+    "low": "2559.98",
+    "close": "2594.25"
+  }, {
+    "date": "2019-01-30",
+    "open": "2584.75",
+    "high": "2598.81",
+    "low": "2575.41",
+    "close": "2575.58"
+  }, {
+    "date": "2019-01-31",
+    "open": "2581.33",
+    "high": "2606.63",
+    "low": "2571.58",
+    "close": "2584.57"
+  }, {
+    "date": "2019-02-01",
+    "open": "2597.78",
+    "high": "2618.48",
+    "low": "2590.55",
+    "close": "2618.23"
+  }, {
+    "date": "2019-02-11",
+    "open": "2613.17",
+    "high": "2654.10",
+    "low": "2613.17",
+    "close": "2653.90"
+  }, {
+    "date": "2019-02-12",
+    "open": "2654.03",
+    "high": "2674.48",
+    "low": "2648.83",
+    "close": "2671.89"
+  }, {
+    "date": "2019-02-13",
+    "open": "2674.52",
+    "high": "2727.07",
+    "low": "2666.52",
+    "close": "2721.07"
+  }, {
+    "date": "2019-02-14",
+    "open": "2715.54",
+    "high": "2729.46",
+    "low": "2707.49",
+    "close": "2719.70"
+  }, {
+    "date": "2019-02-15",
+    "open": "2712.79",
+    "high": "2715.63",
+    "low": "2679.78",
+    "close": "2682.39"
+  }, {
+    "date": "2019-02-18",
+    "open": "2699.82",
+    "high": "2754.36",
+    "low": "2699.82",
+    "close": "2754.36"
+  }, {
+    "date": "2019-02-19",
+    "open": "2759.50",
+    "high": "2780.78",
+    "low": "2739.59",
+    "close": "2755.65"
+  }, {
+    "date": "2019-02-20",
+    "open": "2761.06",
+    "high": "2767.41",
+    "low": "2739.98",
+    "close": "2761.22"
+  }, {
+    "date": "2019-02-21",
+    "open": "2759.94",
+    "high": "2794.01",
+    "low": "2744.98",
+    "close": "2751.80"
+  }, {
+    "date": "2019-02-22",
+    "open": "2749.46",
+    "high": "2804.23",
+    "low": "2736.33",
+    "close": "2804.23"
+  }, {
+    "date": "2019-02-25",
+    "open": "2838.39",
+    "high": "2961.80",
+    "low": "2838.39",
+    "close": "2961.28"
+  }, {
+    "date": "2019-02-26",
+    "open": "2969.10",
+    "high": "2995.68",
+    "low": "2938.62",
+    "close": "2941.52"
+  }, {
+    "date": "2019-02-27",
+    "open": "2939.93",
+    "high": "2997.49",
+    "low": "2924.64",
+    "close": "2953.82"
+  }, {
+    "date": "2019-02-28",
+    "open": "2950.05",
+    "high": "2965.30",
+    "low": "2930.20",
+    "close": "2940.95"
+  }, {
+    "date": "2019-03-01",
+    "open": "2954.40",
+    "high": "2994.00",
+    "low": "2930.83",
+    "close": "2994.00"
+  }, {
+    "date": "2019-03-04",
+    "open": "3015.94",
+    "high": "3090.80",
+    "low": "3006.94",
+    "close": "3027.58"
+  }, {
+    "date": "2019-03-05",
+    "open": "3019.88",
+    "high": "3054.96",
+    "low": "3009.45",
+    "close": "3054.25"
+  }, {
+    "date": "2019-03-06",
+    "open": "3060.43",
+    "high": "3103.83",
+    "low": "3050.11",
+    "close": "3102.10"
+  }, {
+    "date": "2019-03-07",
+    "open": "3103.67",
+    "high": "3129.94",
+    "low": "3074.98",
+    "close": "3106.42"
+  }, {
+    "date": "2019-03-08",
+    "open": "3038.34",
+    "high": "3075.05",
+    "low": "2969.58",
+    "close": "2969.86"
+  }, {
+    "date": "2019-03-11",
+    "open": "2969.08",
+    "high": "3028.25",
+    "low": "2963.58",
+    "close": "3026.99"
+  }, {
+    "date": "2019-03-12",
+    "open": "3049.08",
+    "high": "3093.39",
+    "low": "3029.90",
+    "close": "3060.31"
+  }, {
+    "date": "2019-03-13",
+    "open": "3062.33",
+    "high": "3065.29",
+    "low": "3013.93",
+    "close": "3026.95"
+  }, {
+    "date": "2019-03-14",
+    "open": "3013.60",
+    "high": "3041.16",
+    "low": "2968.82",
+    "close": "2990.69"
+  }, {
+    "date": "2019-03-15",
+    "open": "3000.88",
+    "high": "3048.12",
+    "low": "2999.43",
+    "close": "3021.75"
+  }, {
+    "date": "2019-03-18",
+    "open": "3027.80",
+    "high": "3096.42",
+    "low": "3009.51",
+    "close": "3096.42"
+  }, {
+    "date": "2019-03-19",
+    "open": "3099.90",
+    "high": "3113.43",
+    "low": "3076.36",
+    "close": "3090.98"
+  }, {
+    "date": "2019-03-20",
+    "open": "3084.17",
+    "high": "3102.52",
+    "low": "3053.45",
+    "close": "3090.64"
+  }, {
+    "date": "2019-03-21",
+    "open": "3094.12",
+    "high": "3125.02",
+    "low": "3086.85",
+    "close": "3101.46"
+  }, {
+    "date": "2019-03-22",
+    "open": "3100.73",
+    "high": "3107.28",
+    "low": "3064.88",
+    "close": "3104.15"
+  }, {
+    "date": "2019-03-25",
+    "open": "3058.80",
+    "high": "3087.00",
+    "low": "3041.95",
+    "close": "3043.03"
+  }, {
+    "date": "2019-03-26",
+    "open": "3057.56",
+    "high": "3062.69",
+    "low": "2988.49",
+    "close": "2997.10"
+  }, {
+    "date": "2019-03-27",
+    "open": "3012.26",
+    "high": "3022.76",
+    "low": "2987.77",
+    "close": "3022.72"
+  }, {
+    "date": "2019-03-28",
+    "open": "3009.80",
+    "high": "3025.78",
+    "low": "2991.78",
+    "close": "2994.94"
+  }, {
+    "date": "2019-03-29",
+    "open": "3000.68",
+    "high": "3093.03",
+    "low": "2999.99",
+    "close": "3090.76"
+  }, {
+    "date": "2019-04-01",
+    "open": "3111.66",
+    "high": "3176.62",
+    "low": "3111.66",
+    "close": "3170.36"
+  }, {
+    "date": "2019-04-02",
+    "open": "3183.27",
+    "high": "3193.27",
+    "low": "3164.91",
+    "close": "3176.82"
+  }, {
+    "date": "2019-04-03",
+    "open": "3159.15",
+    "high": "3219.26",
+    "low": "3152.33",
+    "close": "3216.30"
+  }, {
+    "date": "2019-04-04",
+    "open": "3233.69",
+    "high": "3254.14",
+    "low": "3216.85",
+    "close": "3246.57"
+  }, {
+    "date": "2019-04-08",
+    "open": "3271.27",
+    "high": "3288.45",
+    "low": "3210.52",
+    "close": "3244.81"
+  }, {
+    "date": "2019-04-09",
+    "open": "3240.39",
+    "high": "3251.65",
+    "low": "3215.70",
+    "close": "3239.66"
+  }, {
+    "date": "2019-04-10",
+    "open": "3224.65",
+    "high": "3264.78",
+    "low": "3204.88",
+    "close": "3241.93"
+  }, {
+    "date": "2019-04-11",
+    "open": "3241.55",
+    "high": "3254.13",
+    "low": "3185.55",
+    "close": "3189.96"
+  }, {
+    "date": "2019-04-12",
+    "open": "3184.86",
+    "high": "3199.28",
+    "low": "3168.04",
+    "close": "3188.63"
+  }, {
+    "date": "2019-04-15",
+    "open": "3233.46",
+    "high": "3253.98",
+    "low": "3177.27",
+    "close": "3177.79"
+  }, {
+    "date": "2019-04-16",
+    "open": "3164.40",
+    "high": "3253.60",
+    "low": "3153.21",
+    "close": "3253.60"
+  }, {
+    "date": "2019-04-17",
+    "open": "3250.15",
+    "high": "3275.33",
+    "low": "3239.80",
+    "close": "3263.12"
+  }, {
+    "date": "2019-04-18",
+    "open": "3261.07",
+    "high": "3271.39",
+    "low": "3241.83",
+    "close": "3250.20"
+  }, {
+    "date": "2019-04-19",
+    "open": "3250.15",
+    "high": "3274.33",
+    "low": "3226.81",
+    "close": "3270.80"
+  }, {
+    "date": "2019-04-22",
+    "open": "3278.49",
+    "high": "3279.49",
+    "low": "3206.88",
+    "close": "3215.04"
+  }, {
+    "date": "2019-04-23",
+    "open": "3211.87",
+    "high": "3231.58",
+    "low": "3186.76",
+    "close": "3198.59"
+  }, {
+    "date": "2019-04-24",
+    "open": "3203.56",
+    "high": "3210.65",
+    "low": "3156.61",
+    "close": "3201.61"
+  }, {
+    "date": "2019-04-25",
+    "open": "3190.59",
+    "high": "3193.75",
+    "low": "3123.03",
+    "close": "3123.83"
+  }, {
+    "date": "2019-04-26",
+    "open": "3108.16",
+    "high": "3129.21",
+    "low": "3085.80",
+    "close": "3086.40"
+  }, {
+    "date": "2019-04-29",
+    "open": "3090.63",
+    "high": "3107.76",
+    "low": "3050.03",
+    "close": "3062.50"
+  }, {
+    "date": "2019-04-30",
+    "open": "3052.62",
+    "high": "3088.41",
+    "low": "3052.62",
+    "close": "3078.34"
+  }, {
+    "date": "2019-05-06",
+    "open": "2984.73",
+    "high": "2986.54",
+    "low": "2876.47",
+    "close": "2906.46"
+  }, {
+    "date": "2019-05-07",
+    "open": "2914.29",
+    "high": "2937.28",
+    "low": "2889.07",
+    "close": "2926.39"
+  }, {
+    "date": "2019-05-08",
+    "open": "2873.14",
+    "high": "2929.43",
+    "low": "2866.70",
+    "close": "2893.76"
+  }, {
+    "date": "2019-05-09",
+    "open": "2871.20",
+    "high": "2888.86",
+    "low": "2845.04",
+    "close": "2850.95"
+  }, {
+    "date": "2019-05-10",
+    "open": "2878.23",
+    "high": "2941.45",
+    "low": "2838.38",
+    "close": "2939.21"
+  }, {
+    "date": "2019-05-13",
+    "open": "2905.07",
+    "high": "2921.41",
+    "low": "2892.17",
+    "close": "2903.71"
+  }, {
+    "date": "2019-05-14",
+    "open": "2872.83",
+    "high": "2909.20",
+    "low": "2872.83",
+    "close": "2883.61"
+  }, {
+    "date": "2019-05-15",
+    "open": "2902.64",
+    "high": "2945.39",
+    "low": "2902.64",
+    "close": "2938.68"
+  }, {
+    "date": "2019-05-16",
+    "open": "2933.50",
+    "high": "2956.17",
+    "low": "2929.06",
+    "close": "2955.71"
+  }, {
+    "date": "2019-05-17",
+    "open": "2955.77",
+    "high": "2956.78",
+    "low": "2973.80",
+    "close": "2882.30"
+  }],
+  "export": {
+    "enabled": true,
+    "position": "bottom-right"
+  }
+} );
+
+chart.addListener( "rendered", zoomChart );
+zoomChart();
+
+function zoomChart() {
+  chart.zoomToIndexes( chart.dataProvider.length - 50, chart.dataProvider.length - 1 );
+}
+</script>
+
+<!--数据表格	-->
+<div class="bg">
+	<table width="60%" border="0">
+		<tr>
+          <td align="center" class="biaoti" height="60" style="
+            font-size: 26px;
+            border-bottom:1px dashed #CCCCCC;
+            color: #e9faff;">
+            沪市50家公司标准值
+		  </td>
+        </tr>
+        <tr>
+          <td align="right" height="25">
+            2017-01-02---2017-05-02
+          </td>
+          </tr>
+    </table>
+   <table width="60%" border="2" cellspacing="1" cellpadding="4">
+    <tr>
+        <td colspan="2" class="btgn" rowspan="2">相关指标</td>
+        <td rowspan="2" class="btgn">每股净资产</td>
+        <td rowspan="2" class="btgn">每股收益</td>
+        <td rowspan="2" class="btgn">每股现金流量</td>
+        <td colspan="2" class="btgn">毛利率</td>
+    </tr>
+    <tr>
+
+
+    </tr>
+    <tr>
+        <td rowspan="61" >50家银行</td>
+        <td><a href="/spdb" target="_blank" style="color: #e9faff;
+            ">浦发银行</a></td>
+        <td>15.05</td>
+        <td>0.47623675</td>
+        <td>1.369</td>
+        <td>100</td>
+
+
+
+
+    </tr>
+    <tr>
+        <td>白云机场</td>
+        <td>7.5463</td>
+        <td>0.136418</td>
+        <td>0.661</td>
+        <td>29.75</td>
+
+
+
+    </tr>
+    <tr>
+        <td>东风汽车</td>
+        <td>3.5716</td>
+        <td>0.069231</td>
+        <td>3.301</td>
+        <td>11.45</td>
+
+    </tr>
+       <tr>
+        <td><a href="/cmbc" target="_blank" style="color: #e9faff;
+            ">招商银行</a></td>
+        <td>20.0657</td>
+        <td>0.7985725</td>
+        <td>0.757</td>
+        <td>100</td>
+	</tr>
+    <tr>
+        <td>中国国贸</td>
+        <td>6.8698</td>
+        <td>0.19226275</td>
+        <td>3.796</td>
+        <td>51.56</td>
+
+
+
+    </tr>
+    <tr>
+        <td>首创股份</td>
+        <td>0.03163375</td>
+        <td>0.2365</td>
+        <td>0.316</td>
+        <td>30.8</td>
+
+
+
+
+    </tr>
+    <tr>
+        <td>上海机场</td>
+        <td>14.6583</td>
+        <td>0.548978</td>
+        <td>0.03</td>
+        <td>51.69</td>
+
+
+
+    </tr>
+
+    <tr>
+        <td>包钢股份</td>
+        <td>1.151</td>
+        <td>0.01822825</td>
+        <td>-0.065</td>
+        <td>15.72</td>
+
+
+
+    </tr>
+    <tr>
+        <td>华能国际</td>
+        <td>4.6603</td>
+        <td>0.022915</td>
+        <td> 0.196</td>
+        <td>11.3</td>
+
+
+
+    </tr>
+    <tr>
+        <td>皖通高速</td>
+        <td>6.0713</td>
+        <td>0.1692745</td>
+        <td>-0.03</td>
+        <td>56.76</td>
+
+
+
+    </tr>
+    <tr>
+        <td>华夏银行</td>
+        <td>12.56</td>
+        <td>0.338825</td>
+        <td>0.757</td>
+        <td>100</td>
+
+
+
+    </tr>
+    <tr>
+        <td>民生银行</td>
+        <td>9.37</td>
+        <td>0.28737275</td>
+        <td>0.757</td>
+        <td>100</td>
+
+
+
+    </tr>
+    <tr>
+        <td>日照港</td>
+        <td>3.6572</td>
+        <td>0.05237675</td>
+        <td>0.757</td>
+        <td>27.46</td>
+
+
+
+    </tr>
+	<tr>
+        <td>上港集团</td>
+        <td>3.2601</td>
+        <td>0.11086225</td>
+        <td>0.757</td>
+        <td>31.74</td>
+	</tr>
+    <tr>
+        <td>宝钢股份</td>
+        <td>7.938</td>
+        <td>0.24211025</td>
+        <td>0.757</td>
+        <td>15.05</td>
+	</tr>
+	<tr>
+        <td>中原高速</td>
+        <td>4.1967</td>
+        <td>0.08885975</td>
+        <td>0.757</td>
+        <td>51.72</td>
+	</tr>
+	<tr>
+        <td>上海电力</td>
+        <td>6.0759</td>
+        <td>0.26451075</td>
+        <td>0.757</td>
+        <td>21.44</td>
+	</tr>
+	<tr>
+        <td>山东钢铁</td>
+        <td>1.8423</td>
+        <td>0.0481115</td>
+        <td>0.757</td>
+        <td>10.51</td>
+	</tr>
+	<tr>
+        <td>浙能电力</td>
+        <td>4.4994</td>
+        <td>0.074182</td>
+        <td>0.757</td>
+        <td>9.49</td>
+	</tr>
+
+	<tr>
+        <td>胜利股份</td>
+        <td>0.466004</td>
+        <td>0.1603</td>
+        <td>0.757</td>
+        <td>0.466004</td>
+	</tr>
+	<tr>
+        <td>华能水电</td>
+        <td>2.4587</td>
+        <td>0.0805935</td>
+        <td>0.757</td>
+        <td>50.92</td>
+	</tr>
+	<tr>
+        <td>中远海能</td>
+        <td>6.9919</td>
+        <td>0.0065185</td>
+        <td>0.757</td>
+        <td>15.61</td>
+	</tr>
+	<tr>
+        <td>华电国际</td>
+        <td>4.3519</td>
+        <td>0.04297375</td>
+        <td>0.757</td>
+        <td>12.35</td>
+	</tr>
+	<tr>
+        <td>中国石化</td>
+        <td>5.9333</td>
+        <td>0.13027275</td>
+        <td>0.757</td>
+        <td>16.95</td>
+	</tr>
+	<tr>
+        <td>南方航空</td>
+        <td>5.2989</td>
+        <td>0.06079325</td>
+        <td>0.757</td>
+        <td>10.45</td>
+	</tr><tr>
+        <td>中信证券</td>
+        <td>12.6386</td>
+        <td>0.01603475</td>
+        <td>0.757</td>
+        <td>100</td>
+	</tr>
+	<tr>
+        <td>三一重工</td>
+        <td>0.466004</td>
+        <td>0.0065185</td>
+        <td>0.757</td>
+        <td>30.62</td>
+	</tr>
+	<tr>
+        <td>福建高速</td>
+        <td>3.3131</td>
+        <td>0.08885975</td>
+        <td>0.757</td>
+        <td>3.3131</td>
+	</tr>
+	<tr>
+        <td>楚天高速</td>
+        <td>3.6005</td>
+        <td>0.06429375</td>
+        <td>0.757</td>
+        <td>61.17</td>
+	</tr>
+
+	<tr>
+        <td>歌华有线</td>
+        <td>9.3743</td>
+        <td>0.1246995</td>
+        <td>0.757</td>
+        <td>26.23</td>
+	</tr>
+	<tr>
+        <td>中直股份</td>
+        <td>13.0926</td>
+        <td>0.21643375</td>
+        <td>0.757</td>
+        <td>13.93</td>
+	</tr>
+	<tr>
+        <td>四川路桥</td>
+        <td>3.8769</td>
+        <td>0.08113325</td>
+        <td>0.757</td>
+        <td>10.69</td>
+	</tr>
+	<tr>
+        <td>保利地产</td>
+        <td>9.7034</td>
+        <td>0.39730275</td>
+        <td>0.757</td>
+        <td>32.49</td>
+	</tr>
+	<tr>
+        <td>中国联通</td>
+        <td>4.5167</td>
+        <td>0.03288</td>
+        <td>0.757</td>
+        <td>26.57</td>
+	</tr>
+	<tr>
+        <td>宁波联合</td>
+        <td>7.6787</td>
+        <td>0.1997985</td>
+        <td>0.757</td>
+        <td>11.18</td>
+	</tr>
+	<tr>
+        <td>浙江广厦</td>
+        <td>2.812</td>
+        <td>0.03378575</td>
+        <td>0.757</td>
+        <td>25.44</td>
+	</tr>
+	<tr>
+        <td>九鼎投资</td>
+        <td>4.997</td>
+        <td>0.16388725</td>
+        <td>0.757</td>
+        <td>93.12</td>
+	</tr>
+	<tr>
+        <td>黄山旅游</td>
+        <td>5.463</td>
+        <td>0.19487275</td>
+        <td>0.757</td>
+        <td>54.14</td>
+	</tr>
+	<tr>
+        <td>万东医疗</td>
+        <td>3.6325</td>
+        <td>0.0708805</td>
+        <td>0.757</td>
+        <td>43.6</td>
+	</tr>
+	<tr>
+        <td>中国医药</td>
+        <td>7.91</td>
+        <td>0.3613805</td>
+        <td>0.757</td>
+        <td>20.95</td>
+	</tr>
+	<tr>
+        <td>厦门象屿</td>
+        <td>4.4857</td>
+        <td>0.12376325</td>
+        <td>0.757</td>
+        <td>2.75</td>
+	</tr>
+	<tr>
+        <td>五矿发展</td>
+        <td>3.8083</td>
+        <td>-0.187496</td>
+        <td>0.757</td>
+        <td>3.8083</td>
+	</tr>
+	<tr>
+        <td>古越龙山</td>
+        <td>5.033</td>
+        <td>0.0532</td>
+        <td>0.757</td>
+        <td>37.97</td>
+	</tr>
+	<tr>
+        <td>海信电器</td>
+        <td>10.7692</td>
+        <td>0.074973</td>
+        <td>0.757</td>
+        <td>14.69</td>
+	</tr>
+	<tr>
+        <td>国投资本</td>
+        <td>8.6129</td>
+        <td>0.09932625</td>
+        <td>0.757</td>
+        <td>45.18</td>
+	</tr>
+	<tr>
+        <td>华润双鹤</td>
+        <td>0.466004</td>
+        <td>0.23211225</td>
+        <td>0.757</td>
+        <td>34.67</td>
+	</tr>
+	<tr>
+        <td>皖维高新</td>
+        <td>2.3925</td>
+        <td>0.12376325</td>
+        <td>0.757</td>
+        <td>18.14</td>
+	</tr>
+	<tr>
+        <td>南京高科</td>
+        <td>7.5493</td>
+        <td>0.39730275</td>
+        <td>0.757</td>
+        <td>48.5</td>
+	</tr>
+	<tr>
+        <td>宇通客车</td>
+        <td>7.0647</td>
+        <td>0.25988675</td>
+        <td>0.757</td>
+        <td>25.33</td>
+	</tr>
+	<tr>
+        <td>冠城大通</td>
+        <td>5.2527</td>
+        <td>0.12715925</td>
+        <td>0.757</td>
+        <td>37.96</td>
+	</tr>
+	<tr>
+        <td>葛洲坝</td>
+        <td>5.8209</td>
+        <td>0.2528735</td>
+        <td>0.757</td>
+        <td>16.33</td>
+	</tr>
+	<tr>
+        <td>银鸽投资</td>
+        <td>1.2445</td>
+        <td>0.01365275</td>
+        <td>0.757</td>
+        <td>5.56</td>
+	</tr>
+	<tr>
+        <td>凤凰光学</td>
+        <td>1.7531</td>
+        <td>-0.00786275</td>
+        <td>0.757</td>
+        <td>19.21</td>
+	</tr>
+	<tr>
+        <td>浙江富润</td>
+        <td>0.466004</td>
+        <td>0.103837</td>
+        <td>0. 757</td>
+        <td>13.42</td>
+	</tr>
+	<tr>
+        <td>中船科技</td>
+        <td>5.0503</td>
+        <td>0.0222165</td>
+        <td>0.757</td>
+        <td>10.07</td>
+	</tr>
+	<tr>
+        <td>上海梅林</td>
+        <td>4.0624</td>
+        <td>0.0815805</td>
+        <td>0.757</td>
+        <td>12.93</td>
+	</tr><tr>
+        <td>ST保千</td>
+        <td>-2.0703</td>
+        <td>-0.173213</td>
+        <td>0.757</td>
+        <td>14.23</td>
+	</tr>
+	<tr>
+        <td>新疆天业</td>
+        <td>4.932</td>
+        <td>0.126885</td>
+        <td>0.757</td>
+        <td>27.09</td>
+	</tr>
+	<tr>
+        <td>康欣新材</td>
+        <td>3.6203</td>
+        <td>0.11302425</td>
+        <td>0.757</td>
+        <td>33.19</td>
+	</tr>
+	<tr>
+        <td>澄星股份</td>
+        <td>2.5499</td>
+        <td>0.007295</td>
+        <td>0.757</td>
+        <td>16.26</td>
+	</tr>
+	<tr>
+        <td>同仁堂</td>
+        <td>6.7526</td>
+        <td>0.20676425</td>
+        <td>0.757</td>
+        <td>46.75</td>
+	</tr>
+
+
+</table>
+</div>
+
+
+</div>
+
+
+<div class='login hidden' id="logbar">
+    <img src="../static/img/cha.png" style="filter: invert(80%); height: 20px" class="cha">
+	  <div class='login_title'>
+	    <span>登录</span>
+	  </div>
+	  <div class='login_fields'>
+	    <div class='login_fields__user'>
+	      <div class='icon'>
+	        <img src='../static/img/user_icon_copy.png'>
+	      </div>
+	      <input placeholder='用户名/邮箱' type='text'>
+	        <div class='validation'>
+	          <img src='../static/img/tick.png'>
+	        </div>
+	    </div>
+	    <div class='login_fields__password'>
+	      <div class='icon'>
+	        <img src='../static/img/lock_icon_copy.png'>
+	      </div>
+	      <input placeholder='密码' type='password'>
+	      <div class='validation'>
+	        <img src='../static/img/tick.png'>
+	      </div>
+	    </div>
+	    <div class='login_fields__submit'>
+	      <input type='submit' value='登录'>
+	      <div class='forgot'>
+	        <a href='#'>忘记密码?</a>
+	      </div>
+	    </div>
+	  </div>
+	  <div class='success'>
+          <h2>认证成功</h2>
+	    <p>欢迎回来</p>
+	  </div>
+	  <div class='disclaimer'>
+	    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper laoreet placerat. Nullam semper auctor justo, rutrum posuere odio vulputate nec.</p>
+	  </div>
+</div>
+	<div class='authent'>
+	  <img src='../static/img/puff.svg'>
+	  <p>认证中...</p>
+	</div>
+	<script type="text/javascript" src='../static/js/stopExecutionOnTimeout.js?t=1'></script>
+	<script type="text/javascript" src="../static/js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../static/js/jquery-ui.min.js"></script>
+	<script>
+	$('input[type="submit"]').click(function () {
+	    $('.login').addClass('test');
+	    setTimeout(function () {
+	        $('.login').addClass('testtwo');
+	    }, 300);
+	    setTimeout(function () {
+	        $('.authent').show().animate({ right: -320 }, {
+	            easing: 'easeOutQuint',
+	            duration: 600,
+	            queue: false
+	        });
+	        $('.authent').animate({ opacity: 1 }, {
+	            duration: 200,
+	            queue: false
+	        }).addClass('visible');
+	    }, 500);
+	    setTimeout(function () {
+	        $('.authent').show().animate({ right: 90 }, {
+	            easing: 'easeOutQuint',
+	            duration: 600,
+	            queue: false
+	        });
+	        $('.authent').animate({ opacity: 0 }, {
+	            duration: 200,
+	            queue: false
+	        }).addClass('visible');
+	        $('.login').removeClass('testtwo');
+	    }, 2500);
+	    setTimeout(function () {
+	        $('.login').removeClass('test');
+	        $('.login div').fadeOut(123);
+	    }, 2800);
+	    setTimeout(function () {
+	        $('.success').fadeIn();
+	    }, 3200);
+	});
+	$('input[type="text"],input[type="password"]').focus(function () {
+	    $(this).prev().animate({ 'opacity': '1' }, 200);
+	});
+	$('input[type="text"],input[type="password"]').blur(function () {
+	    $(this).prev().animate({ 'opacity': '.5' }, 200);
+	});
+	$('input[type="text"],input[type="password"]').keyup(function () {
+	    if (!$(this).val() == '') {
+	        $(this).next().animate({
+	            'opacity': '1',
+	            'right': '30'
+	        }, 200);
+	    } else {
+	        $(this).next().animate({
+	            'opacity': '0',
+	            'right': '20'
+	        }, 200);
+	    }
+	});
+	var open = 0;
+	$('.tab').click(function () {
+	    $(this).fadeOut(200, function () {
+	        $(this).parent().animate({ 'left': '0' });
+	    });
+	});
+	</script>
+<script>
+    var log=document.getElementById('login');
+    var login=document.getElementById('logbar');
+    var cha = document.getElementsByClassName('cha');
+    var body = document.getElementById('base');
+    log.addEventListener("click", function () {
+        login.classList.replace('hidden', 'show');
+		body.className='fuzzy';
+    });
+    cha[0].onclick=function () {
+        login.classList.replace('show','hidden')
+		body.className='fuz';
+    };
+
+</script>
+
+<!--沪市每股净资产-->
+<script>
+   am4core.useTheme(am4themes_animated);
+
+var chart = am4core.create("chartdiv1", am4charts.RadarChart);
+
+chart.data = [{
+    country: "浦发银行",
+    visits:15.05
+
+
+  },
+  {
+    country: "白云机场",
+    visits: 7.5463
+
+
+  },
+  {
+    country: "东风汽车",
+    visits: 3.5716
+
+
+  },
+  {
+    country: "中国国贸",
+    visits:6.8698
+
+
+  },
+  {
+    country: "首创股份",
+    visits: 1.9638
+
+
+  },
+  {
+    country: "上海机场",
+    visits: 14.6583
+}
+,
+  {
+    country: "包钢股份",
+    visits: 1.151
+
+
+  },
+  {
+    country: "华能国际",
+    visits: 4.6603
+
+
+  },
+  {
+    country: "皖通高速",
+    visits: 6.0713
+
+
+  },
+  {
+    country: "华夏银行",
+    visits:12.56
+
+
+  },
+  {
+    country: "民生银行",
+    visits:9.37
+
+  },
+    {
+    country: "日照港",
+    visits:3.6572
+
+
+  },
+  {
+    country: "上港集团",
+    visits: 3.2601
+
+
+
+  },
+  {
+    country: "宝钢股份",
+    visits:7.938
+
+
+
+  },
+  {
+    country: "中原高速",
+    visits:4.1967
+
+
+
+
+  },
+  {
+    country: "上海电力",
+    visits:6.0759
+
+
+
+
+  },
+  {
+    country: "山东钢铁",
+    visits:1.8423
+
+
+
+
+  },
+  {
+    country: "浙能电力",
+    visits: 4.4994
+
+
+
+
+  },
+  {
+    country: "华能水电",
+    visits:2.4587
+
+
+
+
+  },
+  {
+    country: "中远海能",
+    visits: 6.9919
+
+
+
+
+  },
+  {
+    country: "华电国际",
+    visits:4.3519
+
+
+
+
+  },
+  {
+    country: "中国石化",
+    visits:5.9333
+
+
+
+
+  },
+  {
+    country: "南方航空",
+    visits:5.2989
+
+
+
+
+  },
+   {
+    country: "中信证券",
+    visits: 12.6386
+
+  },
+  {
+    country: "三一重工",
+    visits:3.9889
+
+
+
+  },
+  {
+    country: "福建高速",
+    visits:3.3131
+
+
+
+
+  },
+  {
+    country: "楚天高速",
+    visits:3.6005
+
+
+
+
+  },
+  {
+    country: "招商银行",
+    visits: 20.0657
+
+
+
+
+  },
+  {
+    country: "歌华有线",
+    visits:9.3743
+
+
+
+
+  },
+  {
+    country: "中直股份",
+    visits: 13.0926
+
+
+
+
+  },
+  {
+    country: "四川路桥",
+    visits:3.8769
+
+
+
+
+  },
+  {
+    country: "保利地产",
+    visits: 9.7034
+
+
+
+  },
+  {
+    country: "中国联通",
+    visits:4.5167
+
+
+
+
+  },
+  {
+    country: "宁波联合",
+    visits:7.6787
+
+
+
+
+  },
+  {
+    country: "浙江广厦",
+    visits:2.812
+
+
+
+
+  },
+    {
+    country: "九鼎投资",
+    visits:4.997
+
+
+
+
+  },
+  {
+    country: "黄山旅游",
+    visits:5.463
+
+
+
+  },
+  {
+    country: "万东医疗",
+    visits:3.6325
+
+
+
+
+
+  },
+  {
+    country: "中国医药",
+    visits:7.91
+
+
+
+
+
+  },
+  {
+    country: "厦门象屿",
+    visits:4.4857
+
+
+
+
+
+  },
+  {
+    country: "五矿发展",
+    visits:3.8083
+
+
+
+
+
+  },
+  {
+    country: "古越龙山",
+    visits: 5.033
+
+
+
+
+
+  },
+  {
+    country: "海信电器",
+    visits: 10.7692
+
+
+
+
+
+  },
+  {
+    country: "国投资本",
+    visits: 8.6129
+
+
+
+
+
+  },
+  {
+    country: "华润双鹤",
+    visits:7.515
+
+
+
+
+
+  },
+  {
+    country: "皖维高新",
+    visits: 2.3925
+
+
+
+
+
+  },
+  {
+    country: "南京高科",
+    visits:7.5493
+
+
+
+
+
+  },
+    {
+    country: "宇通客车",
+    visits:7.0647
+
+
+
+
+
+  },
+    {
+    country: "冠城大通",
+    visits: 5.2527
+
+
+  },
+  {
+    country: "葛洲坝",
+    visits:5.8209
+
+
+
+
+  },
+  {
+    country: "银鸽投资",
+    visits:1.2445
+
+
+
+
+  },
+  {
+    country: "凤凰光学",
+    visits: 1.7531
+
+
+
+
+  },
+  {
+    country: "浙江富润",
+    visits: 4.5254
+
+
+
+
+  },
+  {
+    country: "中船科技",
+    visits:5.0503
+
+
+
+
+  },
+  {
+    country: "上海梅林",
+    visits:4.0624
+
+
+
+  },
+  {
+    country: "*ST保千",
+    visits:-2.0703
+
+
+
+
+  },
+    {
+    country: "新疆天业",
+    visits:4.932
+
+
+
+
+  },
+  {
+    country: "康欣新材",
+    visits:3.6203
+
+
+
+
+
+  },
+  {
+    country: "澄星股份",
+    visits:2.5499
+
+
+
+
+
+  },
+  {
+    country: "同仁堂",
+    visits: 6.7526
+
+
+
+
+
+  },
+  {
+    country: "胜利股份",
+    visits: 0.466004
+
+
+
+
+  }]
+
+
+chart.padding(10, 10, 10, 10);
+
+chart.radius = am4core.percent(95);
+chart.startAngle = 179.5;
+chart.endAngle = 360.5;
+
+chart.innerRadius = am4core.percent(60);
+
+var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "country";
+categoryAxis.renderer.minGridDistance = 60;
+categoryAxis.renderer.labels.template.location = 0.5;
+categoryAxis.renderer.grid.template.location = 1;
+categoryAxis.interactionsEnabled = false;
+
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.tooltip.disabled = true;
+valueAxis.renderer.minGridDistance = 20;
+valueAxis.renderer.grid.template.strokeOpacity = 0.05
+valueAxis.renderer.labels.template.fontSize = 9;
+valueAxis.interactionsEnabled = false;
+valueAxis.renderer.axisAngle = 260;
+//valueAxis.renderer.gridType = "polygons";
+valueAxis.min = -10;
+
+var series1 = chart.series.push(new am4charts.RadarColumnSeries());
+series1.columns.template.width = am4core.percent(80);
+series1.name = "Series 1";
+series1.dataFields.categoryX = "country";
+series1.columns.template.tooltipText = "{name}: {valueY.value}";
+series1.dataFields.valueY = "visits";
+series1.stacked = true;
+
+
+chart.seriesContainer.zIndex = -1;
+
+var slider = chart.createChild(am4core.Slider);
+slider.start = 0.5;
+slider.events.on("rangechanged", function () {
+
+  var start = slider.start;
+
+  chart.startAngle = 270 - start * 179 - 1;
+  chart.endAngle = 270 + start * 179 + 1;
+
+  valueAxis.renderer.axisAngle = chart.startAngle;
+})
+
+</script>
+<!--沪市每股收益-->
+<script>
+	var chart = am4core.create("chartdiv2", am4charts.RadarChart);
+
+chart.data = [{
+    country: "浦发银行",
+    visits:0.47623675
+
+  },
+  {
+    country: "白云机场",
+    visits: 0.136418
+
+  },
+  {
+    country: "东风汽车",
+    visits: 0.069231
+
+  },
+  {
+    country: "中国国贸",
+    visits:0.19226275
+
+  },
+  {
+    country: "首创股份",
+    visits: 0.03163375
+
+  },
+  {
+    country: "上海机场",
+    visits: 0.548978}
+,
+  {
+    country: "包钢股份",
+    visits: 0.01822825
+
+  },
+  {
+    country: "华能国际",
+    visits: 0.022915
+
+  },
+  {
+    country: "皖通高速",
+    visits: 0.1692745
+
+  },
+  {
+    country: "华夏银行",
+    visits:0.338825
+
+  },
+  {
+    country: "民生银行",
+    visits: 0.28737275
+
+  },
+    {
+    country: "日照港",
+    visits: 0.05237675
+
+
+  },
+  {
+    country: "上港集团",
+    visits: 0.11086225
+
+
+  },
+  {
+    country: "宝钢股份",
+    visits: 0.24211025
+
+
+
+  },
+  {
+    country: "中原高速",
+    visits:0.08885975
+
+
+
+  },
+  {
+    country: "上海电力",
+    visits: 0.26451075
+
+
+
+  },
+  {
+    country: "山东钢铁",
+    visits:0.0481115
+
+
+
+  },
+  {
+    country: "浙能电力",
+    visits: 0.074182
+
+
+
+  },
+  {
+    country: "华能水电",
+    visits:0.0805935
+
+
+
+  },
+  {
+    country: "中远海能",
+    visits: 0.0065185
+
+
+
+  },
+  {
+    country: "华电国际",
+    visits:0.04297375
+
+
+
+  },
+  {
+    country: "中国石化",
+    visits:0.13027275
+
+
+
+  },
+  {
+    country: "南方航空",
+    visits: 0.06079325
+
+
+
+  },
+   {
+    country: "中信证券",
+    visits: 0.1937355
+
+  },
+  {
+    country: "三一重工",
+    visits:0.196017
+
+
+  },
+  {
+    country: "福建高速",
+    visits:0.066819
+
+
+
+  },
+  {
+    country: "楚天高速",
+    visits:0.06429075
+
+
+
+  },
+  {
+    country: "招商银行",
+    visits: 0.7985725
+
+
+
+  },
+  {
+    country: "歌华有线",
+    visits: 0.1246995
+
+
+
+  },
+  {
+    country: "中直股份",
+    visits: 0.21643375
+
+
+
+  },
+  {
+    country: "四川路桥",
+    visits:0.08113325
+
+
+
+  },
+  {
+    country: "保利地产",
+    visits: 0.39730275
+
+
+
+  },
+  {
+    country: "中国联通",
+    visits:0.03288
+
+
+
+  },
+  {
+    country: "宁波联合",
+    visits:0.1997985
+
+
+
+  },
+  {
+    country: "浙江广厦",
+    visits:0.03378575
+
+
+
+  },
+    {
+    country: "九鼎投资",
+    visits:0.16388725
+
+
+
+  },
+  {
+    country: "黄山旅游",
+    visits: 0.19487275
+
+
+
+  },
+  {
+    country: "万东医疗",
+    visits:0.0708805
+
+
+
+
+  },
+  {
+    country: "中国医药",
+    visits:0.3613805
+
+
+
+
+  },
+  {
+    country: "厦门象屿",
+    visits:0.12376325
+
+
+
+
+  },
+  {
+    country: "五矿发展",
+    visits:-0.187496
+
+
+
+
+  },
+  {
+    country: "古越龙山",
+    visits: 0.0532
+
+
+
+
+  },
+  {
+    country: "海信电器",
+    visits: 0.074973
+
+
+
+
+  },
+  {
+    country: "国投资本",
+    visits: 0.09932625
+
+
+
+
+  },
+  {
+    country: "华润双鹤",
+    visits:0.23211225
+
+
+
+
+  },
+  {
+    country: "皖维高新",
+    visits: 0.01688875
+
+
+
+
+  },
+  {
+    country: "南京高科",
+    visits:0.19384975
+
+
+
+
+  },
+    {
+    country: "宇通客车",
+    visits: 0.25988675
+
+
+
+
+  },
+    {
+    country: "冠城大通",
+    visits: 0.12715925
+
+
+  },
+  {
+    country: "葛洲坝",
+    visits:0.2528735
+
+
+
+  },
+  {
+    country: "银鸽投资",
+    visits: -0.01365275
+
+
+
+  },
+  {
+    country: "凤凰光学",
+    visits: -0.00786275
+
+
+
+  },
+  {
+    country: "浙江富润",
+    visits: 0.103837
+
+
+
+  },
+  {
+    country: "中船科技",
+    visits:0.0222165
+
+
+
+  },
+  {
+    country: "上海梅林",
+    visits:0.0815805
+
+
+
+  },
+  {
+    country: "*ST保千",
+    visits: -0.173213
+
+
+
+  },
+    {
+    country: "新疆天业",
+    visits:0.126885
+
+
+
+
+  },
+  {
+    country: "康欣新材",
+    visits:0.11302425
+
+
+
+
+  },
+  {
+    country: "澄星股份",
+    visits: 0.007295
+
+
+
+
+  },
+  {
+    country: "同仁堂",
+    visits: 0.20676425
+
+
+
+
+  },
+  {
+    country: "胜利股份",
+    visits: 0.466004
+
+
+
+
+  }]
+
+
+chart.padding(10, 10, 10, 10);
+
+chart.radius = am4core.percent(95);
+chart.startAngle = 179.5;
+chart.endAngle = 360.5;
+
+chart.innerRadius = am4core.percent(60);
+
+var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "country";
+categoryAxis.renderer.minGridDistance = 60;
+categoryAxis.renderer.labels.template.location = 0.5;
+categoryAxis.renderer.grid.template.location = 1;
+categoryAxis.interactionsEnabled = false;
+
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.tooltip.disabled = true;
+valueAxis.renderer.minGridDistance = 20;
+valueAxis.renderer.grid.template.strokeOpacity = 0.05
+valueAxis.renderer.labels.template.fontSize = 9;
+valueAxis.interactionsEnabled = false;
+valueAxis.renderer.axisAngle = 260;
+//valueAxis.renderer.gridType = "polygons";
+valueAxis.min = 0.001;
+
+var series1 = chart.series.push(new am4charts.RadarColumnSeries());
+series1.columns.template.width = am4core.percent(80);
+series1.name = "Series 1";
+series1.dataFields.categoryX = "country";
+series1.columns.template.tooltipText = "{name}: {valueY.value}";
+series1.dataFields.valueY = "visits";
+series1.stacked = true;
+
+
+chart.seriesContainer.zIndex = -2;
+
+var slider = chart.createChild(am4core.Slider);
+slider.start = 0.5;
+slider.events.on("rangechanged", function () {
+
+  var start = slider.start;
+
+  chart.startAngle = 270 - start * 179 - 1;
+  chart.endAngle = 270 + start * 179 + 1;
+
+  valueAxis.renderer.axisAngle = chart.startAngle;
+})
+
+</script>
+<!--沪市每股现金流量-->
+<script>
+	var chart = am4core.create("chartdiv3", am4charts.RadarChart);
+
+chart.data = [{
+    country: "浦发银行",
+    visits:1.369
+
+
+
+  },
+  {
+    country: "白云机场",
+    visits: -0.264
+
+
+
+  },
+  {
+    country: "东风汽车",
+    visits: -0.345
+
+
+
+  },
+  {
+    country: "中国国贸",
+    visits:-0.38
+
+
+
+  },
+  {
+    country: "首创股份",
+    visits: 0.371
+
+
+  },
+  {
+    country: "上海机场",
+    visits: 0.001
+
+}
+,
+  {
+    country: "包钢股份",
+    visits:0.006
+
+
+
+  },
+  {
+    country: "华能国际",
+    visits: 0.384
+
+
+
+  },
+  {
+    country: "皖通高速",
+    visits: 0.376
+
+
+
+  },
+  {
+    country: "华夏银行",
+    visits:-2.859
+
+
+
+  },
+  {
+    country: "民生银行",
+    visits:0.661
+
+  },
+    {
+    country: "日照港",
+    visits:0.003
+
+
+
+  },
+  {
+    country: "上港集团",
+    visits: 0.332
+
+
+
+
+  },
+  {
+    country: "宝钢股份",
+    visits:-0.173
+
+
+
+
+  },
+  {
+    country: "中原高速",
+    visits:0.266
+
+
+
+
+
+  },
+  {
+    country: "上海电力",
+    visits:-0.038
+
+
+
+
+
+  },
+  {
+    country: "山东钢铁",
+    visits:0.101
+
+
+
+
+  },
+  {
+    country: "浙能电力",
+    visits: -0.075
+
+
+
+
+
+  },
+  {
+    country: "华能水电",
+    visits:-0.011
+
+
+
+
+
+  },
+  {
+    country: "中远海能",
+    visits: -0.383
+
+
+
+
+
+  },
+  {
+    country: "华电国际",
+    visits:-0.079
+
+
+
+
+
+  },
+  {
+    country: "中国石化",
+    visits:-0.011
+
+
+
+
+
+  },
+  {
+    country: "南方航空",
+    visits:0.004
+
+
+
+
+
+  },
+   {
+    country: "中信证券",
+    visits: 1.376
+
+
+  },
+  {
+    country: "三一重工",
+    visits:0.076
+
+
+
+
+  },
+  {
+    country: "福建高速",
+    visits:0.091
+
+
+
+
+
+  },
+  {
+    country: "楚天高速",
+    visits:0.151
+
+
+
+
+
+  },
+  {
+    country: "招商银行",
+    visits: 3.301
+
+
+
+
+
+  },
+  {
+    country: "歌华有线",
+    visits:0.031
+
+
+
+
+
+  },
+  {
+    country: "中直股份",
+    visits: 1.201
+
+
+
+
+
+  },
+  {
+    country: "四川路桥",
+    visits:0.312
+
+
+
+
+
+  },
+  {
+    country: "保利地产",
+    visits: 3.791
+
+
+
+
+  },
+  {
+    country: "中国联通",
+    visits:-0.091
+
+
+
+
+
+  },
+  {
+    country: "宁波联合",
+    visits:1.327
+
+
+
+
+
+  },
+  {
+    country: "浙江广厦",
+    visits:1.571
+
+
+
+
+
+  },
+    {
+    country: "九鼎投资",
+    visits:1.314
+
+
+
+
+
+  },
+  {
+    country: "黄山旅游",
+    visits:1.507
+
+
+
+
+  },
+  {
+    country: "万东医疗",
+    visits:-0.358
+
+
+
+
+
+
+  },
+  {
+    country: "中国医药",
+    visits:-0.175
+
+
+
+
+
+
+  },
+  {
+    country: "厦门象屿",
+    visits:0.975
+
+
+
+
+
+
+  },
+  {
+    country: "五矿发展",
+    visits:0.056
+
+
+
+
+
+
+  },
+  {
+    country: "古越龙山",
+    visits: 0.3
+
+
+
+
+
+
+  },
+  {
+    country: "海信电器",
+    visits:0.812
+
+
+
+
+
+
+  },
+  {
+    country: "国投资本",
+    visits: -1.099
+
+
+
+
+
+
+  },
+  {
+    country: "华润双鹤",
+    visits:-0.151
+
+
+
+
+
+  },
+  {
+    country: "皖维高新",
+    visits: 0.063
+
+
+
+
+
+
+  },
+  {
+    country: "南京高科",
+    visits:1.307
+
+
+
+
+
+
+  },
+    {
+    country: "宇通客车",
+    visits:0.435
+
+
+
+
+
+
+  },
+    {
+    country: "冠城大通",
+    visits: 0.613
+
+
+
+  },
+  {
+    country: "葛洲坝",
+    visits:0.047
+
+
+
+
+
+  },
+  {
+    country: "银鸽投资",
+    visits:-0.103
+
+
+
+
+  },
+  {
+    country: "凤凰光学",
+    visits: 0.2
+
+
+
+
+
+  },
+  {
+    country: "浙江富润",
+    visits: -0.122
+
+
+
+
+
+  },
+  {
+    country: "中船科技",
+    visits:-0.407
+
+
+
+
+
+  },
+  {
+    country: "上海梅林",
+    visits:-0.156
+
+
+
+
+  },
+  {
+    country: "*ST保千",
+    visits:-0.019
+
+
+
+
+
+  },
+    {
+    country: "新疆天业",
+    visits:-0.023
+
+
+
+
+
+  },
+  {
+    country: "康欣新材",
+    visits:0.07
+
+
+
+
+
+
+  },
+  {
+    country: "澄星股份",
+    visits:-0.427
+
+
+
+
+
+
+  },
+  {
+    country: "同仁堂",
+    visits: 0.719
+
+
+
+
+
+
+  },
+  {
+    country: "胜利股份",
+    visits: 0.466004
+
+
+
+
+  }]
+
+
+chart.padding(10, 10, 10, 10);
+
+chart.radius = am4core.percent(95);
+chart.startAngle = 179.5;
+chart.endAngle = 360.5;
+
+chart.innerRadius = am4core.percent(60);
+
+var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "country";
+categoryAxis.renderer.minGridDistance = 60;
+categoryAxis.renderer.labels.template.location = 0.5;
+categoryAxis.renderer.grid.template.location = 1;
+categoryAxis.interactionsEnabled = false;
+
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.tooltip.disabled = true;
+valueAxis.renderer.minGridDistance = 20;
+valueAxis.renderer.grid.template.strokeOpacity = 0.05
+valueAxis.renderer.labels.template.fontSize = 9;
+valueAxis.interactionsEnabled = false;
+valueAxis.renderer.axisAngle = 260;
+//valueAxis.renderer.gridType = "polygons";
+valueAxis.min = -1;
+
+var series1 = chart.series.push(new am4charts.RadarColumnSeries());
+series1.columns.template.width = am4core.percent(80);
+series1.name = "Series 1";
+series1.dataFields.categoryX = "country";
+series1.columns.template.tooltipText = "{name}: {valueY.value}";
+series1.dataFields.valueY = "visits";
+series1.stacked = true;
+
+
+chart.seriesContainer.zIndex = -1;
+
+var slider = chart.createChild(am4core.Slider);
+slider.start = 0.5;
+slider.events.on("rangechanged", function () {
+
+  var start = slider.start;
+
+  chart.startAngle = 270 - start * 179 - 1;
+  chart.endAngle = 270 + start * 179 + 1;
+
+  valueAxis.renderer.axisAngle = chart.startAngle;
+})
+
+</script>
+<!--毛利率-->
+<script>
+	var chart = am4core.create("chartdiv4", am4charts.RadarChart);
+
+chart.data = [{
+    country: "浦发银行",
+    visits:100
+
+
+
+  },
+  {
+    country: "白云机场",
+    visits:29.75
+
+
+
+  },
+  {
+    country: "东风汽车",
+    visits: 11.45
+
+
+
+  },
+  {
+    country: "中国国贸",
+    visits:51.56
+
+
+  },
+  {
+    country: "首创股份",
+    visits: 30.8
+
+
+
+  },
+  {
+    country: "上海机场",
+    visits: 51.69
+
+}
+,
+  {
+    country: "包钢股份",
+    visits: 15.72
+
+
+
+  },
+  {
+    country: "华能国际",
+    visits: 11.3
+
+
+
+  },
+  {
+    country: "皖通高速",
+    visits: 56.76
+
+
+
+  },
+  {
+    country: "华夏银行",
+    visits:100
+
+
+  },
+  {
+    country: "民生银行",
+    visits:100
+
+
+  },
+    {
+    country: "日照港",
+    visits:27.46
+
+
+
+  },
+  {
+    country: "上港集团",
+    visits:31.74
+
+
+
+
+  },
+  {
+    country: "宝钢股份",
+    visits:15.05
+
+
+
+
+  },
+  {
+    country: "中原高速",
+    visits:51.72
+
+
+
+
+
+  },
+  {
+    country: "上海电力",
+    visits:21.44
+
+
+
+
+
+  },
+  {
+    country: "山东钢铁",
+    visits:10.51
+
+
+
+
+
+  },
+  {
+    country: "浙能电力",
+    visits:9.49
+
+
+
+
+
+  },
+  {
+    country: "华能水电",
+    visits:50.92
+
+
+
+
+
+  },
+  {
+    country: "中远海能",
+    visits: 15.61
+
+
+
+
+
+  },
+  {
+    country: "华电国际",
+    visits:12.35
+
+
+
+
+  },
+  {
+    country: "中国石化",
+    visits:16.95
+
+
+
+
+
+  },
+  {
+    country: "南方航空",
+    visits:10.45
+
+
+
+
+
+  },
+   {
+    country: "中信证券",
+    visits: 100
+
+
+  },
+  {
+    country: "三一重工",
+    visits:30.62
+
+
+
+
+  },
+  {
+    country: "福建高速",
+    visits:3.3131
+
+
+
+
+  },
+  {
+    country: "楚天高速",
+    visits:61.17
+
+
+
+
+
+  },
+  {
+    country: "招商银行",
+    visits:100
+
+
+
+
+
+  },
+  {
+    country: "歌华有线",
+    visits:26.23
+
+
+
+
+
+  },
+  {
+    country: "中直股份",
+    visits:13.93
+
+
+
+
+
+  },
+  {
+    country: "四川路桥",
+    visits:10.69
+
+
+
+
+
+  },
+  {
+    country: "保利地产",
+    visits: 32.49
+
+
+
+
+  },
+  {
+    country: "中国联通",
+    visits:26.57
+
+
+
+
+
+  },
+  {
+    country: "宁波联合",
+    visits:11.18
+
+
+
+
+
+  },
+  {
+    country: "浙江广厦",
+    visits:25.44
+
+
+
+
+  },
+    {
+    country: "九鼎投资",
+    visits:93.12
+
+
+
+
+
+  },
+  {
+    country: "黄山旅游",
+    visits:54.14
+
+
+
+  },
+  {
+    country: "万东医疗",
+    visits:43.6
+
+
+
+
+
+
+  },
+  {
+    country: "中国医药",
+    visits:20.95
+
+
+
+
+
+  },
+  {
+    country: "厦门象屿",
+    visits:2.75
+
+
+
+
+
+
+  },
+  {
+    country: "五矿发展",
+    visits:3.8083
+
+
+
+
+
+  },
+  {
+    country: "古越龙山",
+    visits: 37.97
+
+
+
+
+
+
+  },
+  {
+    country: "海信电器",
+    visits: 14.69
+
+
+
+
+
+
+  },
+  {
+    country: "国投资本",
+    visits: 45.18
+
+
+
+
+
+  },
+  {
+    country: "华润双鹤",
+    visits:7.515
+
+
+
+
+
+  },
+  {
+    country: "皖维高新",
+    visits: 16.54
+
+
+
+
+
+
+  },
+  {
+    country: "南京高科",
+    visits:48.5
+
+
+
+
+
+
+  },
+    {
+    country: "宇通客车",
+    visits:25.33
+
+
+
+
+
+
+  },
+    {
+    country: "冠城大通",
+    visits: 37.96
+
+
+
+  },
+  {
+    country: "葛洲坝",
+    visits:16.33
+
+
+
+
+
+  },
+  {
+    country: "银鸽投资",
+    visits:5.56
+
+
+
+
+
+  },
+  {
+    country: "凤凰光学",
+    visits:19.21
+
+
+
+
+
+  },
+  {
+    country: "浙江富润",
+    visits: 13.42
+
+
+
+
+
+  },
+  {
+    country: "中船科技",
+    visits:10.07
+
+
+
+
+
+  },
+  {
+    country: "上海梅林",
+    visits:12.93
+
+
+
+
+  },
+  {
+    country: "*ST保千",
+    visits:14.23
+
+
+
+
+
+  },
+    {
+    country: "新疆天业",
+    visits:27.09
+
+
+
+
+
+  },
+  {
+    country: "康欣新材",
+    visits:33.19
+
+
+
+
+
+
+  },
+  {
+    country: "澄星股份",
+    visits:16.26
+
+
+
+
+
+
+  },
+  {
+    country: "同仁堂",
+    visits: 46.75
+
+
+
+
+
+
+  },
+  {
+    country: "胜利股份",
+    visits: 0.466004
+
+
+
+
+  }]
+
+
+chart.padding(10, 10, 10, 10);
+
+chart.radius = am4core.percent(95);
+chart.startAngle = 179.5;
+chart.endAngle = 360.5;
+
+chart.innerRadius = am4core.percent(60);
+
+var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "country";
+categoryAxis.renderer.minGridDistance = 60;
+categoryAxis.renderer.labels.template.location = 0.5;
+categoryAxis.renderer.grid.template.location = 1;
+categoryAxis.interactionsEnabled = false;
+
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.tooltip.disabled = true;
+valueAxis.renderer.minGridDistance = 20;
+valueAxis.renderer.grid.template.strokeOpacity = 0.05
+valueAxis.renderer.labels.template.fontSize = 9;
+valueAxis.interactionsEnabled = false;
+valueAxis.renderer.axisAngle = 260;
+//valueAxis.renderer.gridType = "polygons";
+valueAxis.min = -10;
+
+var series1 = chart.series.push(new am4charts.RadarColumnSeries());
+series1.columns.template.width = am4core.percent(80);
+series1.name = "Series 1";
+series1.dataFields.categoryX = "country";
+series1.columns.template.tooltipText = "{name}: {valueY.value}";
+series1.dataFields.valueY = "visits";
+series1.stacked = true;
+
+
+chart.seriesContainer.zIndex = -1;
+
+var slider = chart.createChild(am4core.Slider);
+slider.start = 0.5;
+slider.events.on("rangechanged", function () {
+
+  var start = slider.start;
+
+  chart.startAngle = 270 - start * 179 - 1;
+  chart.endAngle = 270 + start * 179 + 1;
+
+  valueAxis.renderer.axisAngle = chart.startAngle;
+})
+
+</script>
+
+
+</body>
