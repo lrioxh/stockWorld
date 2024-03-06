@@ -2,12 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Storks World</title>
-    <link href="../static/image/Babel.png" rel="shortcut icon">
+    <title>Stock World</title>
+    <link href="../static/images/stok-word-logo-0.png" rel="shortcut icon">
     <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
-    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
-    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+	<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+	<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+	<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all">
+
+	<link rel="stylesheet" href="../static/css/style.css" type="text/css" media="all">
+
+    <link rel="stylesheet" type="text/css" href="../static/css/styles.css">
+
+
+	<script src="../static/js/jquery-2.1.1.min.js"></script>
 
     <style type="text/css">
         *{
@@ -16,11 +23,144 @@
         }
         body{
             border: 0;
-            background-color: #21d6ff;
-            overflow: auto;
+            background-color:hsla(0,0%,18%,1.00);
+            overflow: hidden;
             display: block;
         }
-        .box1{
+        #base{
+          height: 110%;
+        }
+
+        .hidden{
+            transition: all 0.5s ease-in;
+            transform: translate(200px, -150px) rotateX(80deg) scale(0.5);
+            filter: opacity(0%);
+        }
+        .show{
+            transition: all 0.5s ease-in;
+            transform: translate(0, 50px) scale(1);
+            filter: opacity(100%);
+        }
+        .cha{
+            position: absolute;
+            right: 20px;
+            top:20px;
+        }
+        .cha:hover{
+            transition: all 0.2s;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+		.fuzzy{
+			transition: all 0.5s ease-in;
+			-webkit-filter: blur(7px);
+            filter: blur(7px);
+		}
+		.fuz{
+            transition: all 0.5s ease-in;
+			-webkit-filter:blur(0);
+            filter: blur(0);
+        }
+        .login {
+            position: absolute;
+            right:20px;
+          top: 10px;
+       width: 240px;
+          border-top: 2px solid #D8312A;
+          height: 300px;
+       margin: auto;
+         padding: 100px 40px 40px 40px;
+          background: #35394a;
+         background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, #35394a), color-stop(100%, #1f222e));
+          background: -webkit-linear-gradient(45deg, #35394a 0%, #1f222e 100%);
+        background: linear-gradient(45deg, #35394a 0%, #1f222e 100%);
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35394a', endColorstr='#1f222e',GradientType=1 );
+}
+		a{
+			text-decoration:none;
+		}
+		ul,li{
+			 list-style:none;
+		}
+		#menu li{
+			float: left;
+			width: 120px;
+        line-height: 3em;
+        /*height: 3em;*/
+        text-align: center;
+        cursor:pointer;
+		}
+		.ul{
+			position:absolute;
+			top:25px;
+			display: none;
+		}
+		.ul li{
+			float:none;
+			border-bottom: 1px solid #c7c7c7;
+		}
+		.ul li a{
+			text-align: center;
+			min-height: 35px;
+			line-height: 35px;
+			background-color: white;
+		}
+		#menu li:hover ul{
+			display: block;
+		}
+		.ul li:hover a {
+			background-color: #424668;
+			color: white;
+		}
+    </style>
+    <style>
+    .container {
+        height: 70px;
+    }
+    .parent {
+        position: relative;
+    }
+    .search {
+        width: 340px;
+        height: 65px;
+        border-radius: 2px;
+        outline: none;
+        border: 1px solid #ccc;
+        padding-left: 15px;
+        position: absolute;
+        right:10px;
+    }
+    .search:hover{
+        box-shadow: .8px .8px .8px .8px #9f9ea5;
+        transition: all 0.2s;
+    }
+    .btn {
+        height: 45px;
+        width: 45px;
+        position: absolute;
+        background: none;
+        background-image:url(../static/images/search.png);
+        background-repeat:no-repeat;
+        background-size: 55px;
+        background-position: -8px -4.5px;
+        filter: opacity(60%);
+        top: 10px;
+        right: 15px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+    .btn:hover{
+        color: deepskyblue;
+		filter: opacity(100%);
+    }
+    .parent>input:first-of-type:focus {
+				border: 1px solid #317ef3;
+				padding-left: 15px;
+    }
+</style>
+	<style>
+		.box1{
             display: block;
             height: 100px;width: 100%;
             -webkit-transform-style: preserve-3d;
@@ -30,61 +170,164 @@
             -webkit-perspective-origin: 70% 450%;
             perspective-origin: 70% 450%;
         }
-        #chartdiv {
+        #chart {
             display: block;
             position: absolute;
-            top: 220px; left: 12%;
+            top: 230px; left: 9%;
             /*perspective-origin: right;*/
-            width		: 49%;
-            height		: 420px;
+            width		: 54%;
+            height		: 440px;
             font-size	: 11px;
             background-color: white;
             -webkit-perspective-origin: inherit;
             perspective-origin: inherit;
+            /*-webkit-box-reflect: below 6px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.7, transparent), to(white));*/
         }
-        #navigation{
-            display: block;
-            position: absolute;
-            top: 147px;
-            right: 8%;
-            width: 26%;
-            height: 500px;
-            background-color: white;
-            -webkit-perspective-origin: inherit;
-            perspective-origin: inherit;
-        }
-        .dem_left{
-            -webkit-transform:rotateY(9deg) translateZ(60px);
-            transform: rotateY(9deg) translateZ(60px);
+		#chartdiv1, #chartdiv2{
+			/*display: block;*/
+            /*position: absolute;*/
+			width: 820px;
+            height: 420px;
+			z-index: 99;
+		}
+		#chartdiv2{
+			transform: translate(0, -30px);
+		}
+		#chartdiv1{
+			transform: translate(0, -15px);
+		}
+       .dem_left{
+            -webkit-transform:rotateY(9deg) translateZ(-65px);
+            transform: rotateY(9deg) translateZ(-65px);
+            transition: all 0.5s;
+			-webkit-box-reflect: below 6px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.83, transparent), to(white));
+			}
+        .dem_right{
+            /*-webkit-transform:rotateY(-21deg) translateZ(-60px);*/
+            transform: rotateY(-20deg) translateZ(-50px);
+            transition: all 0.5s;
+			-webkit-box-reflect: below 11px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.7, transparent), to(white));
+          }
+		.dem_right2{
+            /*-webkit-transform:rotateY(-21deg) translateZ(-60px);*/
+            transform: rotateY(-25deg) translateZ(-50px);
             transition: all 0.5s;
 
           }
-        .plat{
-           -webkit-transform:rotateY(0);
+
+	</style>
+	<style>
+		.dem_left:hover, .dem_right:hover, .dem_right2:hover{
+			-webkit-transform:rotateY(0);
             transform: rotateY(0);
             transition: all 0.5s;
+		}
+		.dem_right2:hover{
+			filter: brightness(110%);
+			cursor: pointer;
+		}
+		#showchart{
+			opacity: 0;
+			transition: all 0.5s;
+		}
+		.dem_left:hover #showchart{
+			opacity: 1;
+			transition: all 0.5s;
+		}
+		#showchart:hover {
+			cursor: pointer;
+			transform: scale(1.1);
+		}
+		.showchart{
+			transition: all 0.5s ease-in-out;
+			transform: translate(400px, -170px) scale(1);
+			filter: opacity(1);
+			z-index: 9999;
+		}
+		.closechart{
+			transition: all 0.5s ease-in-out;
+			transform: scale(0.1) translate(0, 2000px);
+			filter: opacity(0);
+			z-index: -999;
+		}
+		#closechart:hover{
+			transition: all 0.3s;
+			transform: scale(1.1);
+		}
 
+	</style>
+	<style>
+	.banner {
+            width: 100%;
+            height: 435px;
+            position: relative;
+            overflow: hidden;
+		/*padding: 0 0 0 10px;*/
+		/*margin: -10px;*/
         }
-        .dem_right{
-            -webkit-transform:rotateY(-21deg) translateZ(60px);
-            transform: rotateY(-21deg) translateZ(60px);
-            transition: all 0.5s;
-
-          }
-
-
+        .banner .pic {
+            width: 1700px;
+            height: 430px;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+        }
+        .banner .pic li {
+            width: 820px;
+            /*height: 435px;*/
+            /*float: left*/
+        }
+        .banner .anniu {
+            width: 100px;
+            height: 16px;
+            position: absolute;
+            left: 390px;
+            top: 415px;
+			z-index: 999;
+        }
+        .banner .anniu li {
+            width: 16px;
+            height: 16px;
+            background: gray;
+            float: left;
+            margin: 2px;
+            display: inline;
+            cursor: pointer;
+            border-radius: 100%;
+			border: 1px gray;
+        }
+        .banner .anniu li.on {
+            background: red
+        }
     </style>
+	<style>
+		#box{width:320px;height:192px;margin:0 0 0 5.5px;overflow: hidden;background-color: white}
+        #box ul{padding:0;margin:0;list-style: none;overflow: hidden}
+        #box ul li{height:24px;line-height: 24px;padding-left:10px;}
+        #box a{text-decoration: none;color:#000;}
+        #box a:hover{
+			color: #1FA5AD
+		}
+		h3{
+			color: white;
+		}
+		h3:hover{
+			color: #21d6ff;
+			cursor: pointer;
+		}
+		ul#con1 li,ul#con2 li{
+			margin: 10px 0 10px 0;
+			border-bottom: 1px solid gray;
+			height: 55px;
+		}
+		ul#con1 li a,ul#con2 li a{
+			font-size: large;
+		}
+	</style>
 </head>
 <body>
-
-<div class="box1">
-    <div id="chartdiv" class="dem_left"></div>
-    <div id="navigation" class="dem_right">
-    </div>
-</div>
-
 <script>
-var chart = AmCharts.makeChart( "chartdiv", {
+  var chart = AmCharts.makeChart( "chartdiv1", {
   "type": "serial",
   "theme": "none",
   "dataDateFormat":"YYYY-MM-DD",
@@ -123,816 +366,486 @@ var chart = AmCharts.makeChart( "chartdiv", {
     "parseDates": true
   },
   "dataProvider": [ {
-    "date": "2011-08-01",
-    "open": "136.65",
-    "high": "136.96",
-    "low": "134.15",
-    "close": "136.49"
-  }, {
-    "date": "2011-08-02",
-    "open": "135.26",
-    "high": "135.95",
-    "low": "131.50",
-    "close": "131.85"
-  }, {
-    "date": "2011-08-05",
-    "open": "132.90",
-    "high": "135.27",
-    "low": "128.30",
-    "close": "135.25"
-  }, {
-    "date": "2011-08-06",
-    "open": "134.94",
-    "high": "137.24",
-    "low": "132.63",
-    "close": "135.03"
-  }, {
-    "date": "2011-08-07",
-    "open": "136.76",
-    "high": "136.86",
-    "low": "132.00",
-    "close": "134.01"
-  }, {
-    "date": "2011-08-08",
-    "open": "131.11",
-    "high": "133.00",
-    "low": "125.09",
-    "close": "126.39"
-  }, {
-    "date": "2011-08-09",
-    "open": "123.12",
-    "high": "127.75",
-    "low": "120.30",
-    "close": "125.00"
-  }, {
-    "date": "2011-08-12",
-    "open": "128.32",
-    "high": "129.35",
-    "low": "126.50",
-    "close": "127.79"
-  }, {
-    "date": "2011-08-13",
-    "open": "128.29",
-    "high": "128.30",
-    "low": "123.71",
-    "close": "124.03"
-  }, {
-    "date": "2011-08-14",
-    "open": "122.74",
-    "high": "124.86",
-    "low": "119.65",
-    "close": "119.90"
-  }, {
-    "date": "2011-08-15",
-    "open": "117.01",
-    "high": "118.50",
-    "low": "111.62",
-    "close": "117.05"
-  }, {
-    "date": "2011-08-16",
-    "open": "122.01",
-    "high": "123.50",
-    "low": "119.82",
-    "close": "122.06"
-  }, {
-    "date": "2011-08-19",
-    "open": "123.96",
-    "high": "124.50",
-    "low": "120.50",
-    "close": "122.22"
-  }, {
-    "date": "2011-08-20",
-    "open": "122.21",
-    "high": "128.96",
-    "low": "121.00",
-    "close": "127.57"
-  }, {
-    "date": "2011-08-21",
-    "open": "131.22",
-    "high": "132.75",
-    "low": "130.33",
-    "close": "132.51"
-  }, {
-    "date": "2011-08-22",
-    "open": "133.09",
-    "high": "133.34",
-    "low": "129.76",
-    "close": "131.07"
-  }, {
-    "date": "2011-08-23",
-    "open": "130.53",
-    "high": "135.37",
-    "low": "129.81",
-    "close": "135.30"
-  }, {
-    "date": "2011-08-26",
-    "open": "133.39",
-    "high": "134.66",
-    "low": "132.10",
-    "close": "132.25"
-  }, {
-    "date": "2011-08-27",
-    "open": "130.99",
-    "high": "132.41",
-    "low": "126.63",
-    "close": "126.82"
-  }, {
-    "date": "2011-08-28",
-    "open": "129.88",
-    "high": "134.18",
-    "low": "129.54",
-    "close": "134.08"
-  }, {
-    "date": "2011-08-29",
-    "open": "132.67",
-    "high": "138.25",
-    "low": "132.30",
-    "close": "136.25"
-  }, {
-    "date": "2011-08-30",
-    "open": "139.49",
-    "high": "139.65",
-    "low": "137.41",
-    "close": "138.48"
-  }, {
-    "date": "2011-09-03",
-    "open": "139.94",
-    "high": "145.73",
-    "low": "139.84",
-    "close": "144.16"
-  }, {
-    "date": "2011-09-04",
-    "open": "144.97",
-    "high": "145.84",
-    "low": "136.10",
-    "close": "136.76"
-  }, {
-    "date": "2011-09-05",
-    "open": "135.56",
-    "high": "137.57",
-    "low": "132.71",
-    "close": "135.01"
-  }, {
-    "date": "2011-09-06",
-    "open": "132.01",
-    "high": "132.30",
-    "low": "130.00",
-    "close": "131.77"
-  }, {
-    "date": "2011-09-09",
-    "open": "136.99",
-    "high": "138.04",
-    "low": "133.95",
-    "close": "136.71"
-  }, {
-    "date": "2011-09-10",
-    "open": "137.90",
-    "high": "138.30",
-    "low": "133.75",
-    "close": "135.49"
-  }, {
-    "date": "2011-09-11",
-    "open": "135.99",
-    "high": "139.40",
-    "low": "135.75",
-    "close": "136.85"
-  }, {
-    "date": "2011-09-12",
-    "open": "138.83",
-    "high": "139.00",
-    "low": "136.65",
-    "close": "137.20"
-  }, {
-    "date": "2011-09-13",
-    "open": "136.57",
-    "high": "138.98",
-    "low": "136.20",
-    "close": "138.81"
-  }, {
-    "date": "2011-09-16",
-    "open": "138.99",
-    "high": "140.59",
-    "low": "137.60",
-    "close": "138.41"
-  }, {
-    "date": "2011-09-17",
-    "open": "139.06",
-    "high": "142.85",
-    "low": "137.83",
-    "close": "140.92"
-  }, {
-    "date": "2011-09-18",
-    "open": "143.02",
-    "high": "143.16",
-    "low": "139.40",
-    "close": "140.77"
-  }, {
-    "date": "2011-09-19",
-    "open": "140.15",
-    "high": "141.79",
-    "low": "139.32",
-    "close": "140.31"
-  }, {
-    "date": "2011-09-20",
-    "open": "141.14",
-    "high": "144.65",
-    "low": "140.31",
-    "close": "144.15"
-  }, {
-    "date": "2011-09-23",
-    "open": "146.73",
-    "high": "149.85",
-    "low": "146.65",
-    "close": "148.28"
-  }, {
-    "date": "2011-09-24",
-    "open": "146.84",
-    "high": "153.22",
-    "low": "146.82",
-    "close": "153.18"
-  }, {
-    "date": "2011-09-25",
-    "open": "154.47",
-    "high": "155.00",
-    "low": "151.25",
-    "close": "152.77"
-  }, {
-    "date": "2011-09-26",
-    "open": "153.77",
-    "high": "154.52",
-    "low": "152.32",
-    "close": "154.50"
-  }, {
-    "date": "2011-09-27",
-    "open": "153.44",
-    "high": "154.60",
-    "low": "152.75",
-    "close": "153.47"
-  }, {
-    "date": "2011-09-30",
-    "open": "154.63",
-    "high": "157.41",
-    "low": "152.93",
-    "close": "156.34"
-  }, {
-    "date": "2011-10-01",
-    "open": "156.55",
-    "high": "158.59",
-    "low": "155.89",
-    "close": "158.45"
-  }, {
-    "date": "2011-10-02",
-    "open": "157.78",
-    "high": "159.18",
-    "low": "157.01",
-    "close": "157.92"
-  }, {
-    "date": "2011-10-03",
-    "open": "158.00",
-    "high": "158.08",
-    "low": "153.50",
-    "close": "156.24"
-  }, {
-    "date": "2011-10-04",
-    "open": "158.37",
-    "high": "161.58",
-    "low": "157.70",
-    "close": "161.45"
-  }, {
-    "date": "2011-10-07",
-    "open": "163.49",
-    "high": "167.91",
-    "low": "162.97",
-    "close": "167.91"
-  }, {
-    "date": "2011-10-08",
-    "open": "170.20",
-    "high": "171.11",
-    "low": "166.68",
-    "close": "167.86"
-  }, {
-    "date": "2011-10-09",
-    "open": "167.55",
-    "high": "167.88",
-    "low": "165.60",
-    "close": "166.79"
-  }, {
-    "date": "2011-10-10",
-    "open": "169.49",
-    "high": "171.88",
-    "low": "153.21",
-    "close": "162.23"
-  }, {
-    "date": "2011-10-11",
-    "open": "163.01",
-    "high": "167.28",
-    "low": "161.80",
-    "close": "167.25"
-  }, {
-    "date": "2011-10-14",
-    "open": "167.98",
-    "high": "169.57",
-    "low": "163.50",
-    "close": "166.98"
-  }, {
-    "date": "2011-10-15",
-    "open": "165.54",
-    "high": "170.18",
-    "low": "165.15",
-    "close": "169.58"
-  }, {
-    "date": "2011-10-16",
-    "open": "172.69",
-    "high": "173.04",
-    "low": "169.18",
-    "close": "172.75"
-  }, {
-    "date": "2011-10-17",
-    "open": "171.50",
-    "high": "174.19",
-    "low": "171.05",
-    "close": "173.50"
-  }, {
-    "date": "2011-10-18",
-    "open": "174.24",
-    "high": "174.63",
-    "low": "170.00",
-    "close": "170.42"
-  }, {
-    "date": "2011-10-21",
-    "open": "170.35",
-    "high": "174.90",
-    "low": "169.96",
-    "close": "174.36"
-  }, {
-    "date": "2011-10-22",
-    "open": "188.56",
-    "high": "188.60",
-    "low": "182.76",
-    "close": "186.16"
-  }, {
-    "date": "2011-10-23",
-    "open": "185.81",
-    "high": "187.21",
-    "low": "179.24",
-    "close": "185.93"
-  }, {
-    "date": "2011-10-24",
-    "open": "184.87",
-    "high": "185.90",
-    "low": "181.66",
-    "close": "182.78"
-  }, {
-    "date": "2011-10-25",
-    "open": "185.29",
-    "high": "185.37",
-    "low": "182.88",
-    "close": "184.70"
-  }, {
-    "date": "2011-10-28",
-    "open": "185.45",
-    "high": "186.59",
-    "low": "184.70",
-    "close": "185.09"
-  }, {
-    "date": "2011-10-29",
-    "open": "186.18",
-    "high": "189.37",
-    "low": "184.73",
-    "close": "187.00"
-  }, {
-    "date": "2011-10-30",
-    "open": "187.63",
-    "high": "190.12",
-    "low": "184.95",
-    "close": "189.95"
-  }, {
-    "date": "2011-10-31",
-    "open": "188.60",
-    "high": "190.10",
-    "low": "180.00",
-    "close": "187.44"
-  }, {
-    "date": "2011-11-01",
-    "open": "189.21",
-    "high": "189.44",
-    "low": "183.49",
-    "close": "187.87"
-  }, {
-    "date": "2011-11-04",
-    "open": "185.29",
-    "high": "188.96",
-    "low": "184.24",
-    "close": "186.18"
-  }, {
-    "date": "2011-11-05",
-    "open": "187.05",
-    "high": "192.00",
-    "low": "185.27",
-    "close": "191.79"
-  }, {
-    "date": "2011-11-06",
-    "open": "190.61",
-    "high": "192.68",
-    "low": "186.13",
-    "close": "186.30"
-  }, {
-    "date": "2011-11-07",
-    "open": "186.67",
-    "high": "186.90",
-    "low": "167.77",
-    "close": "175.47"
-  }, {
-    "date": "2011-11-08",
-    "open": "171.15",
-    "high": "175.12",
-    "low": "165.21",
-    "close": "165.37"
-  }, {
-    "date": "2011-11-11",
-    "open": "165.28",
-    "high": "167.70",
-    "low": "150.63",
-    "close": "153.76"
-  }, {
-    "date": "2011-11-12",
-    "open": "160.85",
-    "high": "170.98",
-    "low": "153.76",
-    "close": "169.96"
-  }, {
-    "date": "2011-11-13",
-    "open": "177.16",
-    "high": "177.57",
-    "low": "163.74",
-    "close": "166.11"
-  }, {
-    "date": "2011-11-14",
-    "open": "166.39",
-    "high": "169.59",
-    "low": "160.30",
-    "close": "164.30"
-  }, {
-    "date": "2011-11-15",
-    "open": "165.30",
-    "high": "167.02",
-    "low": "159.33",
-    "close": "166.39"
-  }, {
-    "date": "2011-11-18",
-    "open": "166.10",
-    "high": "168.20",
-    "low": "162.10",
-    "close": "163.95"
-  }, {
-    "date": "2011-11-19",
-    "open": "165.67",
-    "high": "171.79",
-    "low": "163.53",
-    "close": "168.85"
-  }, {
-    "date": "2011-11-20",
-    "open": "165.84",
-    "high": "172.35",
-    "low": "164.67",
-    "close": "168.46"
-  }, {
-    "date": "2011-11-22",
-    "open": "172.00",
-    "high": "172.05",
-    "low": "169.75",
-    "close": "171.54"
-  }, {
-    "date": "2011-11-25",
-    "open": "173.59",
-    "high": "177.27",
-    "low": "172.35",
-    "close": "172.54"
-  }, {
-    "date": "2011-11-26",
-    "open": "175.22",
-    "high": "175.79",
-    "low": "170.01",
-    "close": "174.81"
-  }, {
-    "date": "2011-11-27",
-    "open": "176.82",
-    "high": "180.60",
-    "low": "175.35",
-    "close": "180.22"
-  }, {
-    "date": "2011-11-28",
-    "open": "179.43",
-    "high": "185.17",
-    "low": "179.15",
-    "close": "184.29"
-  }, {
-    "date": "2011-11-29",
-    "open": "187.34",
-    "high": "187.70",
-    "low": "179.70",
-    "close": "182.22"
-  }, {
-    "date": "2011-12-02",
-    "open": "181.86",
-    "high": "184.14",
-    "low": "177.70",
-    "close": "178.86"
-  }, {
-    "date": "2011-12-03",
-    "open": "177.15",
-    "high": "180.90",
-    "low": "176.99",
-    "close": "179.81"
-  }, {
-    "date": "2011-12-04",
-    "open": "182.89",
-    "high": "186.00",
-    "low": "182.41",
-    "close": "185.50"
-  }, {
-    "date": "2011-12-05",
-    "open": "186.19",
-    "high": "190.10",
-    "low": "186.12",
-    "close": "189.95"
-  }, {
-    "date": "2011-12-06",
-    "open": "190.54",
-    "high": "194.99",
-    "low": "188.04",
-    "close": "194.30"
-  }, {
-    "date": "2011-12-09",
-    "open": "193.59",
-    "high": "195.66",
-    "low": "192.69",
-    "close": "194.21"
-  }, {
-    "date": "2011-12-10",
-    "open": "194.75",
-    "high": "196.83",
-    "low": "187.39",
-    "close": "188.54"
-  }, {
-    "date": "2011-12-11",
-    "open": "193.44",
-    "high": "194.48",
-    "low": "185.76",
-    "close": "190.86"
-  }, {
-    "date": "2011-12-12",
-    "open": "190.19",
-    "high": "192.12",
-    "low": "187.82",
-    "close": "191.83"
-  }, {
-    "date": "2011-12-13",
-    "open": "190.37",
-    "high": "193.20",
-    "low": "189.54",
-    "close": "190.39"
-  }, {
-    "date": "2011-12-16",
-    "open": "190.72",
-    "high": "192.65",
-    "low": "182.98",
-    "close": "184.40"
-  }, {
-    "date": "2011-12-17",
-    "open": "186.52",
-    "high": "187.33",
-    "low": "178.60",
-    "close": "182.98"
-  }, {
-    "date": "2011-12-18",
-    "open": "182.98",
-    "high": "184.64",
-    "low": "180.90",
-    "close": "183.12"
-  }, {
-    "date": "2011-12-19",
-    "open": "185.43",
-    "high": "187.83",
-    "low": "183.33",
-    "close": "187.21"
-  }, {
-    "date": "2011-12-20",
-    "open": "190.12",
-    "high": "193.91",
-    "low": "189.89",
-    "close": "193.91"
-  }, {
-    "date": "2011-12-23",
-    "open": "195.03",
-    "high": "199.33",
-    "low": "194.79",
-    "close": "198.80"
-  }, {
-    "date": "2011-12-25",
-    "open": "199.01",
-    "high": "200.96",
-    "low": "196.82",
-    "close": "198.95"
-  }, {
-    "date": "2011-12-26",
-    "open": "198.95",
-    "high": "202.96",
-    "low": "197.80",
-    "close": "198.57"
-  }, {
-    "date": "2011-12-27",
-    "open": "200.59",
-    "high": "201.56",
-    "low": "196.88",
-    "close": "199.83"
-  }, {
-    "date": "2011-12-30",
-    "open": "199.50",
-    "high": "200.50",
-    "low": "197.75",
-    "close": "198.08"
-  }, {
-    "date": "2012-01-01",
-    "open": "199.27",
-    "high": "200.26",
-    "low": "192.55",
-    "close": "194.84"
-  }, {
-    "date": "2012-01-02",
-    "open": "195.41",
-    "high": "197.39",
-    "low": "192.69",
-    "close": "194.93"
-  }, {
-    "date": "2012-01-03",
-    "open": "191.45",
-    "high": "193.00",
-    "low": "178.89",
-    "close": "180.05"
-  }, {
-    "date": "2012-01-06",
-    "open": "181.25",
-    "high": "183.60",
-    "low": "170.23",
-    "close": "177.64"
-  }, {
-    "date": "2012-01-07",
-    "open": "180.14",
-    "high": "182.46",
-    "low": "170.80",
-    "close": "171.25"
-  }, {
-    "date": "2012-01-08",
-    "open": "171.30",
-    "high": "179.50",
-    "low": "168.30",
-    "close": "179.40"
-  }, {
-    "date": "2012-01-09",
-    "open": "177.58",
-    "high": "181.00",
-    "low": "175.41",
-    "close": "178.02"
-  }, {
-    "date": "2012-01-10",
-    "open": "176.00",
-    "high": "177.85",
-    "low": "170.00",
-    "close": "172.69"
-  }, {
-    "date": "2012-01-13",
-    "open": "177.52",
-    "high": "179.42",
-    "low": "175.17",
-    "close": "178.78"
-  }, {
-    "date": "2012-01-14",
-    "open": "177.72",
-    "high": "179.22",
-    "low": "164.66",
-    "close": "169.04"
-  }, {
-    "date": "2012-01-15",
-    "open": "165.23",
-    "high": "169.01",
-    "low": "156.70",
-    "close": "159.64"
-  }, {
-    "date": "2012-01-16",
-    "open": "161.51",
-    "high": "165.36",
-    "low": "158.42",
-    "close": "160.89"
-  }, {
-    "date": "2012-01-17",
-    "open": "161.71",
-    "high": "165.75",
-    "low": "159.61",
-    "close": "161.36"
-  }, {
-    "date": "2012-01-21",
-    "open": "148.06",
-    "high": "159.98",
-    "low": "146.00",
-    "close": "155.64"
-  }, {
-    "date": "2012-01-22",
-    "open": "136.19",
-    "high": "140.00",
-    "low": "126.14",
-    "close": "139.07"
-  }, {
-    "date": "2012-01-23",
-    "open": "139.99",
-    "high": "140.70",
-    "low": "132.01",
-    "close": "135.60"
-  }, {
-    "date": "2012-01-24",
-    "open": "138.99",
-    "high": "139.09",
-    "low": "129.61",
-    "close": "130.01"
-  }, {
-    "date": "2012-01-27",
-    "open": "128.16",
-    "high": "133.20",
-    "low": "126.45",
-    "close": "130.01"
-  }, {
-    "date": "2012-01-28",
-    "open": "131.15",
-    "high": "132.79",
-    "low": "129.05",
-    "close": "131.54"
-  }, {
-    "date": "2012-01-29",
-    "open": "131.37",
-    "high": "135.45",
-    "low": "130.00",
-    "close": "132.18"
-  }, {
-    "date": "2012-01-30",
-    "open": "129.45",
-    "high": "136.65",
-    "low": "129.40",
-    "close": "135.36"
-  }, {
-    "date": "2012-01-31",
-    "open": "136.24",
-    "high": "136.59",
-    "low": "132.18",
-    "close": "133.75"
-  }, {
-    "date": "2012-02-03",
-    "open": "134.21",
-    "high": "135.90",
-    "low": "131.42",
-    "close": "131.65"
-  }, {
-    "date": "2012-02-04",
-    "open": "130.43",
-    "high": "134.00",
-    "low": "128.90",
-    "close": "129.36"
-  }, {
-    "date": "2012-02-05",
-    "open": "130.83",
-    "high": "131.92",
-    "low": "121.77",
-    "close": "122.00"
-  }, {
-    "date": "2012-02-06",
-    "open": "119.97",
-    "high": "124.78",
-    "low": "117.27",
-    "close": "121.24"
-  }, {
-    "date": "2012-02-07",
-    "open": "122.08",
-    "high": "125.70",
-    "low": "121.60",
-    "close": "125.48"
-  }, {
-    "date": "2012-02-10",
-    "open": "128.01",
-    "high": "129.98",
-    "low": "127.20",
-    "close": "129.45"
-  }, {
-    "date": "2012-02-11",
-    "open": "130.70",
-    "high": "131.00",
-    "low": "123.62",
-    "close": "124.86"
-  }, {
-    "date": "2012-02-12",
-    "open": "126.68",
-    "high": "129.78",
-    "low": "125.63",
-    "close": "129.40"
-  } ],
+    "date": "2019-01-15",
+    "open": "2537.37",
+    "high": "2571.50",
+    "low": "2532.43",
+    "close": "2570.34"
+  }, {
+    "date": "2019-01-16",
+    "open": "2569.07",
+    "high": "2574.24",
+    "low": "2563.01",
+    "close": "2570.42"
+  }, {
+    "date": "2019-01-17",
+    "open": "2573.58",
+    "high": "2582.56",
+    "low": "2557.71",
+    "close": "2559.64"
+  }, {
+    "date": "2019-01-18",
+    "open": "2567.74",
+    "high": "2598.88",
+    "low": "2565.90",
+    "close": "2596.01"
+  }, {
+    "date": "2019-01-21",
+    "open": "2599.06",
+    "high": "2618.98",
+    "low": "2599.06",
+    "close": "2610.51"
+  }, {
+    "date": "2019-01-22",
+    "open": "2609.64",
+    "high": "2609.64",
+    "low": "2573.06",
+    "close": "2579.70"
+  }, {
+    "date": "2019-01-23",
+    "open": "2575.26",
+    "high": "2589.51",
+    "low": "2572.41",
+    "close": "2581.00"
+  }, {
+    "date": "2019-01-24",
+    "open": "2584.65",
+    "high": "2597.29",
+    "low": "2569.70",
+    "close": "2591.69"
+  }, {
+    "date": "2019-01-25",
+    "open": "2596.26",
+    "high": "2617.00",
+    "low": "2595.63",
+    "close": "2601.72"
+  }, {
+    "date": "2019-01-28",
+    "open": "2615.71",
+    "high": "2630.32",
+    "low": "2591.10",
+    "close": "2596.78"
+  }, {
+    "date": "2019-01-29",
+    "open": "2592.35",
+    "high": "2601.74",
+    "low": "2559.98",
+    "close": "2594.25"
+  }, {
+    "date": "2019-01-30",
+    "open": "2584.75",
+    "high": "2598.81",
+    "low": "2575.41",
+    "close": "2575.58"
+  }, {
+    "date": "2019-01-31",
+    "open": "2581.33",
+    "high": "2606.63",
+    "low": "2571.58",
+    "close": "2584.57"
+  }, {
+    "date": "2019-02-01",
+    "open": "2597.78",
+    "high": "2618.48",
+    "low": "2590.55",
+    "close": "2618.23"
+  }, {
+    "date": "2019-02-11",
+    "open": "2613.17",
+    "high": "2654.10",
+    "low": "2613.17",
+    "close": "2653.90"
+  }, {
+    "date": "2019-02-12",
+    "open": "2654.03",
+    "high": "2674.48",
+    "low": "2648.83",
+    "close": "2671.89"
+  }, {
+    "date": "2019-02-13",
+    "open": "2674.52",
+    "high": "2727.07",
+    "low": "2666.52",
+    "close": "2721.07"
+  }, {
+    "date": "2019-02-14",
+    "open": "2715.54",
+    "high": "2729.46",
+    "low": "2707.49",
+    "close": "2719.70"
+  }, {
+    "date": "2019-02-15",
+    "open": "2712.79",
+    "high": "2715.63",
+    "low": "2679.78",
+    "close": "2682.39"
+  }, {
+    "date": "2019-02-18",
+    "open": "2699.82",
+    "high": "2754.36",
+    "low": "2699.82",
+    "close": "2754.36"
+  }, {
+    "date": "2019-02-19",
+    "open": "2759.50",
+    "high": "2780.78",
+    "low": "2739.59",
+    "close": "2755.65"
+  }, {
+    "date": "2019-02-20",
+    "open": "2761.06",
+    "high": "2767.41",
+    "low": "2739.98",
+    "close": "2761.22"
+  }, {
+    "date": "2019-02-21",
+    "open": "2759.94",
+    "high": "2794.01",
+    "low": "2744.98",
+    "close": "2751.80"
+  }, {
+    "date": "2019-02-22",
+    "open": "2749.46",
+    "high": "2804.23",
+    "low": "2736.33",
+    "close": "2804.23"
+  }, {
+    "date": "2019-02-25",
+    "open": "2838.39",
+    "high": "2961.80",
+    "low": "2838.39",
+    "close": "2961.28"
+  }, {
+    "date": "2019-02-26",
+    "open": "2969.10",
+    "high": "2995.68",
+    "low": "2938.62",
+    "close": "2941.52"
+  }, {
+    "date": "2019-02-27",
+    "open": "2939.93",
+    "high": "2997.49",
+    "low": "2924.64",
+    "close": "2953.82"
+  }, {
+    "date": "2019-02-28",
+    "open": "2950.05",
+    "high": "2965.30",
+    "low": "2930.20",
+    "close": "2940.95"
+  }, {
+    "date": "2019-03-01",
+    "open": "2954.40",
+    "high": "2994.00",
+    "low": "2930.83",
+    "close": "2994.00"
+  }, {
+    "date": "2019-03-04",
+    "open": "3015.94",
+    "high": "3090.80",
+    "low": "3006.94",
+    "close": "3027.58"
+  }, {
+    "date": "2019-03-05",
+    "open": "3019.88",
+    "high": "3054.96",
+    "low": "3009.45",
+    "close": "3054.25"
+  }, {
+    "date": "2019-03-06",
+    "open": "3060.43",
+    "high": "3103.83",
+    "low": "3050.11",
+    "close": "3102.10"
+  }, {
+    "date": "2019-03-07",
+    "open": "3103.67",
+    "high": "3129.94",
+    "low": "3074.98",
+    "close": "3106.42"
+  }, {
+    "date": "2019-03-08",
+    "open": "3038.34",
+    "high": "3075.05",
+    "low": "2969.58",
+    "close": "2969.86"
+  }, {
+    "date": "2019-03-11",
+    "open": "2969.08",
+    "high": "3028.25",
+    "low": "2963.58",
+    "close": "3026.99"
+  }, {
+    "date": "2019-03-12",
+    "open": "3049.08",
+    "high": "3093.39",
+    "low": "3029.90",
+    "close": "3060.31"
+  }, {
+    "date": "2019-03-13",
+    "open": "3062.33",
+    "high": "3065.29",
+    "low": "3013.93",
+    "close": "3026.95"
+  }, {
+    "date": "2019-03-14",
+    "open": "3013.60",
+    "high": "3041.16",
+    "low": "2968.82",
+    "close": "2990.69"
+  }, {
+    "date": "2019-03-15",
+    "open": "3000.88",
+    "high": "3048.12",
+    "low": "2999.43",
+    "close": "3021.75"
+  }, {
+    "date": "2019-03-18",
+    "open": "3027.80",
+    "high": "3096.42",
+    "low": "3009.51",
+    "close": "3096.42"
+  }, {
+    "date": "2019-03-19",
+    "open": "3099.90",
+    "high": "3113.43",
+    "low": "3076.36",
+    "close": "3090.98"
+  }, {
+    "date": "2019-03-20",
+    "open": "3084.17",
+    "high": "3102.52",
+    "low": "3053.45",
+    "close": "3090.64"
+  }, {
+    "date": "2019-03-21",
+    "open": "3094.12",
+    "high": "3125.02",
+    "low": "3086.85",
+    "close": "3101.46"
+  }, {
+    "date": "2019-03-22",
+    "open": "3100.73",
+    "high": "3107.28",
+    "low": "3064.88",
+    "close": "3104.15"
+  }, {
+    "date": "2019-03-25",
+    "open": "3058.80",
+    "high": "3087.00",
+    "low": "3041.95",
+    "close": "3043.03"
+  }, {
+    "date": "2019-03-26",
+    "open": "3057.56",
+    "high": "3062.69",
+    "low": "2988.49",
+    "close": "2997.10"
+  }, {
+    "date": "2019-03-27",
+    "open": "3012.26",
+    "high": "3022.76",
+    "low": "2987.77",
+    "close": "3022.72"
+  }, {
+    "date": "2019-03-28",
+    "open": "3009.80",
+    "high": "3025.78",
+    "low": "2991.78",
+    "close": "2994.94"
+  }, {
+    "date": "2019-03-29",
+    "open": "3000.68",
+    "high": "3093.03",
+    "low": "2999.99",
+    "close": "3090.76"
+  }, {
+    "date": "2019-04-01",
+    "open": "3111.66",
+    "high": "3176.62",
+    "low": "3111.66",
+    "close": "3170.36"
+  }, {
+    "date": "2019-04-02",
+    "open": "3183.27",
+    "high": "3193.27",
+    "low": "3164.91",
+    "close": "3176.82"
+  }, {
+    "date": "2019-04-03",
+    "open": "3159.15",
+    "high": "3219.26",
+    "low": "3152.33",
+    "close": "3216.30"
+  }, {
+    "date": "2019-04-04",
+    "open": "3233.69",
+    "high": "3254.14",
+    "low": "3216.85",
+    "close": "3246.57"
+  }, {
+    "date": "2019-04-08",
+    "open": "3271.27",
+    "high": "3288.45",
+    "low": "3210.52",
+    "close": "3244.81"
+  }, {
+    "date": "2019-04-09",
+    "open": "3240.39",
+    "high": "3251.65",
+    "low": "3215.70",
+    "close": "3239.66"
+  }, {
+    "date": "2019-04-10",
+    "open": "3224.65",
+    "high": "3264.78",
+    "low": "3204.88",
+    "close": "3241.93"
+  }, {
+    "date": "2019-04-11",
+    "open": "3241.55",
+    "high": "3254.13",
+    "low": "3185.55",
+    "close": "3189.96"
+  }, {
+    "date": "2019-04-12",
+    "open": "3184.86",
+    "high": "3199.28",
+    "low": "3168.04",
+    "close": "3188.63"
+  }, {
+    "date": "2019-04-15",
+    "open": "3233.46",
+    "high": "3253.98",
+    "low": "3177.27",
+    "close": "3177.79"
+  }, {
+    "date": "2019-04-16",
+    "open": "3164.40",
+    "high": "3253.60",
+    "low": "3153.21",
+    "close": "3253.60"
+  }, {
+    "date": "2019-04-17",
+    "open": "3250.15",
+    "high": "3275.33",
+    "low": "3239.80",
+    "close": "3263.12"
+  }, {
+    "date": "2019-04-18",
+    "open": "3261.07",
+    "high": "3271.39",
+    "low": "3241.83",
+    "close": "3250.20"
+  }, {
+    "date": "2019-04-19",
+    "open": "3250.15",
+    "high": "3274.33",
+    "low": "3226.81",
+    "close": "3270.80"
+  }, {
+    "date": "2019-04-22",
+    "open": "3278.49",
+    "high": "3279.49",
+    "low": "3206.88",
+    "close": "3215.04"
+  }, {
+    "date": "2019-04-23",
+    "open": "3211.87",
+    "high": "3231.58",
+    "low": "3186.76",
+    "close": "3198.59"
+  }, {
+    "date": "2019-04-24",
+    "open": "3203.56",
+    "high": "3210.65",
+    "low": "3156.61",
+    "close": "3201.61"
+  }, {
+    "date": "2019-04-25",
+    "open": "3190.59",
+    "high": "3193.75",
+    "low": "3123.03",
+    "close": "3123.83"
+  }, {
+    "date": "2019-04-26",
+    "open": "3108.16",
+    "high": "3129.21",
+    "low": "3085.80",
+    "close": "3086.40"
+  }, {
+    "date": "2019-04-29",
+    "open": "3090.63",
+    "high": "3107.76",
+    "low": "3050.03",
+    "close": "3062.50"
+  }, {
+    "date": "2019-04-30",
+    "open": "3052.62",
+    "high": "3088.41",
+    "low": "3052.62",
+    "close": "3078.34"
+  }, {
+    "date": "2019-05-06",
+    "open": "2984.73",
+    "high": "2986.54",
+    "low": "2876.47",
+    "close": "2906.46"
+  }, {
+    "date": "2019-05-07",
+    "open": "2914.29",
+    "high": "2937.28",
+    "low": "2889.07",
+    "close": "2926.39"
+  }, {
+    "date": "2019-05-08",
+    "open": "2873.14",
+    "high": "2929.43",
+    "low": "2866.70",
+    "close": "2893.76"
+  }, {
+    "date": "2019-05-09",
+    "open": "2871.20",
+    "high": "2888.86",
+    "low": "2845.04",
+    "close": "2850.95"
+  }, {
+    "date": "2019-05-10",
+    "open": "2878.23",
+    "high": "2941.45",
+    "low": "2838.38",
+    "close": "2939.21"
+  }, {
+    "date": "2019-05-13",
+    "open": "2905.07",
+    "high": "2921.41",
+    "low": "2892.17",
+    "close": "2903.71"
+  }, {
+    "date": "2019-05-14",
+    "open": "2872.83",
+    "high": "2909.20",
+    "low": "2872.83",
+    "close": "2883.61"
+  }, {
+    "date": "2019-05-15",
+    "open": "2902.64",
+    "high": "2945.39",
+    "low": "2902.64",
+    "close": "2938.68"
+  }, {
+    "date": "2019-05-16",
+    "open": "2933.50",
+    "high": "2956.17",
+    "low": "2929.06",
+    "close": "2955.71"
+  }, {
+    "date": "2019-05-17",
+    "open": "2955.77",
+    "high": "2956.78",
+    "low": "2973.80",
+    "close": "2882.30"
+  }],
   "export": {
     "enabled": true,
     "position": "bottom-right"
@@ -942,38 +855,1962 @@ var chart = AmCharts.makeChart( "chartdiv", {
 chart.addListener( "rendered", zoomChart );
 zoomChart();
 
-// this method is called when chart is first inited as we listen for "dataUpdated" event
 function zoomChart() {
-  // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
   chart.zoomToIndexes( chart.dataProvider.length - 50, chart.dataProvider.length - 1 );
 }
 </script>
+<script>
+  var chart = AmCharts.makeChart( "chartdiv2", {
+  "type": "serial",
+  "theme": "none",
+  "dataDateFormat":"YYYY-MM-DD",
+  "valueAxes": [ {
+    "position": "left"
+  } ],
+  "graphs": [ {
+    "id": "g1",
+    "proCandlesticks": true,
+    "balloonText": "Open:<b>[[open]]</b><br>Low:<b>[[low]]</b><br>High:<b>[[high]]</b><br>Close:<b>[[close]]</b><br>",
+    "closeField": "close",
+    "fillColors": "#7f8da9",
+    "highField": "high",
+    "lineColor": "#7f8da9",
+    "lineAlpha": 1,
+    "lowField": "low",
+    "fillAlphas": 0.9,
+    "negativeFillColors": "#db4c3c",
+    "negativeLineColor": "#db4c3c",
+    "openField": "open",
+    "title": "Price:",
+    "type": "candlestick",
+    "valueField": "close"
+  } ],
+  "chartScrollbar": {
+    "graph": "g1",
+    "graphType": "line",
+    "scrollbarHeight": 30
+  },
+  "chartCursor": {
+    "valueLineEnabled": true,
+    "valueLineBalloonEnabled": true
+  },
+  "categoryField": "date",
+  "categoryAxis": {
+    "parseDates": true
+  },
+  "dataProvider": [ {
+    "date": "2019-01-16",
+    "open": "7545.35",
+    "high": "7586.66",
+    "low": "7518.71",
+    "close": "7540.45"
+  }, {
+    "date": "2019-01-17",
+    "open": "7534.04",
+    "high": "7545.81",
+    "low": "7463.99",
+    "close": "7470.36"
+  }, {
+    "date": "2019-01-18",
+    "open": "7486.95",
+    "high": "7584.76",
+    "low": "7479.66",
+    "close": "7581.39"
+  }, {
+    "date": "2019-01-21",
+    "open": "7591.19",
+    "high": "7661.62",
+    "low": "7578.49",
+    "close": "7626.24"
+  }, {
+    "date": "2019-01-22",
+    "open": "7615.80",
+    "high": "7615.80",
+    "low": "7493.78",
+    "close": "7516.79"
+  }, {
+    "date": "2019-01-23",
+    "open": "7493.07",
+    "high": "7542.65",
+    "low": "7489.32",
+    "close": "7523.77"
+  }, {
+    "date": "2019-01-24",
+    "open": "7537.50",
+    "high": "7604.99",
+    "low": "7485.24",
+    "close": "7573.53"
+  }, {
+    "date": "2019-01-25",
+    "open": "7581.29",
+    "high": "7657.03",
+    "low": "7554.55",
+    "close": "7595.45"
+  }, {
+    "date": "2019-01-28",
+    "open": "7641.29",
+    "high": "7704.85",
+    "low": "7569.77",
+    "close": "7589.58"
+  }, {
+    "date": "2019-01-29",
+    "open": "7575.43",
+    "high": "7578.13",
+    "low": "7428.40",
+    "close": "7551.30"
+  }, {
+    "date": "2019-01-30",
+    "open": "7518.03",
+    "high": "7580.22",
+    "low": "7470.36",
+    "close": "7470.47"
+  }, {
+    "date": "2019-01-31",
+    "open": "7485.79",
+    "high": "7552.56",
+    "low": "7428.86",
+    "close": "7479.22"
+  }, {
+    "date": "2019-02-01",
+    "open": "7524.67",
+    "high": "7684.11",
+    "low": "7517.83",
+    "close": "7684.00"
+  }, {
+    "date": "2019-02-11",
+    "open": "7695.17",
+    "high": "7922.54",
+    "low": "7695.17",
+    "close": "7919.05"
+  }, {
+    "date": "2019-02-12",
+    "open": "7915.06",
+    "high": "8027.63",
+    "low": "7903.90",
+    "close": "8010.08"
+  }, {
+    "date": "2019-02-13",
+    "open": "8029.97",
+    "high": "8191.98",
+    "low": "8016.78",
+    "close": "8171.21"
+  }, {
+    "date": "2019-02-14",
+    "open": "8182.32",
+    "high": "8260.33",
+    "low": "8141.10",
+    "close": "8219.96"
+  }, {
+    "date": "2019-02-15",
+    "open": "8198.45",
+    "high": "8223.64",
+    "low": "8117.51",
+    "close": "8125.64"
+  }, {
+    "date": "2019-02-18",
+    "open": "8187.89",
+    "high": "8446.92",
+    "low": "8187.89",
+    "close": "8446.92"
+  }, {
+    "date": "2019-02-19",
+    "open": "8480.76",
+    "high": "8537.35",
+    "low": "8350.86",
+    "close": "8440.87"
+  }, {
+    "date": "2019-02-20",
+    "open": "8443.98",
+    "high": "8488.47",
+    "low": "8372.96",
+    "close": "8473.43"
+  }, {
+    "date": "2019-02-21",
+    "open": "8467.15",
+    "high": "8619.62",
+    "low": "8416.17",
+    "close": "8451.71"
+  }, {
+    "date": "2019-02-22",
+    "open": "8431.56",
+    "high": "8651.20",
+    "low": "8393.86",
+    "close": "8651.20"
+  }, {
+    "date": "2019-02-25",
+    "open": "8804.97",
+    "high": "9134.58",
+    "low": "8785.42",
+    "close": "9134.58"
+  }, {
+    "date": "2019-02-26",
+    "open": "9162.92",
+    "high": "9276.45",
+    "low": "9036.75",
+    "close": "9089.04"
+  }, {
+    "date": "2019-02-27",
+    "open": "9062.96",
+    "high": "9158.20",
+    "low": "8901.72",
+    "close": "9005.77"
+  }, {
+    "date": "2019-02-28",
+    "open": "9001.18",
+    "high": "9097.40",
+    "low": "8970.65",
+    "close": "9031.93"
+  }, {
+    "date": "2019-03-01",
+    "open": "9111.96",
+    "high": "9167.65",
+    "low": "9005.49",
+    "close": "9167.65"
+  }, {
+    "date": "2019-03-04",
+    "open": "9280.65",
+    "high": "9567.15",
+    "low": "9260.73",
+    "close": "9384.42"
+  }, {
+    "date": "2019-03-05",
+    "open": "9366.77",
+    "high": "9595.74",
+    "low": "9328.00",
+    "close": "9595.74"
+  }, {
+    "date": "2019-03-06",
+    "open": "9640.95",
+    "high": "9707.92",
+    "low": "9518.71",
+    "close": "9700.49"
+  }, {
+    "date": "2019-03-07",
+    "open": "9685.30",
+    "high": "9782.22",
+    "low": "9546.55",
+    "close": "9678.11"
+  }, {
+    "date": "2019-03-08",
+    "open": "9447.60",
+    "high": "9726.30",
+    "low": "9346.73",
+    "close": "9363.72"
+  }, {
+    "date": "2019-03-11",
+    "open": "9425.80",
+    "high": "9704.33",
+    "low": "9370.38",
+    "close": "9704.33"
+   }, {
+    "date": "2019-03-12",
+    "open": "9766.50",
+    "high": "9928.20",
+    "low": "9683.07",
+    "close": "9841.24"
+  }, {
+    "date": "2019-03-13",
+    "open": "9828.15",
+    "high": "9828.15",
+    "low": "9534.33",
+    "close": "9592.06"
+  }, {
+    "date": "2019-03-14",
+    "open": "9521.62",
+    "high": "9620.46",
+    "low": "9323.06",
+    "close": "9417.93"
+  }, {
+    "date": "2019-03-15",
+    "open": "9485.33",
+    "high": "9650.54",
+    "low": "9452.91",
+    "close": "9550.54"
+  }, {
+    "date": "2019-03-18",
+    "open": "9583.45",
+    "high": "9843.43",
+    "low": "9510.66",
+    "close": "9843.43"
+  }, {
+    "date": "2019-03-19",
+    "open": "9844.46",
+    "high": "9908.17",
+    "low": "9774.75",
+    "close": "9839.74"
+  }, {
+    "date": "2019-03-20",
+    "open": "9828.07",
+    "high": "9848.77",
+    "low": "9642.67",
+    "close": "9800.60"
+  }, {
+    "date": "2019-03-21",
+    "open": "9808.74",
+    "high": "9934.86",
+    "low": "9771.86",
+    "close": "9869.80"
+  }, {
+    "date": "2019-03-22",
+    "open": "9871.99",
+    "high": "9891.83",
+    "low": "9692.25",
+    "close": "9879.22"
+  }, {
+    "date": "2019-03-25",
+    "open": "9705.02",
+    "high": "9858.08",
+    "low": "9680.94",
+    "close": "9701.70"
+  }, {
+    "date": "2019-03-26",
+    "open": "9753.17",
+    "high": "9780.08",
+    "low": "9487.10",
+    "close": "9513.00"
+  }, {
+    "date": "2019-03-27",
+    "open": "9582.03",
+    "high": "9609.43",
+    "low": "9446.35",
+    "close": "9609.44"
+  }, {
+    "date": "2019-03-28",
+    "open": "9586.38",
+    "high": "9695.52",
+    "low": "9537.61",
+    "close": "9546.51"
+  }, {
+    "date": "2019-03-29",
+    "open": "9556.30",
+    "high": "9906.86",
+    "low": "9554.07",
+    "close": "9906.86"
+  }, {
+    "date": "2019-04-01",
+    "open": "9976.98",
+    "high": "10277.55",
+    "low": "9976.98",
+    "close": "10267.70"
+  }, {
+    "date": "2019-04-02",
+    "open": "10314.79",
+    "high": "10334.96",
+    "low": "10220.81",
+    "close": "10260.36"
+  }, {
+    "date": "2019-04-03",
+    "open": "10199.97",
+    "high": "10350.57",
+    "low": "10166.67",
+    "close": "10340.51"
+  }, {
+    "date": "2019-04-04",
+    "open": "10379.20",
+    "high": "10453.50",
+    "low": "10309.53",
+    "close": "10415.80"
+  }, {
+    "date": "2019-04-08",
+    "open": "10510.43",
+    "high": "10541.18",
+    "low": "10226.25",
+    "close": "10351.87"
+  }, {
+    "date": "2019-04-09",
+    "open": "10368.03",
+    "high": "10438.99",
+    "low": "10304.73",
+    "close": "10436.62"
+  }, {
+    "date": "2019-04-10",
+    "open": "10403.24",
+    "high": "10529.74",
+    "low": "10328.61",
+    "close": "10435.08"
+  }, {
+    "date": "2019-04-11",
+    "open": "10420.65",
+    "high": "10437.45",
+    "low": "10149.38",
+    "close": "10158.40"
+  }, {
+    "date": "2019-04-12",
+    "open": "10138.09",
+    "high": "10186.47",
+    "low": "10053.81",
+    "close": "10132.34"
+  }, {
+    "date": "2019-04-15",
+    "open": "10294.83",
+    "high": "10365.31",
+    "low": "10048.83",
+    "close": "10053.76"
+  }, {
+    "date": "2019-04-16",
+    "open": "9993.25",
+    "high": "10287.64",
+    "low": "9928.28",
+    "close": "10287.64"
+  }, {
+    "date": "2019-04-17",
+    "open": "10288.45",
+    "high": "10410.65",
+    "low": "10257.56",
+    "close": "10344.43"
+  }, {
+    "date": "2019-04-18",
+    "open": "10338.50",
+    "high": "10363.85",
+    "low": "10267.31",
+    "close": "10287.67"
+  }, {
+    "date": "2019-04-19",
+    "open": "10280.34",
+    "high": "10418.24",
+    "low": "10208.61",
+    "close": "10418.24"
+  }, {
+    "date": "2019-04-22",
+    "open": "10418.71",
+    "high": "10418.71",
+    "low": "10192.52",
+    "close": "10224.31"
+  }, {
+    "date": "2019-04-23",
+    "open": "10206.02",
+    "high": "10247.39",
+    "low": "10091.92",
+    "close": "10124.66"
+  }, {
+    "date": "2019-04-24",
+    "open": "10162.38",
+    "high": "10239.37",
+    "low": "10023.91",
+    "close": "10236.27"
+  }, {
+    "date": "2019-04-25",
+    "open": "10186.23",
+    "high": "10209.14",
+    "low": "9902.02",
+    "close": "9907.63"
+  }, {
+    "date": "2019-04-26",
+    "open": "9852.94",
+    "high": "9927.74",
+    "low": "9774.75",
+    "close": "9780.82"
+  }, {
+    "date": "2019-04-29",
+    "open": "9775.95",
+    "high": "9822.82",
+    "low": "9597.09",
+    "close": "9622.49"
+  }, {
+    "date": "2019-04-30",
+    "open": "9573.41",
+    "high": "9730.55",
+    "low": "9573.39",
+    "close": "9674.54"
+  }, {
+    "date": "2019-05-06",
+    "open": "9289.74",
+    "high": "9333.92",
+    "low": "8893.15",
+    "close": "8943.52"
+  }, {
+    "date": "2019-05-07",
+    "open": "9011.52",
+    "high": "9160.52",
+    "low": "8928.57",
+    "close": "9089.46"
+  }, {
+    "date": "2019-05-08",
+    "open": "8899.91",
+    "high": "9167.81",
+    "low": "8873.44",
+    "close": "9002.53"
+  }, {
+    "date": "2019-05-09",
+    "open": "8919.50",
+    "high": "9012.24",
+    "low": "8860.17",
+    "close": "8877.31"
+  }, {
+    "date": "2019-05-10",
+    "open": "8988.92",
+    "high": "9238.55",
+    "low": "8820.59",
+    "close": "9235.39"
+  }, {
+    "date": "2019-05-13",
+    "open": "9112.52",
+    "high": "9191.07",
+    "low": "9059.32",
+    "close": "9103.36"
+  }, {
+    "date": "2019-05-14",
+    "open": "8998.97",
+    "high": "9142.46",
+    "low": "8996.92",
+    "close": "9038.36"
+  }, {
+    "date": "2019-05-15",
+    "open": "9125.27",
+    "high": "9282.96",
+    "low": "9123.91",
+    "close": "9259.03"
+  }, {
+    "date": "2019-05-16",
+    "open": "9247.99",
+    "high": "9307.22",
+    "low": "9211.75",
+    "close": "9293.32"
+  }, {
+    "date": "2019-05-17",
+    "open": "9299.46",
+    "high": "9303.05",
+    "low": "8964.37",
+    "close": "9000.19"
+  }, {
+    "date": "2019-05-20",
+    "open": "8980.80",
+    "high": "8994.18",
+    "low": "8792.84",
+    "close": "8916.11"
+  }],
+  "export": {
+    "enabled": true,
+    "position": "bottom-right"
+  }
+} );
+
+chart.addListener( "rendered", zoomChart );
+zoomChart();
+
+function zoomChart() {
+  chart.zoomToIndexes( chart.dataProvider.length - 50, chart.dataProvider.length - 1 );
+}
+</script>
+<script>
+  var chart = AmCharts.makeChart( "chartdiv3", {
+  "type": "serial",
+  "theme": "none",
+  "dataDateFormat":"YYYY-MM-DD",
+  "valueAxes": [ {
+    "position": "left"
+  } ],
+  "graphs": [ {
+    "id": "g1",
+    "proCandlesticks": true,
+    "balloonText": "Open:<b>[[open]]</b><br>Low:<b>[[low]]</b><br>High:<b>[[high]]</b><br>Close:<b>[[close]]</b><br>",
+    "closeField": "close",
+    "fillColors": "#7f8da9",
+    "highField": "high",
+    "lineColor": "#7f8da9",
+    "lineAlpha": 1,
+    "lowField": "low",
+    "fillAlphas": 0.9,
+    "negativeFillColors": "#db4c3c",
+    "negativeLineColor": "#db4c3c",
+    "openField": "open",
+    "title": "Price:",
+    "type": "candlestick",
+    "valueField": "close"
+  } ],
+  "chartScrollbar": {
+    "graph": "g1",
+    "graphType": "line",
+    "scrollbarHeight": 30
+  },
+  "chartCursor": {
+    "valueLineEnabled": true,
+    "valueLineBalloonEnabled": true
+  },
+  "categoryField": "date",
+  "categoryAxis": {
+    "parseDates": true
+  },
+  "dataProvider": [ {
+    "date": "2019-01-15",
+    "open": "2537.37",
+    "high": "2571.50",
+    "low": "2532.43",
+    "close": "2570.34"
+  }, {
+    "date": "2019-01-16",
+    "open": "2569.07",
+    "high": "2574.24",
+    "low": "2563.01",
+    "close": "2570.42"
+  }, {
+    "date": "2019-01-17",
+    "open": "2573.58",
+    "high": "2582.56",
+    "low": "2557.71",
+    "close": "2559.64"
+  }, {
+    "date": "2019-01-18",
+    "open": "2567.74",
+    "high": "2598.88",
+    "low": "2565.90",
+    "close": "2596.01"
+  }, {
+    "date": "2019-01-21",
+    "open": "2599.06",
+    "high": "2618.98",
+    "low": "2599.06",
+    "close": "2610.51"
+  }, {
+    "date": "2019-01-22",
+    "open": "2609.64",
+    "high": "2609.64",
+    "low": "2573.06",
+    "close": "2579.70"
+  }, {
+    "date": "2019-01-23",
+    "open": "2575.26",
+    "high": "2589.51",
+    "low": "2572.41",
+    "close": "2581.00"
+  }, {
+    "date": "2019-01-24",
+    "open": "2584.65",
+    "high": "2597.29",
+    "low": "2569.70",
+    "close": "2591.69"
+  }, {
+    "date": "2019-01-25",
+    "open": "2596.26",
+    "high": "2617.00",
+    "low": "2595.63",
+    "close": "2601.72"
+  }, {
+    "date": "2019-01-28",
+    "open": "2615.71",
+    "high": "2630.32",
+    "low": "2591.10",
+    "close": "2596.78"
+  }, {
+    "date": "2019-01-29",
+    "open": "2592.35",
+    "high": "2601.74",
+    "low": "2559.98",
+    "close": "2594.25"
+  }, {
+    "date": "2019-01-30",
+    "open": "2584.75",
+    "high": "2598.81",
+    "low": "2575.41",
+    "close": "2575.58"
+  }, {
+    "date": "2019-01-31",
+    "open": "2581.33",
+    "high": "2606.63",
+    "low": "2571.58",
+    "close": "2584.57"
+  }, {
+    "date": "2019-02-01",
+    "open": "2597.78",
+    "high": "2618.48",
+    "low": "2590.55",
+    "close": "2618.23"
+  }, {
+    "date": "2019-02-11",
+    "open": "2613.17",
+    "high": "2654.10",
+    "low": "2613.17",
+    "close": "2653.90"
+  }, {
+    "date": "2019-02-12",
+    "open": "2654.03",
+    "high": "2674.48",
+    "low": "2648.83",
+    "close": "2671.89"
+  }, {
+    "date": "2019-02-13",
+    "open": "2674.52",
+    "high": "2727.07",
+    "low": "2666.52",
+    "close": "2721.07"
+  }, {
+    "date": "2019-02-14",
+    "open": "2715.54",
+    "high": "2729.46",
+    "low": "2707.49",
+    "close": "2719.70"
+  }, {
+    "date": "2019-02-15",
+    "open": "2712.79",
+    "high": "2715.63",
+    "low": "2679.78",
+    "close": "2682.39"
+  }, {
+    "date": "2019-02-18",
+    "open": "2699.82",
+    "high": "2754.36",
+    "low": "2699.82",
+    "close": "2754.36"
+  }, {
+    "date": "2019-02-19",
+    "open": "2759.50",
+    "high": "2780.78",
+    "low": "2739.59",
+    "close": "2755.65"
+  }, {
+    "date": "2019-02-20",
+    "open": "2761.06",
+    "high": "2767.41",
+    "low": "2739.98",
+    "close": "2761.22"
+  }, {
+    "date": "2019-02-21",
+    "open": "2759.94",
+    "high": "2794.01",
+    "low": "2744.98",
+    "close": "2751.80"
+  }, {
+    "date": "2019-02-22",
+    "open": "2749.46",
+    "high": "2804.23",
+    "low": "2736.33",
+    "close": "2804.23"
+  }, {
+    "date": "2019-02-25",
+    "open": "2838.39",
+    "high": "2961.80",
+    "low": "2838.39",
+    "close": "2961.28"
+  }, {
+    "date": "2019-02-26",
+    "open": "2969.10",
+    "high": "2995.68",
+    "low": "2938.62",
+    "close": "2941.52"
+  }, {
+    "date": "2019-02-27",
+    "open": "2939.93",
+    "high": "2997.49",
+    "low": "2924.64",
+    "close": "2953.82"
+  }, {
+    "date": "2019-02-28",
+    "open": "2950.05",
+    "high": "2965.30",
+    "low": "2930.20",
+    "close": "2940.95"
+  }, {
+    "date": "2019-03-01",
+    "open": "2954.40",
+    "high": "2994.00",
+    "low": "2930.83",
+    "close": "2994.00"
+  }, {
+    "date": "2019-03-04",
+    "open": "3015.94",
+    "high": "3090.80",
+    "low": "3006.94",
+    "close": "3027.58"
+  }, {
+    "date": "2019-03-05",
+    "open": "3019.88",
+    "high": "3054.96",
+    "low": "3009.45",
+    "close": "3054.25"
+  }, {
+    "date": "2019-03-06",
+    "open": "3060.43",
+    "high": "3103.83",
+    "low": "3050.11",
+    "close": "3102.10"
+  }, {
+    "date": "2019-03-07",
+    "open": "3103.67",
+    "high": "3129.94",
+    "low": "3074.98",
+    "close": "3106.42"
+  }, {
+    "date": "2019-03-08",
+    "open": "3038.34",
+    "high": "3075.05",
+    "low": "2969.58",
+    "close": "2969.86"
+  }, {
+    "date": "2019-03-11",
+    "open": "2969.08",
+    "high": "3028.25",
+    "low": "2963.58",
+    "close": "3026.99"
+  }, {
+    "date": "2019-03-12",
+    "open": "3049.08",
+    "high": "3093.39",
+    "low": "3029.90",
+    "close": "3060.31"
+  }, {
+    "date": "2019-03-13",
+    "open": "3062.33",
+    "high": "3065.29",
+    "low": "3013.93",
+    "close": "3026.95"
+  }, {
+    "date": "2019-03-14",
+    "open": "3013.60",
+    "high": "3041.16",
+    "low": "2968.82",
+    "close": "2990.69"
+  }, {
+    "date": "2019-03-15",
+    "open": "3000.88",
+    "high": "3048.12",
+    "low": "2999.43",
+    "close": "3021.75"
+  }, {
+    "date": "2019-03-18",
+    "open": "3027.80",
+    "high": "3096.42",
+    "low": "3009.51",
+    "close": "3096.42"
+  }, {
+    "date": "2019-03-19",
+    "open": "3099.90",
+    "high": "3113.43",
+    "low": "3076.36",
+    "close": "3090.98"
+  }, {
+    "date": "2019-03-20",
+    "open": "3084.17",
+    "high": "3102.52",
+    "low": "3053.45",
+    "close": "3090.64"
+  }, {
+    "date": "2019-03-21",
+    "open": "3094.12",
+    "high": "3125.02",
+    "low": "3086.85",
+    "close": "3101.46"
+  }, {
+    "date": "2019-03-22",
+    "open": "3100.73",
+    "high": "3107.28",
+    "low": "3064.88",
+    "close": "3104.15"
+  }, {
+    "date": "2019-03-25",
+    "open": "3058.80",
+    "high": "3087.00",
+    "low": "3041.95",
+    "close": "3043.03"
+  }, {
+    "date": "2019-03-26",
+    "open": "3057.56",
+    "high": "3062.69",
+    "low": "2988.49",
+    "close": "2997.10"
+  }, {
+    "date": "2019-03-27",
+    "open": "3012.26",
+    "high": "3022.76",
+    "low": "2987.77",
+    "close": "3022.72"
+  }, {
+    "date": "2019-03-28",
+    "open": "3009.80",
+    "high": "3025.78",
+    "low": "2991.78",
+    "close": "2994.94"
+  }, {
+    "date": "2019-03-29",
+    "open": "3000.68",
+    "high": "3093.03",
+    "low": "2999.99",
+    "close": "3090.76"
+  }, {
+    "date": "2019-04-01",
+    "open": "3111.66",
+    "high": "3176.62",
+    "low": "3111.66",
+    "close": "3170.36"
+  }, {
+    "date": "2019-04-02",
+    "open": "3183.27",
+    "high": "3193.27",
+    "low": "3164.91",
+    "close": "3176.82"
+  }, {
+    "date": "2019-04-03",
+    "open": "3159.15",
+    "high": "3219.26",
+    "low": "3152.33",
+    "close": "3216.30"
+  }, {
+    "date": "2019-04-04",
+    "open": "3233.69",
+    "high": "3254.14",
+    "low": "3216.85",
+    "close": "3246.57"
+  }, {
+    "date": "2019-04-08",
+    "open": "3271.27",
+    "high": "3288.45",
+    "low": "3210.52",
+    "close": "3244.81"
+  }, {
+    "date": "2019-04-09",
+    "open": "3240.39",
+    "high": "3251.65",
+    "low": "3215.70",
+    "close": "3239.66"
+  }, {
+    "date": "2019-04-10",
+    "open": "3224.65",
+    "high": "3264.78",
+    "low": "3204.88",
+    "close": "3241.93"
+  }, {
+    "date": "2019-04-11",
+    "open": "3241.55",
+    "high": "3254.13",
+    "low": "3185.55",
+    "close": "3189.96"
+  }, {
+    "date": "2019-04-12",
+    "open": "3184.86",
+    "high": "3199.28",
+    "low": "3168.04",
+    "close": "3188.63"
+  }, {
+    "date": "2019-04-15",
+    "open": "3233.46",
+    "high": "3253.98",
+    "low": "3177.27",
+    "close": "3177.79"
+  }, {
+    "date": "2019-04-16",
+    "open": "3164.40",
+    "high": "3253.60",
+    "low": "3153.21",
+    "close": "3253.60"
+  }, {
+    "date": "2019-04-17",
+    "open": "3250.15",
+    "high": "3275.33",
+    "low": "3239.80",
+    "close": "3263.12"
+  }, {
+    "date": "2019-04-18",
+    "open": "3261.07",
+    "high": "3271.39",
+    "low": "3241.83",
+    "close": "3250.20"
+  }, {
+    "date": "2019-04-19",
+    "open": "3250.15",
+    "high": "3274.33",
+    "low": "3226.81",
+    "close": "3270.80"
+  }, {
+    "date": "2019-04-22",
+    "open": "3278.49",
+    "high": "3279.49",
+    "low": "3206.88",
+    "close": "3215.04"
+  }, {
+    "date": "2019-04-23",
+    "open": "3211.87",
+    "high": "3231.58",
+    "low": "3186.76",
+    "close": "3198.59"
+  }, {
+    "date": "2019-04-24",
+    "open": "3203.56",
+    "high": "3210.65",
+    "low": "3156.61",
+    "close": "3201.61"
+  }, {
+    "date": "2019-04-25",
+    "open": "3190.59",
+    "high": "3193.75",
+    "low": "3123.03",
+    "close": "3123.83"
+  }, {
+    "date": "2019-04-26",
+    "open": "3108.16",
+    "high": "3129.21",
+    "low": "3085.80",
+    "close": "3086.40"
+  }, {
+    "date": "2019-04-29",
+    "open": "3090.63",
+    "high": "3107.76",
+    "low": "3050.03",
+    "close": "3062.50"
+  }, {
+    "date": "2019-04-30",
+    "open": "3052.62",
+    "high": "3088.41",
+    "low": "3052.62",
+    "close": "3078.34"
+  }, {
+    "date": "2019-05-06",
+    "open": "2984.73",
+    "high": "2986.54",
+    "low": "2876.47",
+    "close": "2906.46"
+  }, {
+    "date": "2019-05-07",
+    "open": "2914.29",
+    "high": "2937.28",
+    "low": "2889.07",
+    "close": "2926.39"
+  }, {
+    "date": "2019-05-08",
+    "open": "2873.14",
+    "high": "2929.43",
+    "low": "2866.70",
+    "close": "2893.76"
+  }, {
+    "date": "2019-05-09",
+    "open": "2871.20",
+    "high": "2888.86",
+    "low": "2845.04",
+    "close": "2850.95"
+  }, {
+    "date": "2019-05-10",
+    "open": "2878.23",
+    "high": "2941.45",
+    "low": "2838.38",
+    "close": "2939.21"
+  }, {
+    "date": "2019-05-13",
+    "open": "2905.07",
+    "high": "2921.41",
+    "low": "2892.17",
+    "close": "2903.71"
+  }, {
+    "date": "2019-05-14",
+    "open": "2872.83",
+    "high": "2909.20",
+    "low": "2872.83",
+    "close": "2883.61"
+  }, {
+    "date": "2019-05-15",
+    "open": "2902.64",
+    "high": "2945.39",
+    "low": "2902.64",
+    "close": "2938.68"
+  }, {
+    "date": "2019-05-16",
+    "open": "2933.50",
+    "high": "2956.17",
+    "low": "2929.06",
+    "close": "2955.71"
+  }, {
+    "date": "2019-05-17",
+    "open": "2955.77",
+    "high": "2956.78",
+    "low": "2973.80",
+    "close": "2882.30"
+  }],
+  "export": {
+    "enabled": true,
+    "position": "bottom-right"
+  }
+} );
+
+chart.addListener( "rendered", zoomChart );
+zoomChart();
+
+function zoomChart() {
+  chart.zoomToIndexes( chart.dataProvider.length - 50, chart.dataProvider.length - 1 );
+}
+</script>
+<script>
+  var chart = AmCharts.makeChart( "chartdiv4", {
+  "type": "serial",
+  "theme": "none",
+  "dataDateFormat":"YYYY-MM-DD",
+  "valueAxes": [ {
+    "position": "left"
+  } ],
+  "graphs": [ {
+    "id": "g1",
+    "proCandlesticks": true,
+    "balloonText": "Open:<b>[[open]]</b><br>Low:<b>[[low]]</b><br>High:<b>[[high]]</b><br>Close:<b>[[close]]</b><br>",
+    "closeField": "close",
+    "fillColors": "#7f8da9",
+    "highField": "high",
+    "lineColor": "#7f8da9",
+    "lineAlpha": 1,
+    "lowField": "low",
+    "fillAlphas": 0.9,
+    "negativeFillColors": "#db4c3c",
+    "negativeLineColor": "#db4c3c",
+    "openField": "open",
+    "title": "Price:",
+    "type": "candlestick",
+    "valueField": "close"
+  } ],
+  "chartScrollbar": {
+    "graph": "g1",
+    "graphType": "line",
+    "scrollbarHeight": 30
+  },
+  "chartCursor": {
+    "valueLineEnabled": true,
+    "valueLineBalloonEnabled": true
+  },
+  "categoryField": "date",
+  "categoryAxis": {
+    "parseDates": true
+  },
+  "dataProvider": [ {
+    "date": "2019-01-16",
+    "open": "7545.35",
+    "high": "7586.66",
+    "low": "7518.71",
+    "close": "7540.45"
+  }, {
+    "date": "2019-01-17",
+    "open": "7534.04",
+    "high": "7545.81",
+    "low": "7463.99",
+    "close": "7470.36"
+  }, {
+    "date": "2019-01-18",
+    "open": "7486.95",
+    "high": "7584.76",
+    "low": "7479.66",
+    "close": "7581.39"
+  }, {
+    "date": "2019-01-21",
+    "open": "7591.19",
+    "high": "7661.62",
+    "low": "7578.49",
+    "close": "7626.24"
+  }, {
+    "date": "2019-01-22",
+    "open": "7615.80",
+    "high": "7615.80",
+    "low": "7493.78",
+    "close": "7516.79"
+  }, {
+    "date": "2019-01-23",
+    "open": "7493.07",
+    "high": "7542.65",
+    "low": "7489.32",
+    "close": "7523.77"
+  }, {
+    "date": "2019-01-24",
+    "open": "7537.50",
+    "high": "7604.99",
+    "low": "7485.24",
+    "close": "7573.53"
+  }, {
+    "date": "2019-01-25",
+    "open": "7581.29",
+    "high": "7657.03",
+    "low": "7554.55",
+    "close": "7595.45"
+  }, {
+    "date": "2019-01-28",
+    "open": "7641.29",
+    "high": "7704.85",
+    "low": "7569.77",
+    "close": "7589.58"
+  }, {
+    "date": "2019-01-29",
+    "open": "7575.43",
+    "high": "7578.13",
+    "low": "7428.40",
+    "close": "7551.30"
+  }, {
+    "date": "2019-01-30",
+    "open": "7518.03",
+    "high": "7580.22",
+    "low": "7470.36",
+    "close": "7470.47"
+  }, {
+    "date": "2019-01-31",
+    "open": "7485.79",
+    "high": "7552.56",
+    "low": "7428.86",
+    "close": "7479.22"
+  }, {
+    "date": "2019-02-01",
+    "open": "7524.67",
+    "high": "7684.11",
+    "low": "7517.83",
+    "close": "7684.00"
+  }, {
+    "date": "2019-02-11",
+    "open": "7695.17",
+    "high": "7922.54",
+    "low": "7695.17",
+    "close": "7919.05"
+  }, {
+    "date": "2019-02-12",
+    "open": "7915.06",
+    "high": "8027.63",
+    "low": "7903.90",
+    "close": "8010.08"
+  }, {
+    "date": "2019-02-13",
+    "open": "8029.97",
+    "high": "8191.98",
+    "low": "8016.78",
+    "close": "8171.21"
+  }, {
+    "date": "2019-02-14",
+    "open": "8182.32",
+    "high": "8260.33",
+    "low": "8141.10",
+    "close": "8219.96"
+  }, {
+    "date": "2019-02-15",
+    "open": "8198.45",
+    "high": "8223.64",
+    "low": "8117.51",
+    "close": "8125.64"
+  }, {
+    "date": "2019-02-18",
+    "open": "8187.89",
+    "high": "8446.92",
+    "low": "8187.89",
+    "close": "8446.92"
+  }, {
+    "date": "2019-02-19",
+    "open": "8480.76",
+    "high": "8537.35",
+    "low": "8350.86",
+    "close": "8440.87"
+  }, {
+    "date": "2019-02-20",
+    "open": "8443.98",
+    "high": "8488.47",
+    "low": "8372.96",
+    "close": "8473.43"
+  }, {
+    "date": "2019-02-21",
+    "open": "8467.15",
+    "high": "8619.62",
+    "low": "8416.17",
+    "close": "8451.71"
+  }, {
+    "date": "2019-02-22",
+    "open": "8431.56",
+    "high": "8651.20",
+    "low": "8393.86",
+    "close": "8651.20"
+  }, {
+    "date": "2019-02-25",
+    "open": "8804.97",
+    "high": "9134.58",
+    "low": "8785.42",
+    "close": "9134.58"
+  }, {
+    "date": "2019-02-26",
+    "open": "9162.92",
+    "high": "9276.45",
+    "low": "9036.75",
+    "close": "9089.04"
+  }, {
+    "date": "2019-02-27",
+    "open": "9062.96",
+    "high": "9158.20",
+    "low": "8901.72",
+    "close": "9005.77"
+  }, {
+    "date": "2019-02-28",
+    "open": "9001.18",
+    "high": "9097.40",
+    "low": "8970.65",
+    "close": "9031.93"
+  }, {
+    "date": "2019-03-01",
+    "open": "9111.96",
+    "high": "9167.65",
+    "low": "9005.49",
+    "close": "9167.65"
+  }, {
+    "date": "2019-03-04",
+    "open": "9280.65",
+    "high": "9567.15",
+    "low": "9260.73",
+    "close": "9384.42"
+  }, {
+    "date": "2019-03-05",
+    "open": "9366.77",
+    "high": "9595.74",
+    "low": "9328.00",
+    "close": "9595.74"
+  }, {
+    "date": "2019-03-06",
+    "open": "9640.95",
+    "high": "9707.92",
+    "low": "9518.71",
+    "close": "9700.49"
+  }, {
+    "date": "2019-03-07",
+    "open": "9685.30",
+    "high": "9782.22",
+    "low": "9546.55",
+    "close": "9678.11"
+  }, {
+    "date": "2019-03-08",
+    "open": "9447.60",
+    "high": "9726.30",
+    "low": "9346.73",
+    "close": "9363.72"
+  }, {
+    "date": "2019-03-11",
+    "open": "9425.80",
+    "high": "9704.33",
+    "low": "9370.38",
+    "close": "9704.33"
+   }, {
+    "date": "2019-03-12",
+    "open": "9766.50",
+    "high": "9928.20",
+    "low": "9683.07",
+    "close": "9841.24"
+  }, {
+    "date": "2019-03-13",
+    "open": "9828.15",
+    "high": "9828.15",
+    "low": "9534.33",
+    "close": "9592.06"
+  }, {
+    "date": "2019-03-14",
+    "open": "9521.62",
+    "high": "9620.46",
+    "low": "9323.06",
+    "close": "9417.93"
+  }, {
+    "date": "2019-03-15",
+    "open": "9485.33",
+    "high": "9650.54",
+    "low": "9452.91",
+    "close": "9550.54"
+  }, {
+    "date": "2019-03-18",
+    "open": "9583.45",
+    "high": "9843.43",
+    "low": "9510.66",
+    "close": "9843.43"
+  }, {
+    "date": "2019-03-19",
+    "open": "9844.46",
+    "high": "9908.17",
+    "low": "9774.75",
+    "close": "9839.74"
+  }, {
+    "date": "2019-03-20",
+    "open": "9828.07",
+    "high": "9848.77",
+    "low": "9642.67",
+    "close": "9800.60"
+  }, {
+    "date": "2019-03-21",
+    "open": "9808.74",
+    "high": "9934.86",
+    "low": "9771.86",
+    "close": "9869.80"
+  }, {
+    "date": "2019-03-22",
+    "open": "9871.99",
+    "high": "9891.83",
+    "low": "9692.25",
+    "close": "9879.22"
+  }, {
+    "date": "2019-03-25",
+    "open": "9705.02",
+    "high": "9858.08",
+    "low": "9680.94",
+    "close": "9701.70"
+  }, {
+    "date": "2019-03-26",
+    "open": "9753.17",
+    "high": "9780.08",
+    "low": "9487.10",
+    "close": "9513.00"
+  }, {
+    "date": "2019-03-27",
+    "open": "9582.03",
+    "high": "9609.43",
+    "low": "9446.35",
+    "close": "9609.44"
+  }, {
+    "date": "2019-03-28",
+    "open": "9586.38",
+    "high": "9695.52",
+    "low": "9537.61",
+    "close": "9546.51"
+  }, {
+    "date": "2019-03-29",
+    "open": "9556.30",
+    "high": "9906.86",
+    "low": "9554.07",
+    "close": "9906.86"
+  }, {
+    "date": "2019-04-01",
+    "open": "9976.98",
+    "high": "10277.55",
+    "low": "9976.98",
+    "close": "10267.70"
+  }, {
+    "date": "2019-04-02",
+    "open": "10314.79",
+    "high": "10334.96",
+    "low": "10220.81",
+    "close": "10260.36"
+  }, {
+    "date": "2019-04-03",
+    "open": "10199.97",
+    "high": "10350.57",
+    "low": "10166.67",
+    "close": "10340.51"
+  }, {
+    "date": "2019-04-04",
+    "open": "10379.20",
+    "high": "10453.50",
+    "low": "10309.53",
+    "close": "10415.80"
+  }, {
+    "date": "2019-04-08",
+    "open": "10510.43",
+    "high": "10541.18",
+    "low": "10226.25",
+    "close": "10351.87"
+  }, {
+    "date": "2019-04-09",
+    "open": "10368.03",
+    "high": "10438.99",
+    "low": "10304.73",
+    "close": "10436.62"
+  }, {
+    "date": "2019-04-10",
+    "open": "10403.24",
+    "high": "10529.74",
+    "low": "10328.61",
+    "close": "10435.08"
+  }, {
+    "date": "2019-04-11",
+    "open": "10420.65",
+    "high": "10437.45",
+    "low": "10149.38",
+    "close": "10158.40"
+  }, {
+    "date": "2019-04-12",
+    "open": "10138.09",
+    "high": "10186.47",
+    "low": "10053.81",
+    "close": "10132.34"
+  }, {
+    "date": "2019-04-15",
+    "open": "10294.83",
+    "high": "10365.31",
+    "low": "10048.83",
+    "close": "10053.76"
+  }, {
+    "date": "2019-04-16",
+    "open": "9993.25",
+    "high": "10287.64",
+    "low": "9928.28",
+    "close": "10287.64"
+  }, {
+    "date": "2019-04-17",
+    "open": "10288.45",
+    "high": "10410.65",
+    "low": "10257.56",
+    "close": "10344.43"
+  }, {
+    "date": "2019-04-18",
+    "open": "10338.50",
+    "high": "10363.85",
+    "low": "10267.31",
+    "close": "10287.67"
+  }, {
+    "date": "2019-04-19",
+    "open": "10280.34",
+    "high": "10418.24",
+    "low": "10208.61",
+    "close": "10418.24"
+  }, {
+    "date": "2019-04-22",
+    "open": "10418.71",
+    "high": "10418.71",
+    "low": "10192.52",
+    "close": "10224.31"
+  }, {
+    "date": "2019-04-23",
+    "open": "10206.02",
+    "high": "10247.39",
+    "low": "10091.92",
+    "close": "10124.66"
+  }, {
+    "date": "2019-04-24",
+    "open": "10162.38",
+    "high": "10239.37",
+    "low": "10023.91",
+    "close": "10236.27"
+  }, {
+    "date": "2019-04-25",
+    "open": "10186.23",
+    "high": "10209.14",
+    "low": "9902.02",
+    "close": "9907.63"
+  }, {
+    "date": "2019-04-26",
+    "open": "9852.94",
+    "high": "9927.74",
+    "low": "9774.75",
+    "close": "9780.82"
+  }, {
+    "date": "2019-04-29",
+    "open": "9775.95",
+    "high": "9822.82",
+    "low": "9597.09",
+    "close": "9622.49"
+  }, {
+    "date": "2019-04-30",
+    "open": "9573.41",
+    "high": "9730.55",
+    "low": "9573.39",
+    "close": "9674.54"
+  }, {
+    "date": "2019-05-06",
+    "open": "9289.74",
+    "high": "9333.92",
+    "low": "8893.15",
+    "close": "8943.52"
+  }, {
+    "date": "2019-05-07",
+    "open": "9011.52",
+    "high": "9160.52",
+    "low": "8928.57",
+    "close": "9089.46"
+  }, {
+    "date": "2019-05-08",
+    "open": "8899.91",
+    "high": "9167.81",
+    "low": "8873.44",
+    "close": "9002.53"
+  }, {
+    "date": "2019-05-09",
+    "open": "8919.50",
+    "high": "9012.24",
+    "low": "8860.17",
+    "close": "8877.31"
+  }, {
+    "date": "2019-05-10",
+    "open": "8988.92",
+    "high": "9238.55",
+    "low": "8820.59",
+    "close": "9235.39"
+  }, {
+    "date": "2019-05-13",
+    "open": "9112.52",
+    "high": "9191.07",
+    "low": "9059.32",
+    "close": "9103.36"
+  }, {
+    "date": "2019-05-14",
+    "open": "8998.97",
+    "high": "9142.46",
+    "low": "8996.92",
+    "close": "9038.36"
+  }, {
+    "date": "2019-05-15",
+    "open": "9125.27",
+    "high": "9282.96",
+    "low": "9123.91",
+    "close": "9259.03"
+  }, {
+    "date": "2019-05-16",
+    "open": "9247.99",
+    "high": "9307.22",
+    "low": "9211.75",
+    "close": "9293.32"
+  }, {
+    "date": "2019-05-17",
+    "open": "9299.46",
+    "high": "9303.05",
+    "low": "8964.37",
+    "close": "9000.19"
+  }, {
+    "date": "2019-05-20",
+    "open": "8980.80",
+    "high": "8994.18",
+    "low": "8792.84",
+    "close": "8916.11"
+  }],
+  "export": {
+    "enabled": true,
+    "position": "bottom-right"
+  }
+} );
+
+chart.addListener( "rendered", zoomChart );
+zoomChart();
+
+function zoomChart() {
+  chart.zoomToIndexes( chart.dataProvider.length - 50, chart.dataProvider.length - 1 );
+}
+</script>
+
+<div id="base">
+<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header" style="position: absolute;left: 9%;top:23px;width: 350px">
+					<img src="../static/images/stok-word-logo-0.png" width="150" style="filter: invert(1); cursor: pointer; float: left;">
+					<a class="navbar-brand" href="" style="text-decoration: none ; position: absolute; top:45px;right: 0;">STOCK WORLD<br>
+						<p style="font-size:large;color: #9f9f9f; border-top: 1px solid white; position: relative; top: 10px; text-align: center">An Art of Stock</p></a>
+				</div>
+
+				<div id="navbar" class="navbar-collapse navbar-right collapse hover-effect">
+					<ul id="menu" class="nav navbar-nav" style="position: absolute;right: 10%;">
+						<li><a href="">首页</a></li>
+						<li><a href="">市场</a>
+							<ul class="ul">
+								<li><a href="/sh">上海证券</a></li>
+								<li><a href="/sz">深圳证券</a></li>
+							</ul>
+						</li>
+						<li><a href="">行业</a>
+							<ul class="ul">
+								<li><a href="/">能源</a></li>
+								<li><a href="/financial">金融</a></li>
+								<li><a href="/">互联网</a></li>
+							</ul>
+						</li>
+						<li><a href="/">工具</a></li>
+						<li><a href="#" id="login">登录</a></li>
+					</ul>
+				</div>
+
+			</div>
+		</nav>
+<div class="box1">
+	<div  class="dem_left" id="chart">
+		<div class="banner">   
+    <ul class="pic">    
+        <li style="float: left;">
+			<div id="chartdiv1"></div>
+			<h2 style="border: 1px solid gray; border-radius:0 5px 0 0; width: 70px; z-index: 99;position: absolute;bottom: 0;">
+			 上证综指
+			</h2>  
+        </li>    
+        <li style="float: right;"> 
+			<div id="chartdiv2"></div>
+			<h2 style="border: 1px solid gray; border-radius:0 5px 0 0; width: 70px; z-index: 99;position: absolute;bottom: 0;">
+			 深证成指
+		</h2>   
+        </li>
+		    
+    </ul>   
+    <ul class="anniu">    
+        <li class="on lii"></li>    
+        <li class="lii"></li>    
+    </ul> 
+</div>
+		<img src="../static/images/3356f2f904b112f.png" width="30" id="showchart" style="position: absolute;top:10px;left:10px;z-index: 99">
+
+	</div>
+
+<script>
+        $(".lii").click(function() {
+            $(this).addClass("on");
+            $(this).siblings().removeClass("on");
+            var num = $(this).index();
+            $(".pic").animate({marginLeft: -870*num}, "slow");
+        });
+</script>
+		<div class="dem_right" style="position: absolute;top:160px;right:155px;">
+        <div class="container">
+    <form class="parent" target="_blank" name="bdfm" method="get" action="http://www.baidu.com/s">
+        <input type="text"  class="search" name="word" placeholder="搜索"/>
+        <input type="submit" value="" class="btn" />
+    </form>
+        </div>
+			</div>
+		<div class="dem_right2" style="background-color: #1FA5AD;color: white;position: absolute; top: 247px;right: 240px; margin: 15px; padding: 10px 10px 10px 10px;width: 180px;text-align: center;border-radius: 2px;">
+			<a href="/financial" style="color: white">
+			<h1>
+				行 业 优 选
+			</h1>
+				</a>
+		</div>
+	<div class="dem_right2" style="background-color: #1FA5AD;color: white;position: absolute; top: 322px;right: 145px; margin: 15px; padding: 10px 10px 10px 10px;width: 162px;height:46px;text-align: center;border-radius: 2px;">
+		<a href="/sz" style="color: white">
+			<h1>
+				深证成指
+			</h1>
+			</a>
+		</div>
+	<div class="dem_right2" style="background-color: #1FA5AD;color: white;position: absolute; top: 330px;right: 340px; margin: 15px; padding: 10px 10px 10px 10px;width: 161px;text-align: center;border-radius: 2px;">
+		<a href="/sh" style="color: white">
+			<h1>
+				上证综指
+			</h1>
+		</a>
+		</div>
+	<div class="dem_right" style="background-color:transparent;;position: absolute; top: 420px;right: 160px;border-radius: 2px;width: 370px;height: 243px;">
+		<div style="background-color: #1FA5AD;height: 243px;width: 330px">
+			<h3 style="position: absolute;right: 45px;top:20px">more 》</h3>
+			<h1 style="color: white;margin: 9px 2px 2px 9px">NEWS</h1>
+			<div id="box">
+    <ul id="con1" onmouseout="Up()" onmouseover="Stop()">
+        <li><a href="#">A股市场做多情绪升温，股指重心有望上移</a> </li>
+        <li><a href="#">BAT变ATM？百度市值被美团超越，与京东只差0.16亿</a> </li>
+        <li><a href="#">护盘资金积极参与，A股市场情绪趋于平稳</a> </li>
+        <li><a href="#">先临三维转投科创板 持续亏损难破题</a> </li>
+		<li><a href="http://money.people.com.cn/n1/2019/0531/c42877-31113160.html" target="_blank">批战略配售科创基金来了,要买吗？</a> </li>
+        </ul>
+    <ul id="con2" onmouseout="Up()" onmouseover="Stop()">
+        <li><a href="#">A股市场做多情绪升温，股指重心有望上移</a> </li>
+        <li><a href="#">BAT变ATM？百度市值被美团超越，与京东只差0.16亿</a> </li>
+        <li><a href="#">护盘资金积极参与，A股市场情绪趋于平稳</a> </li>
+        <li><a href="#">先临三维转投科创板 持续亏损难破题</a> </li>
+		<li><a href="http://money.people.com.cn/n1/2019/0531/c42877-31113160.html" target="_blank">首批战略配售科创基金来了,要买吗？</a> </li>
+        </ul>
+</div>
+		</div>
+		<img src="../static/images/11321591.png" width="40px" style="filter: invert(1);position: absolute;right: 0;bottom: 0;cursor: pointer">
+	</div>
+    <div >
+    <p style="font-size: x-large; color: white"></p></div>
+</div>
+	<center>
+	<section id="rt-showcase-surround" style="float: contour;">
+		<div id="rt-showcase" class="slider-container rt-overlay-dark">
+			<div class="rt-container slider-container">
+				<div class="rt-grid-12 rt-alpha rt-omega"style="height:120px;width: 50%; transform: translate(35px, -60px);">   <!--改整体块的大小-->
+					<link rel="stylesheet" href="../static/css/style0.css">
+
+					<div class="csslider1 autoplay" style="height:120px;width: 80%;">   <!--改动画的框的大小-->
+						<input name="cs_anchor1" autocomplete="off" id="cs_slide1_0" type="radio" class="cs_anchor slide" >
+						<input name="cs_anchor1" autocomplete="off" id="cs_slide1_1" type="radio" class="cs_anchor slide" >
+						<input name="cs_anchor1" autocomplete="off" id="cs_slide1_2" type="radio" class="cs_anchor slide" >
+						<input name="cs_anchor1" autocomplete="off" id="cs_play1" type="radio" class="cs_anchor" checked="">
+						<input name="cs_anchor1" autocomplete="off" id="cs_pause1" type="radio" class="cs_anchor">
+						<ul>
+							<div style="height:120px; width: 100%; visibility: hidden; font-size: 0px; line-height: 0;"> <!--改img.num .img块的大小-->
+								<img src="../static/images/welcome.png" style="width: 100%;">
+							</div>
+							<li class="num0 img">
+								<img src="../static/images/welcome.png" alt="" title="" style="height:80%; width: 80%;"/>
+							</li>
+							<li class="num1 img">
+								<img src="../static/images/未标题-1.png" alt="" title="" style="height:80%; width: 80%;"/>
+							</li>
+							<li class="num2 img">
+								<img src="../static/images/ad暗.png" alt="" title="" style="height:70%; width: 70%;" />
+							</li>
+
+						</ul>
+						<div class="cs_arrowprev">
+							<label class="num0" for="cs_slide1_0"></label>
+							<label class="num1" for="cs_slide1_1"></label>
+							<label class="num2" for="cs_slide1_2"></label>
+						</div>
+						<div class="cs_arrownext">
+							<label class="num0" for="cs_slide1_0"></label>
+							<label class="num1" for="cs_slide1_1"></label>
+							<label class="num2" for="cs_slide1_2"></label>
+						</div>
+
+						<div class="cs_bullets">
+							<label class="num0" for="cs_slide1_0">
+								</label>
+							<label class="num1" for="cs_slide1_1">
+							</label>
+							<label class="num2" for="cs_slide1_2">
+							</label>
+						</div>
+
+					</div>
+
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</section>        <!-- /slider -->
+</center>
+	<img src="../static/images/lang.png" width="60" style="position:absolute; top: 10px;right: 30px; filter: invert(1.1) contrast(1.1) brightness(1.1); cursor: pointer">
+	</div>
+
+<div style="background-color: white;width: 700px;" class="closechart" id="charts">
+		<div>
+		<div id="chartdiv3" style="width: 700px;height: 320px;"></div>
+			<h2 style="width: 100px; z-index: 99;position: absolute;bottom: 345px;">
+			 上证综指
+			</h2> 
+			</div>
+		<div><div id="chartdiv4" style="width: 700px;height: 320px;border-top: 1px solid gray"></div>
+			<h2 style="width: 100px; z-index: 99;position: absolute;bottom: 0;">
+			 深证成指
+		</h2> 
+			<img id="closechart" src="../static/images/close.png" width="25" style="filter: invert(1);position: absolute;top:5px; right:5px;cursor: pointer">
+	</div>
+	</div>
 <script type="text/javascript">
-    window.onload=function(){
-    var vi = document.getElementById("chartdiv");
-    var na = document.getElementById("navigation");
-    var timer = null;
-        vi.onmouseover=function(){
-            clearTimeout(timer);
-            this.className="plat";
-        };
-        vi.onmouseout=function(){
-            clearTimeout(timer);
-            timer=setTimeout(function(){
-                vi.className='dem_left';
-            },1)
-        };
-        na.onmouseover=function(){
-            clearTimeout(timer);
-            this.className="plat";
-        };
-        na.onmouseout=function(){
-            clearTimeout(timer);
-            timer=setTimeout(function(){
-                na.className='dem_right';
-            },1)
-        }
+    var box=document.getElementById("box");
+    var con1=document.getElementById("con1");
+    var con2=document.getElementById("con2");
+    // var s=document.getElementsByTagName("a");
+    var speed=70;
+    con2.innerHTML=con1.innerHTML;
+    function  ScrollUp(){
+        if( box.scrollTop>=con1.scrollHeight){
+            box.scrollTop=0;
+        }else
+           box.scrollTop++;
     }
+    var i=setInterval("ScrollUp()",speed);
+    function Stop(){
+        clearInterval(i);
+    }
+    function Up(){
+        i=setInterval("ScrollUp()",speed);
+    }
+
+</script>
+<script>
+	$('#showchart').click(function () {
+		$('#charts').attr("class", "showchart");
+		$('#base').attr('class', 'fuzzy');
+    });
+	$('#closechart').click(function () {
+		$('#charts').attr("class", "closechart");
+		$('#base').attr('class', 'fuz');
+    });
+</script>
+<!--<div class="loginshow" >-->
+<div class='login hidden' id="logbar">
+    <img src="../static/img/cha.png" style="filter: invert(80%); height: 20px" class="cha">
+	  <div class='login_title'>
+	    <span>登录</span>
+	  </div>
+	  <div class='login_fields'>
+	    <div class='login_fields__user'>
+	      <div class='icon'>
+	        <img src='../static/img/user_icon_copy.png'>
+	      </div>
+	      <input placeholder='用户名/邮箱' type='text'>
+	        <div class='validation'>
+	          <img src='../static/img/tick.png'>
+	        </div>
+	    </div>
+	    <div class='login_fields__password'>
+	      <div class='icon'>
+	        <img src='../static/img/lock_icon_copy.png'>
+	      </div>
+	      <input placeholder='密码' type='password'>
+	      <div class='validation'>
+	        <img src='../static/img/tick.png'>
+	      </div>
+	    </div>
+	    <div class='login_fields__submit'>
+	      <input type='submit' value='登录'>
+	      <div class='forgot'>
+	        <a href='#'>忘记密码?</a>
+	      </div>
+	    </div>
+	  </div>
+	  <div class='success'>
+          <h2>认证成功</h2>
+	    <p>欢迎回来</p>
+	  </div>
+	  <div class='disclaimer'>
+	    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper laoreet placerat. Nullam semper auctor justo, rutrum posuere odio vulputate nec.</p>
+	  </div>
+</div>
+	<div class='authent'>
+	  <img src='../static/img/puff.svg'>
+	  <p>认证中...</p>
+	</div>
+<!--</div>-->
+	<script type="text/javascript" src='../static/js/stopExecutionOnTimeout.js?t=1'></script>
+	<script type="text/javascript" src="../static/js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../static/js/jquery-ui.min.js"></script>
+	<script>
+	$('input[type="submit"]').click(function () {
+	    $('.login').addClass('test');
+	    setTimeout(function () {
+	        $('.login').addClass('testtwo');
+	    }, 300);
+	    setTimeout(function () {
+	        $('.authent').show().animate({ right: -320 }, {
+	            easing: 'easeOutQuint',
+	            duration: 600,
+	            queue: false
+	        });
+	        $('.authent').animate({ opacity: 1 }, {
+	            duration: 200,
+	            queue: false
+	        }).addClass('visible');
+	    }, 500);
+	    setTimeout(function () {
+	        $('.authent').show().animate({ right: 90 }, {
+	            easing: 'easeOutQuint',
+	            duration: 600,
+	            queue: false
+	        });
+	        $('.authent').animate({ opacity: 0 }, {
+	            duration: 200,
+	            queue: false
+	        }).addClass('visible');
+	        $('.login').removeClass('testtwo');
+	    }, 2500);
+	    setTimeout(function () {
+	        $('.login').removeClass('test');
+	        $('.login div').fadeOut(123);
+	    }, 2800);
+	    setTimeout(function () {
+	        $('.success').fadeIn();
+	    }, 3200);
+	});
+	$('input[type="text"],input[type="password"]').focus(function () {
+	    $(this).prev().animate({ 'opacity': '1' }, 200);
+	});
+	$('input[type="text"],input[type="password"]').blur(function () {
+	    $(this).prev().animate({ 'opacity': '.5' }, 200);
+	});
+	$('input[type="text"],input[type="password"]').keyup(function () {
+	    if (!$(this).val() == '') {
+	        $(this).next().animate({
+	            'opacity': '1',
+	            'right': '20'
+	        }, 200);
+	    } else {
+	        $(this).next().animate({
+	            'opacity': '1',
+	            'right': '15'
+	        }, 200);
+	    }
+	});
+	var open = 0;
+	$('.tab').click(function () {
+	    $(this).fadeOut(200, function () {
+	        $(this).parent().animate({ 'left': '0' });
+	    });
+	});
+	</script>
+<script>
+    var log=document.getElementById('login');
+    var login=document.getElementById('logbar');
+    var cha = document.getElementsByClassName('cha');
+    var body = document.getElementById('base');
+    log.addEventListener("click", function () {
+        login.classList.replace('hidden', 'show');
+		body.className='fuzzy';
+    });
+    cha[0].onclick=function () {
+        login.classList.replace('show','hidden')
+		body.className='fuz';
+    };
+
 </script>
 
 </body>

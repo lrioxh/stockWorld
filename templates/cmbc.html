@@ -1,0 +1,784 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <title>Stock World-招商银行公司介绍</title>
+    <link href="../static/images/stok-word-logo-0.png" rel="shortcut icon">
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all">
+
+	<!--<link rel="stylesheet" href="../statics/css/bootstrap.min.css" 	type="text/css" media="all">-->
+	<link rel="stylesheet" href="../static/css/style.css" type="text/css" media="all">
+
+    <link rel="stylesheet" type="text/css" href="../static/css/styles.css">
+
+    <style type="text/css">
+        *{
+        margin: 0;
+        padding: 0;
+        }
+        body{
+            border: 0;
+            background-color:hsla(0,0%,18%,1.00);
+            overflow-x: hidden;
+            display: block;
+        }
+
+        .hidden{
+            transition: all 0.5s ease-in;
+            transform: translate(200px, -150px) rotateX(80deg) scale(0.5);
+            filter: opacity(0%);
+        }
+        .show{
+            transition: all 0.5s ease-in;
+            transform: translate(0, 50px) scale(1);
+            filter: opacity(100%);
+        }
+        .cha{
+            position: absolute;
+            right: 20px;
+            top:20px;
+        }
+        .cha:hover{
+            transition: all 0.2s;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+		.fuzzy{
+			transition: all 0.5s ease-in;
+			-webkit-filter: blur(7px);
+            filter: blur(7px);
+		}
+		.fuz{
+            transition: all 0.5s ease-in;
+			-webkit-filter:blur(0);
+            filter: blur(0);
+        }
+        .login {
+            position: absolute;
+            right:20px;
+          top: 10px;
+                    /*transform: translate(-100px);*/
+          /*-webkit-transition-timing-function: cubic-bezier(0.68, -0.25, 0.265, 0.85);*/
+          /*-webkit-transition-property: -webkit-transform,opacity,box-shadow,top,left;*/
+                  /*transition-property: transform,opacity,box-shadow,top,left;*/
+          /*-webkit-transition-duration: .5s;*/
+                  /*transition-duration: .5s;*/
+          /*-webkit-transform-origin: 161px 100%;*/
+              /*-ms-transform-origin: 161px 100%;*/
+                  /*transform-origin: 161px 100%;*/
+          /*-webkit-transform: rotateX(0deg) translate(550px, -100px) scale(0.5);*/
+                  /*transform: rotateX(0deg) translate(550px, -100px) scale(0.5);*/
+          /*position: relative;*/
+          width: 240px;
+          border-top: 2px solid #D8312A;
+          height: 300px;
+          /*position: absolute;*/
+          /*left: 0;*/
+          /*right: 0;*/
+          margin: auto;
+          /*top: 0;*/
+          /*bottom: 0;*/
+          padding: 100px 40px 40px 40px;
+          background: #35394a;
+          /* Old browsers */
+          /* FF3.6+ */
+          background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, #35394a), color-stop(100%, #1f222e));
+          /* Chrome,Safari4+ */
+          background: -webkit-linear-gradient(45deg, #35394a 0%, #1f222e 100%);
+          /* Chrome10+,Safari5.1+ */
+          /* Opera 11.10+ */
+          /* IE10+ */
+          background: linear-gradient(45deg, #35394a 0%, #1f222e 100%);
+          /* W3C */
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35394a', endColorstr='#1f222e',GradientType=1 );
+          /* IE6-9 fallback on horizontal gradient */
+}
+		a{
+			text-decoration:none;
+		}
+		ul,li{
+			 list-style:none;
+		}
+		#menu li{
+			float: left;
+			width: 120px;
+        line-height: 3em;
+        /*height: 3em;*/
+        text-align: center;
+        cursor:pointer;
+		}
+		.ul{
+			position:absolute;
+			top:25px;
+			display: none;
+		}
+		.ul li{
+			float:none;
+			border-bottom: 1px solid #c7c7c7;
+		}
+		.ul li a{
+			text-align: center;
+			min-height: 35px;
+			line-height: 35px;
+			background-color: white;
+		}
+		#menu li:hover ul{
+			display: block;
+		}
+		.ul li:hover a {
+			background-color: #424668;
+			color: white;
+		}
+
+        #chartdiv {
+            width		: 60%;
+            height	: 390px;
+            font-size	: 11px;
+            position : absolute;
+            top : 290px;
+            left:250px;
+            background-color:white
+
+        }
+        #nav{
+            line-height:30px;
+            background-color:transparent;
+            height:20px;
+            width:5000px;
+            float:left;
+            padding:5px;
+
+            }
+		#nav p a{
+			color:white;
+		}
+    </style>
+</head>
+<body>
+<div id="base">
+<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header" style="position: absolute;left: 9%;top:8px;width: 260px">
+					<img src="../static/images/stok-word-logo-0.png" width="80" style="filter: invert(1); cursor: pointer; float: left;">
+					<a class="navbar-brand" href="index.html" style="text-decoration: none ; position: absolute; top:15px;right: 0;font-size: xx-large">STOCK WORLD<br>
+						<p style="font-size:medium;color: #9f9f9f; border-top: 1px solid white; position: relative; top: 5px; text-align: center">An Art of Stock</p></a>
+				</div>
+
+				<div id="navbar" class="navbar-collapse navbar-right collapse hover-effect">
+					<ul id="menu" class="nav navbar-nav" style="position: absolute;right: 10%;">
+						<li><a href="/">首页</a></li>
+						<li><a href="#">市场</a>
+							<ul class="ul">
+								<li><a href="/sh">上海证券</a></li>
+								<li><a href="/sz">深圳证券</a></li>
+							</ul>
+						</li>
+						<li><a href="#">行业</a>
+							<ul class="ul">
+								<li><a href="#">能源</a></li>
+								<li><a href="/financial">金融</a></li>
+								<li><a href="#">互联网</a></li>
+							</ul>
+						</li>
+						<li><a href="#team">工具</a></li>
+						<li><a href="#contact" id="login">登录</a></li>
+					</ul>
+				</div>
+
+			</div>
+		</nav>
+<img src="../static/images/lang.png" width="60" style="position:absolute; top: 10px;right: 30px; filter: invert(1.1) contrast(1.1) brightness(1.1); cursor: pointer">
+
+    <!--请在此div中添加内容-->
+<div id="nav">
+	<p style="color:white;font-size:20px;position:absolute;top:120px;left:250px">
+		<a href="/">首页 ></a><a> 行业 ></a><a href="/financial"> 金融</a></p></div>
+<p style="color:#444444;font-size:20px;position:absolute;top:140px;left:250px;font-weight:bold;">_____________________________________________________________________________</p>
+<p style="color:white;font-size:30px;position:absolute;top:200px;left:250px;background-color:#444444;">  &nbsp&nbsp&nbsp&nbsp招商银行&nbsp&nbsp(600036)&nbsp&nbsp&nbsp&nbsp  </p><p style="color:white;font-size:25px;position:absolute;top:207px;left:610px;background-color:#444444;">  &nbsp&nbsp&nbsp&nbsp沪深股市&nbsp&nbsp&nbsp&nbsp  </p>
+<p style="color:#0000FF;font-size:15px;position:absolute;top:260px;left:250px;font-weight:bold;">  START:2019-3-1    &nbsp&nbsp&nbsp&nbsp END:2019-5-31</p>
+<p style="color:#00ff4f;font-size:15px;position:absolute;top:260px;left:926px;font-weight:bold;"> ↓&nbsp33.90(-0.15%)</p>
+
+<div id="chartdiv" style="overflow: visible; text-align: left;"><div class="amcharts-main-div" style="position: relative;"><div class="amcharts-chart-div" style="overflow: hidden; position: relative; text-align: left; width: 959px; height: 500px; padding: 0px; cursor: default;"><svg version="1.1" style="position: absolute; width: 959px; height: 500px; top: 0px; left: 0px;"><desc>JavaScript chart by amCharts 3.21.15</desc><g><path cs="100,100" d="M0.5,0.5 L958.5,0.5 L958.5,499.5 L0.5,499.5 Z" fill="#FFFFFF" stroke="#000000" fill-opacity="0" stroke-width="1" stroke-opacity="0" class="amcharts-bg"></path><path cs="100,100" d="M0.5,0.5 L899.5,0.5 L899.5,419.5 L0.5,419.5 L0.5,0.5 Z" fill="#FFFFFF" stroke="#000000" fill-opacity="0" stroke-width="1" stroke-opacity="0" class="amcharts-plot-area" transform="translate(39,50)"></path></g><g><g class="amcharts-value-axis value-axis-valueAxisAuto0_1559637669551" transform="translate(39,0)" visibility="hidden"></g><g class="amcharts-category-axis" transform="translate(39,50)"><g><path cs="100,100" d="M59.5,0.5 L59.5,5.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(0,419)" class="amcharts-axis-tick"></path><path cs="100,100" d="M59.5,419.5 L59.5,419.5 L59.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.15" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M142.5,0.5 L142.5,5.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(0,419)" class="amcharts-axis-tick"></path><path cs="100,100" d="M142.5,419.5 L142.5,419.5 L142.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.15" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M225.5,0.5 L225.5,5.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(0,419)" class="amcharts-axis-tick"></path><path cs="100,100" d="M225.5,419.5 L225.5,419.5 L225.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.15" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M308.5,0.5 L308.5,5.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(0,419)" class="amcharts-axis-tick"></path><path cs="100,100" d="M308.5,419.5 L308.5,419.5 L308.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.15" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M390.5,0.5 L390.5,5.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(0,419)" class="amcharts-axis-tick"></path><path cs="100,100" d="M390.5,419.5 L390.5,419.5 L390.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.15" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M473.5,0.5 L473.5,5.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(0,419)" class="amcharts-axis-tick"></path><path cs="100,100" d="M473.5,419.5 L473.5,419.5 L473.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.15" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M556.5,0.5 L556.5,5.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(0,419)" class="amcharts-axis-tick"></path><path cs="100,100" d="M556.5,419.5 L556.5,419.5 L556.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.15" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M639.5,0.5 L639.5,5.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(0,419)" class="amcharts-axis-tick"></path><path cs="100,100" d="M639.5,419.5 L639.5,419.5 L639.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.15" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M722.5,0.5 L722.5,5.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(0,419)" class="amcharts-axis-tick"></path><path cs="100,100" d="M722.5,419.5 L722.5,419.5 L722.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.15" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M804.5,0.5 L804.5,5.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(0,419)" class="amcharts-axis-tick"></path><path cs="100,100" d="M804.5,419.5 L804.5,419.5 L804.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.15" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M887.5,0.5 L887.5,5.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(0,419)" class="amcharts-axis-tick"></path><path cs="100,100" d="M887.5,419.5 L887.5,419.5 L887.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.15" stroke="#000000" class="amcharts-axis-grid"></path></g></g><g class="amcharts-value-axis value-axis-valueAxisAuto0_1559637669551" transform="translate(39,50)" visibility="visible"><g><path cs="100,100" d="M0.5,419.5 L6.5,419.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(-6,0)" class="amcharts-axis-tick"></path><path cs="100,100" d="M0.5,419.5 L0.5,419.5 L899.5,419.5" fill="none" stroke-width="1" stroke-opacity="0.15" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M0.5,359.5 L6.5,359.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(-6,0)" class="amcharts-axis-tick"></path><path cs="100,100" d="M0.5,359.5 L0.5,359.5 L899.5,359.5" fill="none" stroke-width="1" stroke-opacity="0.15" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M0.5,299.5 L6.5,299.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(-6,0)" class="amcharts-axis-tick"></path><path cs="100,100" d="M0.5,299.5 L0.5,299.5 L899.5,299.5" fill="none" stroke-width="1" stroke-opacity="0.15" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M0.5,239.5 L6.5,239.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(-6,0)" class="amcharts-axis-tick"></path><path cs="100,100" d="M0.5,239.5 L0.5,239.5 L899.5,239.5" fill="none" stroke-width="1" stroke-opacity="0.15" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M0.5,180.5 L6.5,180.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(-6,0)" class="amcharts-axis-tick"></path><path cs="100,100" d="M0.5,180.5 L0.5,180.5 L899.5,180.5" fill="none" stroke-width="1" stroke-opacity="0.15" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M0.5,120.5 L6.5,120.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(-6,0)" class="amcharts-axis-tick"></path><path cs="100,100" d="M0.5,120.5 L0.5,120.5 L899.5,120.5" fill="none" stroke-width="1" stroke-opacity="0.15" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M0.5,60.5 L6.5,60.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(-6,0)" class="amcharts-axis-tick"></path><path cs="100,100" d="M0.5,60.5 L0.5,60.5 L899.5,60.5" fill="none" stroke-width="1" stroke-opacity="0.15" stroke="#000000" class="amcharts-axis-grid"></path></g><g><path cs="100,100" d="M0.5,0.5 L6.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(-6,0)" class="amcharts-axis-tick"></path><path cs="100,100" d="M0.5,0.5 L0.5,0.5 L899.5,0.5" fill="none" stroke-width="1" stroke-opacity="0.15" stroke="#000000" class="amcharts-axis-grid"></path></g></g></g><g transform="translate(39,50)" clip-path="url(#AmChartsEl-10)"><g visibility="hidden"></g></g><g></g><g></g><g></g><g><g transform="translate(39,50)" class="amcharts-graph-candlestick amcharts-graph-g1"><g transform="translate(1,281)" aria-label="Price: Mar 06, 2019 32.22"><path cs="100,100" d="M0.5,0.5 L0.5,5.5 L9.5,5.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M6.5,281.5 L6.5,263.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M6.5,286.5 L6.5,312.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(13,299)" aria-label="Price: Mar 07, 2019 31.3"><path cs="100,100" d="M0.5,0.5 L0.5,42.5 L9.5,42.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M18.5,299.5 L18.5,293.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M18.5,341.5 L18.5,361.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(25,375)" aria-label="Price: Mar 08, 2019 30.78"><path cs="100,100" d="M0.5,0.5 L0.5,-1.5 L9.5,-1.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M30.5,372.5 L30.5,347.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M30.5,375.5 L30.5,397.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(60,385)" aria-label="Price: Mar 11, 2019 30.53"><path cs="100,100" d="M0.5,0.5 L0.5,2.5 L9.5,2.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M65.5,385.5 L65.5,369.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M65.5,387.5 L65.5,408.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(72,365)" aria-label="Price: Mar 12, 2019 30.66"><path cs="100,100" d="M0.5,0.5 L0.5,15.5 L9.5,15.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M77.5,365.5 L77.5,339.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M77.5,379.5 L77.5,392.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(84,372)" aria-label="Price: Mar 13, 2019 31.04"><path cs="100,100" d="M0.5,0.5 L0.5,-14.5 L9.5,-14.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M89.5,357.5 L89.5,340.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M89.5,372.5 L89.5,404.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(96,360)" aria-label="Price: Mar 14, 2019 31.45"><path cs="100,100" d="M0.5,0.5 L0.5,-27.5 L9.5,-27.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M101.5,332.5 L101.5,305.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M101.5,360.5 L101.5,365.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(107,334)" aria-label="Price: Mar 15, 2019 31.67"><path cs="100,100" d="M0.5,0.5 L0.5,-14.5 L9.5,-14.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M112.5,319.5 L112.5,302.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M112.5,334.5 L112.5,347.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(143,312)" aria-label="Price: Mar 18, 2019 32.36"><path cs="100,100" d="M0.5,0.5 L0.5,-33.5 L9.5,-33.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M148.5,278.5 L148.5,266.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M148.5,312.5 L148.5,324.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(155,275)" aria-label="Price: Mar 19, 2019 32.03"><path cs="100,100" d="M0.5,0.5 L0.5,22.5 L9.5,22.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M160.5,275.5 L160.5,262.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M160.5,297.5 L160.5,303.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(167,306)" aria-label="Price: Mar 20, 2019 32.27"><path cs="100,100" d="M0.5,0.5 L0.5,-22.5 L9.5,-22.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M172.5,283.5 L172.5,271.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M172.5,306.5 L172.5,317.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(178,292)" aria-label="Price: Mar 21, 2019 31.98"><path cs="100,100" d="M0.5,0.5 L0.5,9.5 L9.5,9.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M183.5,292.5 L183.5,275.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M183.5,300.5 L183.5,304.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(190,294)" aria-label="Price: Mar 22, 2019 32.35"><path cs="100,100" d="M0.5,0.5 L0.5,-15.5 L9.5,-15.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M195.5,278.5 L195.5,277.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M195.5,294.5 L195.5,317.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(226,299)" aria-label="Price: Mar 25, 2019 31.17"><path cs="100,100" d="M0.5,0.5 L0.5,50.5 L9.5,50.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M231.5,299.5 L231.5,293.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M231.5,349.5 L231.5,353.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(237,324)" aria-label="Price: Mar 26, 2019 31.49"><path cs="100,100" d="M0.5,0.5 L0.5,6.5 L9.5,6.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M242.5,324.5 L242.5,320.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M242.5,330.5 L242.5,347.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(249,318)" aria-label="Price: Mar 27, 2019 32.4"><path cs="100,100" d="M0.5,0.5 L0.5,-41.5 L9.5,-41.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M254.5,275.5 L254.5,267.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M254.5,318.5 L254.5,332.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(261,289)" aria-label="Price: Mar 28, 2019 32.52"><path cs="100,100" d="M0.5,0.5 L0.5,-20.5 L9.5,-20.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M266.5,268.5 L266.5,260.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M266.5,289.5 L266.5,302.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(273,268)" aria-label="Price: Mar 29, 2019 33.92"><path cs="100,100" d="M0.5,0.5 L0.5,-83.5 L9.5,-83.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M278.5,184.5 L278.5,160.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M278.5,268.5 L278.5,275.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(308,168)" aria-label="Price: Apr 01, 2019 34.08"><path cs="100,100" d="M0.5,0.5 L0.5,7.5 L9.5,7.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M313.5,168.5 L313.5,117.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M313.5,175.5 L313.5,186.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(320,174)" aria-label="Price: Apr 02, 2019 34.49"><path cs="100,100" d="M0.5,0.5 L0.5,-22.5 L9.5,-22.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M325.5,150.5 L325.5,144.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M325.5,174.5 L325.5,174.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(332,156)" aria-label="Price: Apr 03, 2019 34.86"><path cs="100,100" d="M0.5,0.5 L0.5,-27.5 L9.5,-27.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M337.5,128.5 L337.5,123.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M337.5,156.5 L337.5,161.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(344,126)" aria-label="Price: Apr 04, 2019 35.59"><path cs="100,100" d="M0.5,0.5 L0.5,-40.5 L9.5,-40.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M349.5,84.5 L349.5,57.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M349.5,126.5 L349.5,126.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(391,78)" aria-label="Price: Apr 08, 2019 35.93"><path cs="100,100" d="M0.5,0.5 L0.5,-13.5 L9.5,-13.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M396.5,64.5 L396.5,44.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M396.5,78.5 L396.5,81.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(403,66)" aria-label="Price: Apr 09, 2019 35.23"><path cs="100,100" d="M0.5,0.5 L0.5,40.5 L9.5,40.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M408.5,66.5 L408.5,65.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M408.5,106.5 L408.5,116.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(415,117)" aria-label="Price: Apr 10, 2019 35.23"><path cs="100,100" d="M0.5,0.5 L0.5,-10.5 L9.5,-10.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M420.5,106.5 L420.5,94.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M420.5,117.5 L420.5,116.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(427,108)" aria-label="Price: Apr 11, 2019 34.96"><path cs="100,100" d="M0.5,0.5 L0.5,14.5 L9.5,14.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M432.5,108.5 L432.5,81.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M432.5,122.5 L432.5,136.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(439,128)" aria-label="Price: Apr 12, 2019 34.8"><path cs="100,100" d="M0.5,0.5 L0.5,4.5 L9.5,4.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M444.5,128.5 L444.5,120.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M444.5,132.5 L444.5,144.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(474,95)" aria-label="Price: Apr 15, 2019 34.82"><path cs="100,100" d="M0.5,0.5 L0.5,36.5 L9.5,36.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M479.5,95.5 L479.5,47.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M479.5,130.5 L479.5,130.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(486,138)" aria-label="Price: Apr 16, 2019 36"><path cs="100,100" d="M0.5,0.5 L0.5,-77.5 L9.5,-77.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M491.5,60.5 L491.5,54.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M491.5,138.5 L491.5,144.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(498,66)" aria-label="Price: Apr 17, 2019 35.83"><path cs="100,100" d="M0.5,0.5 L0.5,4.5 L9.5,4.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M503.5,66.5 L503.5,31.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M503.5,70.5 L503.5,82.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(510,72)" aria-label="Price: Apr 18, 2019 35.5"><path cs="100,100" d="M0.5,0.5 L0.5,18.5 L9.5,18.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M515.5,72.5 L515.5,72.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M515.5,90.5 L515.5,112.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(521,84)" aria-label="Price: Apr 19, 2019 36"><path cs="100,100" d="M0.5,0.5 L0.5,-23.5 L9.5,-23.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M526.5,60.5 L526.5,33.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M526.5,84.5 L526.5,85.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(557,72)" aria-label="Price: Apr 22, 2019 34.8"><path cs="100,100" d="M0.5,0.5 L0.5,60.5 L9.5,60.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M562.5,72.5 L562.5,51.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M562.5,132.5 L562.5,156.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(569,138)" aria-label="Price: Apr 23, 2019 35.23"><path cs="100,100" d="M0.5,0.5 L0.5,-31.5 L9.5,-31.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M574.5,106.5 L574.5,84.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M574.5,138.5 L574.5,139.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(581,88)" aria-label="Price: Apr 24, 2019 35.8"><path cs="100,100" d="M0.5,0.5 L0.5,-15.5 L9.5,-15.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M586.5,72.5 L586.5,66.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M586.5,88.5 L586.5,130.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(592,99)" aria-label="Price: Apr 25, 2019 35.43"><path cs="100,100" d="M0.5,0.5 L0.5,-4.5 L9.5,-4.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M597.5,94.5 L597.5,68.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M597.5,99.5 L597.5,103.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(604,110)" aria-label="Price: Apr 26, 2019 35.36"><path cs="100,100" d="M0.5,0.5 L0.5,-11.5 L9.5,-11.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M609.5,98.5 L609.5,108.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M609.5,110.5 L609.5,99.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(640,145)" aria-label="Price: Apr 29, 2019 35.33"><path cs="100,100" d="M0.5,0.5 L0.5,-44.5 L9.5,-44.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M645.5,100.5 L645.5,76.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M645.5,145.5 L645.5,154.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(652,145)" aria-label="Price: Apr 30, 2019 34.45"><path cs="100,100" d="M0.5,0.5 L0.5,7.5 L9.5,7.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M657.5,145.5 L657.5,126.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M657.5,153.5 L657.5,189.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(722,227)" aria-label="Price: May 06, 2019 33.91"><path cs="100,100" d="M0.5,0.5 L0.5,-41.5 L9.5,-41.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M727.5,185.5 L727.5,177.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M727.5,227.5 L727.5,247.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(734,169)" aria-label="Price: May 07, 2019 33.71"><path cs="100,100" d="M0.5,0.5 L0.5,28.5 L9.5,28.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M739.5,169.5 L739.5,169.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M739.5,197.5 L739.5,218.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(746,221)" aria-label="Price: May 08, 2019 33.13"><path cs="100,100" d="M0.5,0.5 L0.5,10.5 L9.5,10.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M751.5,221.5 L751.5,205.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M751.5,232.5 L751.5,239.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(758,239)" aria-label="Price: May 09, 2019 32.42"><path cs="100,100" d="M0.5,0.5 L0.5,35.5 L9.5,35.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M763.5,239.5 L763.5,224.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M763.5,274.5 L763.5,298.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(770,248)" aria-label="Price: May 10, 2019 33.61"><path cs="100,100" d="M0.5,0.5 L0.5,-44.5 L9.5,-44.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M775.5,203.5 L775.5,192.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M775.5,248.5 L775.5,248.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(805,236)" aria-label="Price: May 13, 2019 32.8"><path cs="100,100" d="M0.5,0.5 L0.5,15.5 L9.5,15.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M810.5,236.5 L810.5,222.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M810.5,251.5 L810.5,262.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(817,281)" aria-label="Price: May 14, 2019 32.56"><path cs="100,100" d="M0.5,0.5 L0.5,-15.5 L9.5,-15.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M822.5,266.5 L822.5,227.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M822.5,281.5 L822.5,282.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(829,239)" aria-label="Price: May 15, 2019 33.63"><path cs="100,100" d="M0.5,0.5 L0.5,-37.5 L9.5,-37.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M834.5,202.5 L834.5,189.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M834.5,239.5 L834.5,252.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(841,202)" aria-label="Price: May 16, 2019 33.67"><path cs="100,100" d="M0.5,0.5 L0.5,-1.5 L9.5,-1.5 L9.5,0.5 L0.5,0.5 Z" fill="#7f8da9" stroke="#7f8da9" fill-opacity="0" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M846.5,199.5 L846.5,183.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-high"></path><path cs="100,100" d="M846.5,202.5 L846.5,215.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#7f8da9" class="amcharts-graph-line-low"></path><g transform="translate(853,198)" aria-label="Price: May 17, 2019 33.31"><path cs="100,100" d="M0.5,0.5 L0.5,23.5 L9.5,23.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M858.5,198.5 L858.5,192.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M858.5,221.5 L858.5,241.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g transform="translate(888,221)" aria-label="Price: May 20, 2019 33.28"><path cs="100,100" d="M0.5,0.5 L0.5,1.5 L9.5,1.5 L9.5,0.5 L0.5,0.5 Z" fill="#db4c3c" stroke="#db4c3c" fill-opacity="0.9" stroke-width="1" stroke-opacity="1" class="amcharts-graph-column-front amcharts-graph-column-element"></path></g><path cs="100,100" d="M893.5,221.5 L893.5,192.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-high"></path><path cs="100,100" d="M893.5,223.5 L893.5,250.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#db4c3c" class="amcharts-graph-line-low"></path><g></g></g></g><g></g><g><g><path cs="100,100" d="M0.5,0.5 L899.5,0.5" fill="none" stroke-width="1" stroke-opacity="0" stroke="#000000" transform="translate(0,30)" class="amcharts-scrollbar-line"></path></g><g class="amcharts-value-axis value-axis-valueAxisAuto0_1559637669551"><path cs="100,100" d="M0.5,0.5 L0.5,30.5" fill="none" stroke-width="1" stroke-opacity="0" stroke="#000000" transform="translate(39,0)" class="amcharts-axis-line" visibility="hidden"></path></g><g class="amcharts-category-axis"><path cs="100,100" d="M0.5,0.5 L899.5,0.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(39,469)" class="amcharts-axis-line"></path></g><g class="amcharts-value-axis value-axis-valueAxisAuto0_1559637669551"><path cs="100,100" d="M0.5,0.5 L0.5,419.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#000000" transform="translate(39,50)" class="amcharts-axis-line" visibility="visible"></path></g></g><g><g transform="translate(39,50)" clip-path="url(#AmChartsEl-11)" style="pointer-events: none;"><path cs="100,100" d="M0.5,0.5 L0.5,0.5 L0.5,419.5" fill="none" stroke-width="1" stroke-opacity="1" stroke="#CC0000" class="amcharts-cursor-line amcharts-cursor-line-vertical" visibility="visible" transform="translate(893,0)"></path><path cs="100,100" d="M0.5,0.5 L899.5,0.5 L899.5,0.5" fill="none" stroke-width="1" stroke="#CC0000" class="amcharts-cursor-line amcharts-cursor-line-horizontal" visibility="visible" transform="translate(0,127)"></path></g><clipPath id="AmChartsEl-11"><rect x="0" y="0" width="899" height="419" rx="0" ry="0" stroke-width="0"></rect></clipPath></g><g><g class="amcharts-scrollbar-horizontal" visibility="visible" transform="translate(39,20)" style="touch-action: none;"><rect x="0.5" y="0.5" width="900" height="30" rx="0" ry="0" stroke-width="1" fill="#D4D4D4" stroke="#D4D4D4" fill-opacity="1" stroke-opacity="1" class="amcharts-scrollbar-bg"></rect><rect x="0.5" y="0.5" width="759" height="31" rx="0" ry="0" stroke-width="0" fill="#EFEFEF" stroke="#EFEFEF" fill-opacity="1" stroke-opacity="1" class="amcharts-scrollbar-bg-selected" transform="translate(140,0)"></rect><g transform="translate(0,0)" class="amcharts-graph-line amcharts-graph-g1"><g></g><g><path cs="100,100" d="M5.5,20.2 L15.5,20.34 L25.5,19.24 L55.5,15.46 L65.5,17.52 L75.5,17.08 L85.5,17.02 L95.5,14.7 L125.5,15.12 L135.5,15.8 L145.5,16.060000000000002 L155.5,17.9 L165.5,18.94 L195.5,19.44 L205.5,19.18 L215.5,18.42 L225.5,17.6 L235.5,17.16 L265.5,15.78 L275.5,16.439999999999998 L285.5,15.96 L295.5,16.54 L305.5,15.8 L335.5,18.16 L345.5,17.52 L355.5,15.7 L365.5,15.46 L375.5,12.66 L405.5,12.34 L415.5,11.52 L425.5,10.78 L435.5,9.32 L474.5,8.64 L484.5,10.04 L494.5,10.04 L504.5,10.58 L514.5,10.9 L544.5,10.86 L554.5,8.5 L564.5,8.84 L574.5,9.5 L584.5,8.5 L614.5,10.9 L624.5,10.04 L634.5,8.9 L644.5,9.64 L654.5,9.78 L684.5,9.84 L694.5,11.6 L754.5,12.68 L764.5,13.08 L774.5,14.24 L784.5,15.66 L794.5,13.28 L824.5,14.9 L834.5,15.38 L844.5,13.24 L854.5,13.16 L864.5,13.88 L894.5,13.94 L894.5,30.5 L5.5,30.5 L5.5,20.2 Z" fill="#BBBBBB" stroke="#000" fill-opacity="1" stroke-width="1" stroke-opacity="0" class="amcharts-scrollbar-graph-fill"></path><path cs="100,100" d="M5.5,20.2 L15.5,20.34 L25.5,19.24 L55.5,15.46 L65.5,17.52 L75.5,17.08 L85.5,17.02 L95.5,14.7 L125.5,15.12 L135.5,15.8 L145.5,16.060000000000002 L155.5,17.9 L165.5,18.94 L195.5,19.44 L205.5,19.18 L215.5,18.42 L225.5,17.6 L235.5,17.16 L265.5,15.78 L275.5,16.439999999999998 L285.5,15.96 L295.5,16.54 L305.5,15.8 L335.5,18.16 L345.5,17.52 L355.5,15.7 L365.5,15.46 L375.5,12.66 L405.5,12.34 L415.5,11.52 L425.5,10.78 L435.5,9.32 L474.5,8.64 L484.5,10.04 L494.5,10.04 L504.5,10.58 L514.5,10.9 L544.5,10.86 L554.5,8.5 L564.5,8.84 L574.5,9.5 L584.5,8.5 L614.5,10.9 L624.5,10.04 L634.5,8.9 L644.5,9.64 L654.5,9.78 L684.5,9.84 L694.5,11.6 L754.5,12.68 L764.5,13.08 L774.5,14.24 L784.5,15.66 L794.5,13.28 L824.5,14.9 L834.5,15.38 L844.5,13.24 L854.5,13.16 L864.5,13.88 L894.5,13.94" fill="none" stroke-width="1" stroke-opacity="0" stroke="#BBBBBB" stroke-linejoin="round" class="amcharts-scrollbar-graph-stroke"></path></g><g></g></g><g transform="translate(0,0)" class="amcharts-graph-line amcharts-graph-g1" clip-path="url(#AmChartsEl-13)"><g></g><g><path cs="100,100" d="M5.5,20.2 L15.5,20.34 L25.5,19.24 L55.5,15.46 L65.5,17.52 L75.5,17.08 L85.5,17.02 L95.5,14.7 L125.5,15.12 L135.5,15.8 L145.5,16.060000000000002 L155.5,17.9 L165.5,18.94 L195.5,19.44 L205.5,19.18 L215.5,18.42 L225.5,17.6 L235.5,17.16 L265.5,15.78 L275.5,16.439999999999998 L285.5,15.96 L295.5,16.54 L305.5,15.8 L335.5,18.16 L345.5,17.52 L355.5,15.7 L365.5,15.46 L375.5,12.66 L405.5,12.34 L415.5,11.52 L425.5,10.78 L435.5,9.32 L474.5,8.64 L484.5,10.04 L494.5,10.04 L504.5,10.58 L514.5,10.9 L544.5,10.86 L554.5,8.5 L564.5,8.84 L574.5,9.5 L584.5,8.5 L614.5,10.9 L624.5,10.04 L634.5,8.9 L644.5,9.64 L654.5,9.78 L684.5,9.84 L694.5,11.6 L754.5,12.68 L764.5,13.08 L774.5,14.24 L784.5,15.66 L794.5,13.28 L824.5,14.9 L834.5,15.38 L844.5,13.24 L854.5,13.16 L864.5,13.88 L894.5,13.94 L894.5,30.5 L5.5,30.5 L5.5,20.2 Z" fill="#888888" stroke="#000" fill-opacity="1" stroke-width="1" stroke-opacity="0" class="amcharts-scrollbar-graph-selected-fill"></path><path cs="100,100" d="M5.5,20.2 L15.5,20.34 L25.5,19.24 L55.5,15.46 L65.5,17.52 L75.5,17.08 L85.5,17.02 L95.5,14.7 L125.5,15.12 L135.5,15.8 L145.5,16.060000000000002 L155.5,17.9 L165.5,18.94 L195.5,19.44 L205.5,19.18 L215.5,18.42 L225.5,17.6 L235.5,17.16 L265.5,15.78 L275.5,16.439999999999998 L285.5,15.96 L295.5,16.54 L305.5,15.8 L335.5,18.16 L345.5,17.52 L355.5,15.7 L365.5,15.46 L375.5,12.66 L405.5,12.34 L415.5,11.52 L425.5,10.78 L435.5,9.32 L474.5,8.64 L484.5,10.04 L494.5,10.04 L504.5,10.58 L514.5,10.9 L544.5,10.86 L554.5,8.5 L564.5,8.84 L574.5,9.5 L584.5,8.5 L614.5,10.9 L624.5,10.04 L634.5,8.9 L644.5,9.64 L654.5,9.78 L684.5,9.84 L694.5,11.6 L754.5,12.68 L764.5,13.08 L774.5,14.24 L784.5,15.66 L794.5,13.28 L824.5,14.9 L834.5,15.38 L844.5,13.24 L854.5,13.16 L864.5,13.88 L894.5,13.94" fill="none" stroke-width="1" stroke-opacity="0" stroke="#888888" stroke-linejoin="round" class="amcharts-scrollbar-graph-selected-stroke"></path></g><g></g></g><g transform="translate(0,0)"></g><g transform="translate(0,0)" visibility="visible"></g><rect x="0.5" y="0.5" width="900" height="30" rx="0" ry="0" stroke-width="0" fill="#000" stroke="#000" fill-opacity="0.005" stroke-opacity="0.005"></rect><rect x="140" y="0.5" width="759" height="30" rx="0" ry="0" stroke-width="0" fill="#000" stroke="#000" fill-opacity="0.005" stroke-opacity="0.005" aria-label="Zoom chart using cursor arrows" role="menuitem"></rect><g aria-label="Zoom chart using cursor arrows" role="menuitem" transform="translate(123,-2)"><image x="0" y="0" width="35" height="35" xlink:href="https://www.amcharts.com/lib/3/images/dragIconRoundBig.svg" class="amcharts-scrollbar-grip-left"></image><rect x="0.5" y="0.5" width="25" height="30" rx="0" ry="0" stroke-width="0" fill="#000" stroke="#000" fill-opacity="0.005" stroke-opacity="0.005" transform="translate(5,3)"></rect></g><g aria-label="Zoom chart using cursor arrows" role="menuitem" transform="translate(882,-2)"><image x="0" y="0" width="35" height="35" xlink:href="https://www.amcharts.com/lib/3/images/dragIconRoundBig.svg" class="amcharts-scrollbar-grip-right"></image><rect x="0.5" y="0.5" width="25" height="30" rx="0" ry="0" stroke-width="0" fill="#000" stroke="#000" fill-opacity="0.005" stroke-opacity="0.005" transform="translate(5,3)"></rect></g><clipPath id="AmChartsEl-13"><rect x="140" y="0" width="759" height="31" rx="0" ry="0" stroke-width="0"></rect></clipPath></g></g><g><g transform="translate(0,0)" class="amcharts-graph-line amcharts-graph-g1"></g><g transform="translate(0,0)" class="amcharts-graph-line amcharts-graph-g1"></g><g transform="translate(39,50)" class="amcharts-graph-candlestick amcharts-graph-g1"></g></g><g><g></g></g><g><g class="amcharts-value-axis value-axis-valueAxisAuto0_1559637669551" transform="translate(39,0)" visibility="hidden"></g><g class="amcharts-category-axis" transform="translate(39,50)" visibility="visible"><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" transform="translate(62,431.5)" class="amcharts-axis-label"><tspan y="6" x="0">Mar 11</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" transform="translate(145,431.5)" class="amcharts-axis-label"><tspan y="6" x="0">Mar 18</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" transform="translate(228,431.5)" class="amcharts-axis-label"><tspan y="6" x="0">Mar 25</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" font-weight="bold" text-anchor="start" transform="translate(311,431.5)" class="amcharts-axis-label"><tspan y="6" x="0">Apr</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" transform="translate(393,431.5)" class="amcharts-axis-label"><tspan y="6" x="0">Apr 08</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" transform="translate(476,431.5)" class="amcharts-axis-label"><tspan y="6" x="0">Apr 15</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" transform="translate(559,431.5)" class="amcharts-axis-label"><tspan y="6" x="0">Apr 22</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" transform="translate(642,431.5)" class="amcharts-axis-label"><tspan y="6" x="0">Apr 29</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" font-weight="bold" text-anchor="start" transform="translate(725,431.5)" class="amcharts-axis-label"><tspan y="6" x="0">May</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" transform="translate(807,431.5)" class="amcharts-axis-label"><tspan y="6" x="0">May 13</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" transform="translate(890,431.5)" class="amcharts-axis-label"><tspan y="6" x="0">May 20</tspan></text></g><g class="amcharts-value-axis value-axis-valueAxisAuto0_1559637669551" transform="translate(39,50)" visibility="visible"><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,418.5)" class="amcharts-axis-label"><tspan y="6" x="0">30</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,358.5)" class="amcharts-axis-label"><tspan y="6" x="0">31</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,298.5)" class="amcharts-axis-label"><tspan y="6" x="0">32</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,238.5)" class="amcharts-axis-label"><tspan y="6" x="0">33</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,179.5)" class="amcharts-axis-label"><tspan y="6" x="0">34</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,119.5)" class="amcharts-axis-label"><tspan y="6" x="0">35</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,59.5)" class="amcharts-axis-label"><tspan y="6" x="0">36</tspan></text><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="end" transform="translate(-12,-0.5)" class="amcharts-axis-label"><tspan y="6" x="0">37</tspan></text></g></g><g></g><g transform="translate(39,50)"><g transform="translate(817,195)" style="pointer-events: none;" visibility="visible"><path cs="100,100" d="M69.5,0.5 L69.5,22.5 L75.5,28.5 L69.5,34.5 L69.5,56.5 L0.5,56.5 L0.5,0.5 L69.5,0.5 Z" fill="#FFFFFF" stroke="#000000" fill-opacity="0" stroke-width="2" stroke-opacity="0.4" transform="translate(1,1)"></path><path cs="100,100" d="M69.5,0.5 L69.5,22.5 L75.5,28.5 L69.5,34.5 L69.5,56.5 L0.5,56.5 L0.5,0.5 L69.5,0.5 Z" fill="#FFFFFF" stroke="#7f8da9" fill-opacity="0.8" stroke-width="2" stroke-opacity="1" class="amcharts-balloon-bg amcharts-balloon-bg-g1"></path></g><g transform="translate(821,419)" style="pointer-events: none;"><rect x="0.5" y="0.5" width="77" height="20" rx="0" ry="0" stroke-width="1" fill="#CC0000" stroke="#CC0000" fill-opacity="1" stroke-opacity="1" class="amcharts-balloon-bg amcharts-balloon-bg-categoryAxis"></rect></g><g transform="translate(-33,117) scale(1)" style="pointer-events: none;"><path cs="100,100" d="M27.5,0.5 L27.5,5.5 L32.5,10.5 L27.5,15.5 L27.5,20.5 L0.5,20.5 L0.5,0.5 L27.5,0.5 Z" fill="#CC0000" stroke="#CC0000" fill-opacity="1" stroke-width="1" stroke-opacity="1" class="amcharts-balloon-bg amcharts-balloon-bg-valueAxisAuto0_1559637669551"></path></g></g><g><g transform="translate(862,58)" visibility="visible"><rect x="0.5" y="0.5" width="85" height="33" rx="0" ry="0" stroke-width="1" fill="#e5e5e5" stroke="#e5e5e5" fill-opacity="1" stroke-opacity="1" opacity="0" transform="translate(-8,-8)" class="amcharts-zoom-out-bg"></rect><image x="0" y="0" width="19" height="19" xlink:href="https://www.amcharts.com/lib/3/images/lens.svg" class="amcharts-zoom-out-image"></image><text y="6" fill="#000000" font-family="Verdana" font-size="11px" opacity="1" text-anchor="start" class="amcharts-zoom-out-label" transform="translate(24,7)"><tspan y="6" x="0">Show all</tspan></text></g></g><g></g><clipPath id="AmChartsEl-10"><rect x="-1" y="-1" width="901" height="421" rx="0" ry="0" stroke-width="0"></rect></clipPath></svg><a href="http://www.amcharts.com" title="JavaScript charts" style="position: absolute; text-decoration: none; color: rgb(0, 0, 0); font-family: Verdana; font-size: 11px; opacity: 0.7; display: block; left: 44px; top: 55px;">JS chart by amCharts</a><div class="amcharts-balloon-div amcharts-balloon-div-g1" style="pointer-events: none; position: absolute; left: 865px; top: 248.669px;"><div style="text-align: center; max-width: 220px; font-size: 11px; color: rgb(0, 0, 0); font-family: Verdana;">Open:<b>33.3</b><br>Low:<b>32.82</b><br>High:<b>33.79</b><br>Close:<b>33.28</b><br></div></div><div class="amcharts-balloon-div amcharts-balloon-div-categoryAxis" style="pointer-events: none; position: absolute; left: 869px; top: 473px;"><div style="text-align: center; max-width: 220px; font-size: 11px; color: rgb(255, 255, 255); font-family: Verdana;">May 20, 2019</div></div><div class="amcharts-balloon-div amcharts-balloon-div-valueAxisAuto0_1559637669551" style="pointer-events: none; position: absolute; left: 15px; top: 171px;"><div style="text-align: center; max-width: 220px; font-size: 11px; color: rgb(255, 255, 255); font-family: Verdana;">35</div></div></div><div class="amcharts-export-menu amcharts-export-menu-bottom-right amExportButton"><ul><li class="export-main"><a href="#"><span>menu.label.undefined</span></a><ul><li><a href="#"><span>Download as ...</span></a><ul><li><a href="#"><span>PNG</span></a></li><li><a href="#"><span>JPG</span></a></li><li><a href="#"><span>SVG</span></a></li><li><a href="#"><span>PDF</span></a></li></ul></li><li><a href="#"><span>Save as ...</span></a><ul><li><a href="#"><span>CSV</span></a></li><li><a href="#"><span>XLSX</span></a></li><li><a href="#"><span>JSON</span></a></li></ul></li><li><a href="#"><span>Annotate ...</span></a></li><li><a href="#"><span>Print</span></a></li></ul></li></ul></div></div></div>
+<p style="color:#EEFFBB;font-size:17px;position:absolute;top:687px;left:500px">招商银行2019年3-5月股票k线图</p>
+<script type="text/javascript" src="https://www.amcharts.com/lib/3/plugins/export/libs/fabric.js/fabric.min.js" async=""></script><script type="text/javascript" src="https://www.amcharts.com/lib/3/plugins/export/libs/FileSaver.js/FileSaver.min.js" async=""></script><script type="text/javascript" src="https://www.amcharts.com/lib/3/plugins/export/libs/jszip/jszip.min.js" async=""></script><script type="text/javascript" src="https://www.amcharts.com/lib/3/plugins/export/libs/pdfmake/pdfmake.min.js" async=""></script><script type="text/javascript" src="https://www.amcharts.com/lib/3/plugins/export/libs/xlsx/xlsx.min.js" async=""></script><script type="text/javascript" src="https://www.amcharts.com/lib/3/plugins/export/libs/pdfmake/vfs_fonts.js" async=""></script></head>
+<p style="color:#444444;font-size:20px;position:absolute;top:695px;left:250px;">_____________________________________________________________________________</p>
+<p style="font-size:15px;position:absolute;top:730px;left:280px;font-weight:bold;">&nbsp&nbsp总市值:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+ &nbsp&nbsp市净率: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	&nbsp&nbsp总股本: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+&nbsp&nbsp净利润: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<p style="font-size:15px;position:absolute;top:730px;left:350px;">8549.5亿&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	1.61&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	252.2亿&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	252.4亿</p>
+<p style="font-size:15px;position:absolute;top:770px;left:280px;font-weight:bold;">&nbsp&nbsp流通市值:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+ 每股收益: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	流通股本: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+营业收入: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<p style="font-size:15px;position:absolute;top:770px;left:360px;">6993.2亿&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	1.001&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	206.3亿&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	687.4亿</p>
+<p style="color:#444444;font-size:20px;position:absolute;top:790px;left:250px;">_____________________________________________________________________________</p>
+<p style="color:#444444;font-size:20px;position:absolute;top:925px;left:250px;">_____________________________________________________________________________</p>
+<p style="color:white;font-size:28px;position:absolute;top:900px;left:250px;">*&nbsp公司概况&nbsp*</p>
+<p style="color:#EEFFBB;font-size:17px;position:absolute;top:950px;left:254px;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp招商银行股份有限公司1987年成立于中国改革开放的最前沿——深圳蛇口, 是中国境内完全由企业法</p>
+<p style="color:#EEFFBB;font-size:17px;position:absolute;top:975px;left:254px;">&nbsp持股的股份制商业银行,也是国家从体制外推动银行业改革的试点银行。 在英国权威金融杂志 《银行家》</p>
+<p style="color:#EEFFBB;font-size:17px;position:absolute;top:1000px;left:254px;">&nbsp公布的2016年全球银行品牌500强中 , 招商银行品牌价值位列全球第13位 ; 在《财富》世界500强榜单中 ,</p>
+<p style="color:#EEFFBB;font-size:17px;position:absolute;top:1025px;left:254px;">&nbsp招商银行连续5年强势入榜,2016年名列第189名。招商银行业务发展和经营特色也深得国内外机构的认同,</p>
+<p style="color:#EEFFBB;font-size:17px;position:absolute;top:1050px;left:254px;">&nbsp英国权威金融杂志《银行家》就把“2016年中国年度银行”大奖授予了招商银行。</p>
+
+
+<p style="color:white;font-size:20px;position:absolute;top:1100px;left:30px;">____________________________________________________________________________________________________________________________</p>
+<p style="color:white;font-size:15px;position:absolute;top:1130px;left:110px;font-weight:bold;">---联系方式---</p>
+<p style="color:white;font-size:15px;position:absolute;top:1130px;left:300px;">办公地址&nbsp&nbsp:&nbsp&nbsp广东省深圳市福田区深南大道7088号,香港中环康乐广场八号交易广场三期31楼</p>
+<p style="color:white;font-size:15px;position:absolute;top:1130px;left:1000px;">联系电话&nbsp&nbsp:&nbsp&nbsp+86(755)8319-5109</p>
+<br>
+<br>
+<br>
+<br>
+
+
+</div>
+
+<div class="login hidden" id="logbar">
+    <img src="../static/img/cha.png" style="filter: invert(80%); height: 20px" class="cha">
+	  <div class="login_title">
+	    <span>登录</span>
+	  </div>
+	  <div class="login_fields">
+	    <div class="login_fields__user">
+	      <div class="icon">
+	        <img src="../static/img/user_icon_copy.png">
+	      </div>
+	      <input placeholder="用户名/邮箱" type="text">
+	        <div class="validation">
+	          <img src="../static/img/tick.png">
+	        </div>
+	    </div>
+	    <div class="login_fields__password">
+	      <div class="icon">
+	        <img src="../static/img/lock_icon_copy.png">
+	      </div>
+	      <input placeholder="密码" type="password">
+	      <div class="validation">
+	        <img src="../static/img/tick.png">
+	      </div>
+	    </div>
+	    <div class="login_fields__submit">
+	      <input type="submit" value="登录">
+	      <div class="forgot">
+	        <a href="#">忘记密码?</a>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="success">
+          <h2>认证成功</h2>
+	    <p>欢迎回来</p>
+	  </div>
+	  <div class="disclaimer">
+	    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper laoreet placerat. Nullam semper auctor justo, rutrum posuere odio vulputate nec.</p>
+	  </div>
+</div>
+	<div class="authent">
+	  <img src="../static/img/puff.svg">
+	  <p>认证中...</p>
+	</div>
+	<script type="text/javascript" src="../static/js/stopExecutionOnTimeout.js?t=1"></script>
+	<script type="text/javascript" src="../static/js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../static/js/jquery-ui.min.js"></script>
+	<script>
+	$('input[type="submit"]').click(function () {
+	    $('.login').addClass('test');
+	    setTimeout(function () {
+	        $('.login').addClass('testtwo');
+	    }, 300);
+	    setTimeout(function () {
+	        $('.authent').show().animate({ right: -320 }, {
+	            easing: 'easeOutQuint',
+	            duration: 600,
+	            queue: false
+	        });
+	        $('.authent').animate({ opacity: 1 }, {
+	            duration: 200,
+	            queue: false
+	        }).addClass('visible');
+	    }, 500);
+	    setTimeout(function () {
+	        $('.authent').show().animate({ right: 90 }, {
+	            easing: 'easeOutQuint',
+	            duration: 600,
+	            queue: false
+	        });
+	        $('.authent').animate({ opacity: 0 }, {
+	            duration: 200,
+	            queue: false
+	        }).addClass('visible');
+	        $('.login').removeClass('testtwo');
+	    }, 2500);
+	    setTimeout(function () {
+	        $('.login').removeClass('test');
+	        $('.login div').fadeOut(123);
+	    }, 2800);
+	    setTimeout(function () {
+	        $('.success').fadeIn();
+	    }, 3200);
+	});
+	$('input[type="text"],input[type="password"]').focus(function () {
+	    $(this).prev().animate({ 'opacity': '1' }, 200);
+	});
+	$('input[type="text"],input[type="password"]').blur(function () {
+	    $(this).prev().animate({ 'opacity': '.5' }, 200);
+	});
+	$('input[type="text"],input[type="password"]').keyup(function () {
+	    if (!$(this).val() == '') {
+	        $(this).next().animate({
+	            'opacity': '1',
+	            'right': '30'
+	        }, 200);
+	    } else {
+	        $(this).next().animate({
+	            'opacity': '0',
+	            'right': '20'
+	        }, 200);
+	    }
+	});
+	var open = 0;
+	$('.tab').click(function () {
+	    $(this).fadeOut(200, function () {
+	        $(this).parent().animate({ 'left': '0' });
+	    });
+	});
+	</script>
+<script>
+    var log=document.getElementById('login');
+    var login=document.getElementById('logbar');
+    var cha = document.getElementsByClassName('cha');
+    var body = document.getElementById('base');
+    log.addEventListener("click", function () {
+        login.classList.replace('hidden', 'show');
+		body.className='fuzzy';
+    });
+    cha[0].onclick=function () {
+        login.classList.replace('show','hidden')
+		body.className='fuz';
+    };
+
+</script>
+<script>
+  var chart = AmCharts.makeChart( "chartdiv", {
+  "type": "serial",
+  "theme": "none",
+  "dataDateFormat":"YYYY-MM-DD",
+  "valueAxes": [ {
+    "position": "left"
+  } ],
+  "graphs": [ {
+    "id": "g1",
+    "proCandlesticks": true,
+    "balloonText": "Open:<b>[[open]]</b><br>Low:<b>[[low]]</b><br>High:<b>[[high]]</b><br>Close:<b>[[close]]</b><br>",
+    "closeField": "close",
+    "fillColors": "#7f8da9",
+    "highField": "high",
+    "lineColor": "#7f8da9",
+    "lineAlpha": 1,
+    "lowField": "low",
+    "fillAlphas": 0.9,
+    "negativeFillColors": "#db4c3c",
+    "negativeLineColor": "#db4c3c",
+    "openField": "open",
+    "title": "Price:",
+    "type": "candlestick",
+    "valueField": "close"
+  } ],
+  "chartScrollbar": {
+    "graph": "g1",
+    "graphType": "line",
+    "scrollbarHeight": 30
+  },
+  "chartCursor": {
+    "valueLineEnabled": true,
+    "valueLineBalloonEnabled": true
+  },
+  "categoryField": "date",
+  "categoryAxis": {
+    "parseDates": true
+  },
+  "dataProvider": [ {
+    "date": "2019-02-20",
+    "open": "30.27",
+    "high": "30.44",
+    "low": "29.98",
+    "close": "30.15"
+  }, {
+    "date": "2019-02-21",
+    "open": "30.18",
+    "high": "30.64",
+    "low": "29.84",
+    "close": "30.08"
+  }, {
+    "date": "2019-02-22",
+    "open": "30.07",
+    "high": "30.64",
+    "low": "29.8",
+    "close": "30.63"
+  }, {
+    "date": "2019-02-25",
+    "open": "31",
+    "high": "32.9",
+    "low": "30.97",
+    "close": "32.52"
+  }, {
+    "date": "2019-02-26",
+    "open": "32.29",
+    "high": "33",
+    "low": "31.32",
+    "close": "31.49"
+  }, {
+    "date": "2019-02-27",
+    "open": "31.7",
+    "high": "32.32",
+    "low": "31.4",
+    "close": "31.71"
+  }, {
+    "date": "2019-02-28",
+    "open": "31.7",
+    "high": "32.1",
+    "low": "31.45",
+    "close": "31.74"
+  }, {
+    "date": "2019-03-01",
+    "open": "32.05",
+    "high": "32.93",
+    "low": "31.65",
+    "close": "32.9"
+  }, {
+    "date": "2019-03-04",
+    "open": "33",
+    "high": "33.79",
+    "low": "32.5",
+    "close": "32.69"
+  }, {
+    "date": "2019-03-05",
+    "open": "32.86",
+    "high": "32.86",
+    "low": "32.1",
+    "close": "32.35"
+  }, {
+    "date": "2019-03-06",
+    "open": "32.31",
+    "high": "32.61",
+    "low": "31.78",
+    "close": "32.22"
+  }, {
+    "date": "2019-03-07",
+    "open": "32.01",
+    "high": "32.1",
+    "low": "30.97",
+    "close": "31.3"
+  }, {
+    "date": "2019-03-08",
+    "open": "30.74",
+    "high": "31.21",
+    "low": "30.36",
+    "close": "30.78"
+  }, {
+    "date": "2019-03-11",
+    "open": "30.57",
+    "high": "30.83",
+    "low": "30.18",
+    "close": "30.53"
+  }, {
+    "date": "2019-03-12",
+    "open": "30.91",
+    "high": "31.33",
+    "low": "30.45",
+    "close": "30.66"
+  }, {
+    "date": "2019-03-13",
+    "open": "30.79",
+    "high": "31.32",
+    "low": "30.25",
+    "close": "31.04"
+  }, {
+    "date": "2019-03-14",
+    "open": "30.98",
+    "high": "31.9",
+    "low": "30.9",
+    "close": "31.45"
+  }, {
+    "date": "2019-03-15",
+    "open": "31.42",
+    "high": "31.95",
+    "low": "31.2",
+    "close": "31.67"
+  }, {
+    "date": "2019-03-18",
+    "open": "31.79",
+    "high": "32.56",
+    "low": "31.59",
+    "close": "32.36"
+  }, {
+    "date": "2019-03-19",
+    "open": "32.4",
+    "high": "32.62",
+    "low": "31.93",
+    "close": "32.03"
+  }, {
+    "date": "2019-03-20",
+    "open": "31.88",
+    "high": "32.47",
+    "low": "31.7",
+    "close": "32.27"
+  }, {
+    "date": "2019-03-21",
+    "open": "32.13",
+    "high": "32.4",
+    "low": "31.92",
+    "close": "31.98"
+  }, {
+    "date": "2019-03-22",
+    "open": "32.08",
+    "high": "32.38",
+    "low": "31.71",
+    "close": "32.35"
+  }, {
+    "date": "2019-03-25",
+    "open": "32",
+    "high": "32.1",
+    "low": "31.1",
+    "close": "31.17"
+  }, {
+    "date": "2019-03-26",
+    "open": "31.59",
+    "high": "31.65",
+    "low": "31.21",
+    "close": "31.49"
+  }, {
+    "date": "2019-03-27",
+    "open": "31.69",
+    "high": "32.54",
+    "low": "31.45",
+    "close": "32.4"
+  }, {
+    "date": "2019-03-28",
+    "open": "32.17",
+    "high": "32.65",
+    "low": "31.95",
+    "close": "32.52"
+  }, {
+    "date": "2019-03-29",
+    "open": "32.52",
+    "high": "34.32",
+    "low": "32.41",
+    "close": "33.92"
+  }, {
+    "date": "2019-04-01",
+    "open": "34.2",
+    "high": "35.05",
+    "low": "33.9",
+    "close": "34.08"
+  }, {
+    "date": "2019-04-02",
+    "open": "34.1",
+    "high": "34.59",
+    "low": "34.09",
+    "close": "34.49"
+  }, {
+    "date": "2019-04-03",
+    "open": "34.4",
+    "high": "34.95",
+    "low": "34.31",
+    "close": "34.86"
+  }, {
+    "date": "2019-04-04",
+    "open": "34.9",
+    "high": "36.05",
+    "low": "34.9",
+    "close": "35.59"
+  }, {
+    "date": "2019-04-08",
+    "open": "35.7",
+    "high": "36.27",
+    "low": "35.65",
+    "close": "35.93"
+  }, {
+    "date": "2019-04-09",
+    "open": "35.9",
+    "high": "35.91",
+    "low": "35.06",
+    "close": "35.23"
+  }, {
+    "date": "2019-04-10",
+    "open": "35.05",
+    "high": "35.43",
+    "low": "35.06",
+    "close": "35.23"
+  }, {
+    "date": "2019-04-11",
+    "open": "35.19",
+    "high": "35.65",
+    "low": "34.72",
+    "close": "34.96"
+  }, {
+    "date": "2019-04-12",
+    "open": "34.86",
+    "high": "35",
+    "low": "34.6",
+    "close": "34.8"
+  }, {
+    "date": "2019-04-15",
+    "open": "35.42",
+    "high": "36.22",
+    "low": "34.82",
+    "close": "34.82"
+  }, {
+    "date": "2019-04-16",
+    "open": "34.7",
+    "high": "36.1",
+    "low": "34.6",
+    "close": "36"
+  }, {
+    "date": "2019-04-17",
+    "open": "35.89",
+    "high": "36.48",
+    "low": "35.63",
+    "close": "35.83"
+  }, {
+    "date": "2019-04-18",
+    "open": "35.8",
+    "high": "35.8",
+    "low": "35.13",
+    "close": "35.5"
+  }, {
+    "date": "2019-04-19",
+    "open": "35.6",
+    "high": "36.45",
+    "low": "35.58",
+    "close": "36"
+  }, {
+    "date": "2019-04-22",
+    "open": "35.8",
+    "high": "36.15",
+    "low": "34.4",
+    "close": "34.8"
+  }, {
+    "date": "2019-04-23",
+    "open": "34.7",
+    "high": "35.59",
+    "low": "34.67",
+    "close": "35.23"
+  }, {
+    "date": "2019-04-24",
+    "open": "35.53",
+    "high": "35.9",
+    "low": "34.82",
+    "close": "35.8"
+  }, {
+    "date": "2019-04-25",
+    "open": "35.35",
+    "high": "35.86",
+    "low": "35.28",
+    "close": "35.43"
+  }, {
+    "date": "2019-04-26",
+    "open": "35.16",
+    "high": "35.2",
+    "low": "35.34",
+    "close": "35.36"
+  }, {
+    "date": "2019-04-29",
+    "open": "34.57",
+    "high": "35.73",
+    "low": "34.42",
+    "close": "35.33"
+  }, {
+    "date": "2019-04-30",
+    "open": "34.57",
+    "high": "34.9",
+    "low": "33.85",
+    "close": "34.45"
+  }, {
+    "date": "2019-05-06",
+    "open": "33.2",
+    "high": "34.05",
+    "low": "32.88",
+    "close": "33.91"
+  }, {
+    "date": "2019-05-07",
+    "open": "34.18",
+    "high": "34.18",
+    "low": "33.36",
+    "close": "33.71"
+  }, {
+    "date": "2019-05-08",
+    "open": "33.3",
+    "high": "33.58",
+    "low": "33",
+    "close": "33.13"
+  }, {
+    "date": "2019-05-09",
+    "open": "33",
+    "high": "33.25",
+    "low": "32.02",
+    "close": "32.42"
+  }, {
+    "date": "2019-05-10",
+    "open": "32.86",
+    "high": "33.8",
+    "low": "32.86",
+    "close": "33.61"
+  }, {
+    "date": "2019-05-13",
+    "open": "33.05",
+    "high": "33.29",
+    "low": "32.63",
+    "close": "32.8"
+  }, {
+    "date": "2019-05-14",
+    "open": "32.3",
+    "high": "33.2",
+    "low": "32.29",
+    "close": "32.56"
+  }, {
+    "date": "2019-05-15",
+    "open": "33",
+    "high": "33.85",
+    "low": "32.79",
+    "close": "33.63"
+  }, {
+    "date": "2019-05-16",
+    "open": "33.63",
+    "high": "33.94",
+    "low": "33.41",
+    "close": "33.67"
+  }, {
+    "date": "2019-05-17",
+    "open": "33.7",
+    "high": "33.8",
+    "low": "32.97",
+    "close": "33.31"
+  }, {
+    "date": "2019-05-20",
+    "open": "33.3",
+    "high": "33.79",
+    "low": "32.82",
+    "close": "33.28"
+  }],
+  "export": {
+    "enabled": true,
+    "position": "bottom-right"
+  }
+} );
+
+chart.addListener( "rendered", zoomChart );
+zoomChart();
+
+function zoomChart() {
+  chart.zoomToIndexes( chart.dataProvider.length - 50, chart.dataProvider.length - 1 );
+}
+</script>
+
+
+</body></html>
+

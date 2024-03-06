@@ -1,0 +1,3308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock World-深市</title>
+    <link href="../static/images/stok-word-logo-0.png" rel="shortcut icon">
+
+	<!--<link rel="stylesheet" href="../statics/css/bootstrap.min.css" 	type="text/css" media="all">-->
+	<link rel="stylesheet" href="../static/css/style.css" 	type="text/css" media="all">
+
+    <link rel="stylesheet" type="text/css" href="../static/css/styles.css">
+
+    <style type="text/css">
+        *{
+        margin: 0;
+        padding: 0;
+        }
+        body{
+            border: 0;
+            background-color:hsla(0,0%,18%,1.00);
+            overflow: auto;
+            display: block;
+        }
+
+        .hidden{
+            transition: all 0.5s ease-in;
+            transform: translate(200px, -150px) rotateX(80deg) scale(0.5);
+            filter: opacity(0%);
+        }
+        .show{
+            transition: all 0.5s ease-in;
+            transform: translate(0, 50px) scale(1);
+            filter: opacity(100%);
+        }
+        .cha{
+            position: absolute;
+            right: 20px;
+            top:20px;
+        }
+        .cha:hover{
+            transition: all 0.2s;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+		.fuzzy{
+			transition: all 0.5s ease-in;
+			-webkit-filter: blur(7px);
+            filter: blur(7px);
+		}
+		.fuz{
+            transition: all 0.5s ease-in;
+			-webkit-filter:blur(0);
+            filter: blur(0);
+        }
+        .login {
+            position: absolute;
+            right:20px;
+          top: 10px;
+                    /*transform: translate(-100px);*/
+          /*-webkit-transition-timing-function: cubic-bezier(0.68, -0.25, 0.265, 0.85);*/
+          /*-webkit-transition-property: -webkit-transform,opacity,box-shadow,top,left;*/
+                  /*transition-property: transform,opacity,box-shadow,top,left;*/
+          /*-webkit-transition-duration: .5s;*/
+                  /*transition-duration: .5s;*/
+          /*-webkit-transform-origin: 161px 100%;*/
+              /*-ms-transform-origin: 161px 100%;*/
+                  /*transform-origin: 161px 100%;*/
+          /*-webkit-transform: rotateX(0deg) translate(550px, -100px) scale(0.5);*/
+                  /*transform: rotateX(0deg) translate(550px, -100px) scale(0.5);*/
+          /*position: relative;*/
+          width: 240px;
+          border-top: 2px solid #D8312A;
+          height: 300px;
+          /*position: absolute;*/
+          /*left: 0;*/
+          /*right: 0;*/
+          margin: auto;
+          /*top: 0;*/
+          /*bottom: 0;*/
+          padding: 100px 40px 40px 40px;
+          background: #35394a;
+          /* Old browsers */
+          /* FF3.6+ */
+          background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, #35394a), color-stop(100%, #1f222e));
+          /* Chrome,Safari4+ */
+          background: -webkit-linear-gradient(45deg, #35394a 0%, #1f222e 100%);
+          /* Chrome10+,Safari5.1+ */
+          /* Opera 11.10+ */
+          /* IE10+ */
+          background: linear-gradient(45deg, #35394a 0%, #1f222e 100%);
+          /* W3C */
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35394a', endColorstr='#1f222e',GradientType=1 );
+          /* IE6-9 fallback on horizontal gradient */
+}
+		a{
+			text-decoration:none;
+		}
+		ul,li{
+			 list-style:none;
+		}
+		#menu li{
+			float: left;
+			width: 120px;
+        line-height: 3em;
+        /*height: 3em;*/
+        text-align: center;
+        cursor:pointer;
+		}
+		.ul{
+			position:absolute;
+			top:25px;
+			display: none;
+		}
+		.ul li{
+			float:none;
+			border-bottom: 1px solid #c7c7c7;
+		}
+		.ul li a{
+			text-align: center;
+			min-height: 35px;
+			line-height: 35px;
+			background-color: white;
+		}
+		#menu li:hover ul{
+			display: block;
+		}
+		.ul li:hover a {
+			background-color: #424668;
+			color: white;
+		}
+   </style>
+<!--叠层图style-->
+	<style>
+    .contain {
+    width: 1600px;
+    margin: 100px auto;
+    position:absolute;top:170px;left:23%;
+        transition: all 2s;
+}
+    .contain:hover{
+        transform: translate(-100px,0);
+        transition: all 2s;
+    }
+.contain li {
+    float: left;
+    list-style: none;
+    width: 200px;
+    height:550px;
+    transition: all 2s;
+    position: relative;
+    overflow: hidden;
+    border-left: 2px solid rgba(255, 255, 255, .8);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
+}
+
+.contain ul:hover li {
+    width: 80px;
+}
+
+.contain ul li:hover {
+    width: 1000px;
+}
+
+.contain li .title {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    background-color: rgba(0, 0, 0, .5);
+    text-indent: 2em;
+    line-height: 50px;
+    bottom: 0px;
+    left: 0
+}
+
+.contain a {
+    color: #fff;
+    text-decoration: none;
+}
+/*<!--#chartdiv {-->*/
+/*<!--  width		: 1000px;-->*/
+/*<!--  height	: 600px;-->*/
+
+/*<!--  font-size	: 11px;-->*/
+/*<!--}-->*/
+
+#title{
+      color:white;
+      font-size:30px;
+      position:absolute;
+      top:150px;
+    left: 250px;
+    text-align: center;
+}
+
+#title2{
+        color:white;
+        font-size:30px;
+        position:absolute;
+        top:900px;
+        left:250px;
+    text-align: center;
+}
+
+#text1{
+      color:white;
+      position:absolute;
+    top: 970px;
+      left:250px;
+      width:1000px
+
+}
+
+#text2{
+      color:white;
+      position:absolute;
+      top:1200px;
+      left:250px;
+      width:1000px
+
+}
+#text3{
+      color:white;
+      position:absolute;
+      top:1420px;
+      left:250px;
+      width:1000px
+
+}
+#text4{
+      color:white;
+      position:absolute;
+      top:1650px;
+      left:250px;
+      width:1000px
+
+}
+    </style>
+
+<!--    图表style-->
+    <style>
+/*<!--        每股净资产-->*/
+         #chartdiv {
+     width: 1000px;
+     height: 500px;
+     background-color: white;
+   }
+
+
+         #chartdiv2 {
+     width: 1000px;
+     height: 500px;
+     background-color: white;
+   }
+        #chartdiv3 {
+     width: 1000px;
+     height: 500px;
+     background-color: white;
+}
+       #chartdiv4 {
+     width: 1000px;
+     height: 500px;
+     background-color: white;
+}
+        .btgn{
+            /*font-family: "Microsoft YaHei UI";*/
+            font-size: 16px;
+            color: #255e95;
+            background-color: #e9faff;
+            text-align: center;
+
+        }
+        .biaoti{
+            /*font-family: "Microsoft Himalaya";*/
+            font-size: 26px;
+            border-bottom:1px dashed #CCCCCC;
+            color: #255e95;
+
+        }
+        .bg {
+     	color: #e9faff;
+     	position:absolute;top:1800px;left:300px;
+     	text-align:center;
+            width: 100%;
+            margin: 0 0 50px 0;
+     	}
+        td:hover{
+            cursor: pointer;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+<div id="title" >
+	<hr style="width:1000px">
+	深市50家公司四大指标对比图
+	<hr style="width:1000px">
+</div>
+
+<div id="base">
+<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header" style="position: absolute;left: 9%;top:8px;width: 280px">
+					<img src="../static/images/stok-word-logo-0.png" width="80" style="filter: invert(1); cursor: pointer; float: left;">
+					<a class="navbar-brand" href="/" style="text-decoration: none ; position: absolute; top:15px;right: 0;">STOCK WORLD<br>
+						<p style="font-size:medium;color: #9f9f9f; border-top: 1px solid white; position: relative; top: 5px; text-align: center">An Art of Stock</p></a>
+				</div>
+
+				<div id="navbar" class="navbar-collapse navbar-right collapse hover-effect">
+					<ul id="menu" class="nav navbar-nav" style="position: absolute;right: 10%;">
+						<li><a href="/">首页</a></li>
+						<li><a href="#">市场</a>
+							<ul class="ul">
+								<li><a href="/sh">上海证券</a></li>
+								<li><a href="/sz">深圳证券</a></li>
+							</ul>
+						</li>
+						<li><a href="#">行业</a>
+							<ul class="ul">
+								<li><a href="#">能源</a></li>
+								<li><a href="/financial">金融</a></li>
+								<li><a href="#">互联网</a></li>
+							</ul>
+						</li>
+						<li><a href="#team">工具</a></li>
+						<li><a href="#contact" id="login">登录</a></li>
+					</ul>
+				</div>
+
+			</div>
+		</nav>
+<img src="../static/images/lang.png" width="60" style="position:absolute; top: 10px;right: 30px; filter: invert(1.1) contrast(1.1) brightness(1.1); cursor: pointer">
+
+    <!--请在此div中添加内容-->
+
+	 <div class="contain">
+            <ul>
+
+                <li>
+                    <a href=“#”>
+                        <div id="chartdiv" style=" width: 1000px;height: 500px;background-color: white;"></div>
+                        <script src="https://www.amcharts.com/lib/4/core.js"></script>
+                        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+                        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+                    </a>
+                    <div class="title">
+                        <a href="#">每股净资产</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">
+                        <div id="chartdiv2"></div>
+                       <script src="https://www.amcharts.com/lib/4/core.js"></script>
+                       <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+                        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+                    </a>
+                    <div class="title">
+                        <a href="#">每股收益</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">
+						<div id="chartdiv3"></div>
+                        <script src="https://www.amcharts.com/lib/4/core.js"></script>
+                        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+                        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+                    </a>
+                    <div class="title">
+                        <a href="#">每股现金流量</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">
+                        <div id="chartdiv4"></div>
+                        <script src="https://www.amcharts.com/lib/4/core.js"></script>
+                        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+                        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+                    </a>
+                    <div class="title">
+                        <a href="#">毛利率</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+<script>
+  var chart = AmCharts.makeChart( "chartdiv", {
+  "type": "serial",
+  "theme": "none",
+  "dataDateFormat":"YYYY-MM-DD",
+  "valueAxes": [ {
+    "position": "left"
+  } ],
+  "graphs": [ {
+    "id": "g1",
+    "proCandlesticks": true,
+    "balloonText": "Open:<b>[[open]]</b><br>Low:<b>[[low]]</b><br>High:<b>[[high]]</b><br>Close:<b>[[close]]</b><br>",
+    "closeField": "close",
+    "fillColors": "#7f8da9",
+    "highField": "high",
+    "lineColor": "#7f8da9",
+    "lineAlpha": 1,
+    "lowField": "low",
+    "fillAlphas": 0.9,
+    "negativeFillColors": "#db4c3c",
+    "negativeLineColor": "#db4c3c",
+    "openField": "open",
+    "title": "Price:",
+    "type": "candlestick",
+    "valueField": "close"
+  } ],
+  "chartScrollbar": {
+    "graph": "g1",
+    "graphType": "line",
+    "scrollbarHeight": 30
+  },
+  "chartCursor": {
+    "valueLineEnabled": true,
+    "valueLineBalloonEnabled": true
+  },
+  "categoryField": "date",
+  "categoryAxis": {
+    "parseDates": true
+  },
+  "dataProvider": [ {
+    "date": "2019-01-15",
+    "open": "2537.37",
+    "high": "2571.50",
+    "low": "2532.43",
+    "close": "2570.34"
+  }, {
+    "date": "2019-01-16",
+    "open": "2569.07",
+    "high": "2574.24",
+    "low": "2563.01",
+    "close": "2570.42"
+  }, {
+    "date": "2019-01-17",
+    "open": "2573.58",
+    "high": "2582.56",
+    "low": "2557.71",
+    "close": "2559.64"
+  }, {
+    "date": "2019-01-18",
+    "open": "2567.74",
+    "high": "2598.88",
+    "low": "2565.90",
+    "close": "2596.01"
+  }, {
+    "date": "2019-01-21",
+    "open": "2599.06",
+    "high": "2618.98",
+    "low": "2599.06",
+    "close": "2610.51"
+  }, {
+    "date": "2019-01-22",
+    "open": "2609.64",
+    "high": "2609.64",
+    "low": "2573.06",
+    "close": "2579.70"
+  }, {
+    "date": "2019-01-23",
+    "open": "2575.26",
+    "high": "2589.51",
+    "low": "2572.41",
+    "close": "2581.00"
+  }, {
+    "date": "2019-01-24",
+    "open": "2584.65",
+    "high": "2597.29",
+    "low": "2569.70",
+    "close": "2591.69"
+  }, {
+    "date": "2019-01-25",
+    "open": "2596.26",
+    "high": "2617.00",
+    "low": "2595.63",
+    "close": "2601.72"
+  }, {
+    "date": "2019-01-28",
+    "open": "2615.71",
+    "high": "2630.32",
+    "low": "2591.10",
+    "close": "2596.78"
+  }, {
+    "date": "2019-01-29",
+    "open": "2592.35",
+    "high": "2601.74",
+    "low": "2559.98",
+    "close": "2594.25"
+  }, {
+    "date": "2019-01-30",
+    "open": "2584.75",
+    "high": "2598.81",
+    "low": "2575.41",
+    "close": "2575.58"
+  }, {
+    "date": "2019-01-31",
+    "open": "2581.33",
+    "high": "2606.63",
+    "low": "2571.58",
+    "close": "2584.57"
+  }, {
+    "date": "2019-02-01",
+    "open": "2597.78",
+    "high": "2618.48",
+    "low": "2590.55",
+    "close": "2618.23"
+  }, {
+    "date": "2019-02-11",
+    "open": "2613.17",
+    "high": "2654.10",
+    "low": "2613.17",
+    "close": "2653.90"
+  }, {
+    "date": "2019-02-12",
+    "open": "2654.03",
+    "high": "2674.48",
+    "low": "2648.83",
+    "close": "2671.89"
+  }, {
+    "date": "2019-02-13",
+    "open": "2674.52",
+    "high": "2727.07",
+    "low": "2666.52",
+    "close": "2721.07"
+  }, {
+    "date": "2019-02-14",
+    "open": "2715.54",
+    "high": "2729.46",
+    "low": "2707.49",
+    "close": "2719.70"
+  }, {
+    "date": "2019-02-15",
+    "open": "2712.79",
+    "high": "2715.63",
+    "low": "2679.78",
+    "close": "2682.39"
+  }, {
+    "date": "2019-02-18",
+    "open": "2699.82",
+    "high": "2754.36",
+    "low": "2699.82",
+    "close": "2754.36"
+  }, {
+    "date": "2019-02-19",
+    "open": "2759.50",
+    "high": "2780.78",
+    "low": "2739.59",
+    "close": "2755.65"
+  }, {
+    "date": "2019-02-20",
+    "open": "2761.06",
+    "high": "2767.41",
+    "low": "2739.98",
+    "close": "2761.22"
+  }, {
+    "date": "2019-02-21",
+    "open": "2759.94",
+    "high": "2794.01",
+    "low": "2744.98",
+    "close": "2751.80"
+  }, {
+    "date": "2019-02-22",
+    "open": "2749.46",
+    "high": "2804.23",
+    "low": "2736.33",
+    "close": "2804.23"
+  }, {
+    "date": "2019-02-25",
+    "open": "2838.39",
+    "high": "2961.80",
+    "low": "2838.39",
+    "close": "2961.28"
+  }, {
+    "date": "2019-02-26",
+    "open": "2969.10",
+    "high": "2995.68",
+    "low": "2938.62",
+    "close": "2941.52"
+  }, {
+    "date": "2019-02-27",
+    "open": "2939.93",
+    "high": "2997.49",
+    "low": "2924.64",
+    "close": "2953.82"
+  }, {
+    "date": "2019-02-28",
+    "open": "2950.05",
+    "high": "2965.30",
+    "low": "2930.20",
+    "close": "2940.95"
+  }, {
+    "date": "2019-03-01",
+    "open": "2954.40",
+    "high": "2994.00",
+    "low": "2930.83",
+    "close": "2994.00"
+  }, {
+    "date": "2019-03-04",
+    "open": "3015.94",
+    "high": "3090.80",
+    "low": "3006.94",
+    "close": "3027.58"
+  }, {
+    "date": "2019-03-05",
+    "open": "3019.88",
+    "high": "3054.96",
+    "low": "3009.45",
+    "close": "3054.25"
+  }, {
+    "date": "2019-03-06",
+    "open": "3060.43",
+    "high": "3103.83",
+    "low": "3050.11",
+    "close": "3102.10"
+  }, {
+    "date": "2019-03-07",
+    "open": "3103.67",
+    "high": "3129.94",
+    "low": "3074.98",
+    "close": "3106.42"
+  }, {
+    "date": "2019-03-08",
+    "open": "3038.34",
+    "high": "3075.05",
+    "low": "2969.58",
+    "close": "2969.86"
+  }, {
+    "date": "2019-03-11",
+    "open": "2969.08",
+    "high": "3028.25",
+    "low": "2963.58",
+    "close": "3026.99"
+  }, {
+    "date": "2019-03-12",
+    "open": "3049.08",
+    "high": "3093.39",
+    "low": "3029.90",
+    "close": "3060.31"
+  }, {
+    "date": "2019-03-13",
+    "open": "3062.33",
+    "high": "3065.29",
+    "low": "3013.93",
+    "close": "3026.95"
+  }, {
+    "date": "2019-03-14",
+    "open": "3013.60",
+    "high": "3041.16",
+    "low": "2968.82",
+    "close": "2990.69"
+  }, {
+    "date": "2019-03-15",
+    "open": "3000.88",
+    "high": "3048.12",
+    "low": "2999.43",
+    "close": "3021.75"
+  }, {
+    "date": "2019-03-18",
+    "open": "3027.80",
+    "high": "3096.42",
+    "low": "3009.51",
+    "close": "3096.42"
+  }, {
+    "date": "2019-03-19",
+    "open": "3099.90",
+    "high": "3113.43",
+    "low": "3076.36",
+    "close": "3090.98"
+  }, {
+    "date": "2019-03-20",
+    "open": "3084.17",
+    "high": "3102.52",
+    "low": "3053.45",
+    "close": "3090.64"
+  }, {
+    "date": "2019-03-21",
+    "open": "3094.12",
+    "high": "3125.02",
+    "low": "3086.85",
+    "close": "3101.46"
+  }, {
+    "date": "2019-03-22",
+    "open": "3100.73",
+    "high": "3107.28",
+    "low": "3064.88",
+    "close": "3104.15"
+  }, {
+    "date": "2019-03-25",
+    "open": "3058.80",
+    "high": "3087.00",
+    "low": "3041.95",
+    "close": "3043.03"
+  }, {
+    "date": "2019-03-26",
+    "open": "3057.56",
+    "high": "3062.69",
+    "low": "2988.49",
+    "close": "2997.10"
+  }, {
+    "date": "2019-03-27",
+    "open": "3012.26",
+    "high": "3022.76",
+    "low": "2987.77",
+    "close": "3022.72"
+  }, {
+    "date": "2019-03-28",
+    "open": "3009.80",
+    "high": "3025.78",
+    "low": "2991.78",
+    "close": "2994.94"
+  }, {
+    "date": "2019-03-29",
+    "open": "3000.68",
+    "high": "3093.03",
+    "low": "2999.99",
+    "close": "3090.76"
+  }, {
+    "date": "2019-04-01",
+    "open": "3111.66",
+    "high": "3176.62",
+    "low": "3111.66",
+    "close": "3170.36"
+  }, {
+    "date": "2019-04-02",
+    "open": "3183.27",
+    "high": "3193.27",
+    "low": "3164.91",
+    "close": "3176.82"
+  }, {
+    "date": "2019-04-03",
+    "open": "3159.15",
+    "high": "3219.26",
+    "low": "3152.33",
+    "close": "3216.30"
+  }, {
+    "date": "2019-04-04",
+    "open": "3233.69",
+    "high": "3254.14",
+    "low": "3216.85",
+    "close": "3246.57"
+  }, {
+    "date": "2019-04-08",
+    "open": "3271.27",
+    "high": "3288.45",
+    "low": "3210.52",
+    "close": "3244.81"
+  }, {
+    "date": "2019-04-09",
+    "open": "3240.39",
+    "high": "3251.65",
+    "low": "3215.70",
+    "close": "3239.66"
+  }, {
+    "date": "2019-04-10",
+    "open": "3224.65",
+    "high": "3264.78",
+    "low": "3204.88",
+    "close": "3241.93"
+  }, {
+    "date": "2019-04-11",
+    "open": "3241.55",
+    "high": "3254.13",
+    "low": "3185.55",
+    "close": "3189.96"
+  }, {
+    "date": "2019-04-12",
+    "open": "3184.86",
+    "high": "3199.28",
+    "low": "3168.04",
+    "close": "3188.63"
+  }, {
+    "date": "2019-04-15",
+    "open": "3233.46",
+    "high": "3253.98",
+    "low": "3177.27",
+    "close": "3177.79"
+  }, {
+    "date": "2019-04-16",
+    "open": "3164.40",
+    "high": "3253.60",
+    "low": "3153.21",
+    "close": "3253.60"
+  }, {
+    "date": "2019-04-17",
+    "open": "3250.15",
+    "high": "3275.33",
+    "low": "3239.80",
+    "close": "3263.12"
+  }, {
+    "date": "2019-04-18",
+    "open": "3261.07",
+    "high": "3271.39",
+    "low": "3241.83",
+    "close": "3250.20"
+  }, {
+    "date": "2019-04-19",
+    "open": "3250.15",
+    "high": "3274.33",
+    "low": "3226.81",
+    "close": "3270.80"
+  }, {
+    "date": "2019-04-22",
+    "open": "3278.49",
+    "high": "3279.49",
+    "low": "3206.88",
+    "close": "3215.04"
+  }, {
+    "date": "2019-04-23",
+    "open": "3211.87",
+    "high": "3231.58",
+    "low": "3186.76",
+    "close": "3198.59"
+  }, {
+    "date": "2019-04-24",
+    "open": "3203.56",
+    "high": "3210.65",
+    "low": "3156.61",
+    "close": "3201.61"
+  }, {
+    "date": "2019-04-25",
+    "open": "3190.59",
+    "high": "3193.75",
+    "low": "3123.03",
+    "close": "3123.83"
+  }, {
+    "date": "2019-04-26",
+    "open": "3108.16",
+    "high": "3129.21",
+    "low": "3085.80",
+    "close": "3086.40"
+  }, {
+    "date": "2019-04-29",
+    "open": "3090.63",
+    "high": "3107.76",
+    "low": "3050.03",
+    "close": "3062.50"
+  }, {
+    "date": "2019-04-30",
+    "open": "3052.62",
+    "high": "3088.41",
+    "low": "3052.62",
+    "close": "3078.34"
+  }, {
+    "date": "2019-05-06",
+    "open": "2984.73",
+    "high": "2986.54",
+    "low": "2876.47",
+    "close": "2906.46"
+  }, {
+    "date": "2019-05-07",
+    "open": "2914.29",
+    "high": "2937.28",
+    "low": "2889.07",
+    "close": "2926.39"
+  }, {
+    "date": "2019-05-08",
+    "open": "2873.14",
+    "high": "2929.43",
+    "low": "2866.70",
+    "close": "2893.76"
+  }, {
+    "date": "2019-05-09",
+    "open": "2871.20",
+    "high": "2888.86",
+    "low": "2845.04",
+    "close": "2850.95"
+  }, {
+    "date": "2019-05-10",
+    "open": "2878.23",
+    "high": "2941.45",
+    "low": "2838.38",
+    "close": "2939.21"
+  }, {
+    "date": "2019-05-13",
+    "open": "2905.07",
+    "high": "2921.41",
+    "low": "2892.17",
+    "close": "2903.71"
+  }, {
+    "date": "2019-05-14",
+    "open": "2872.83",
+    "high": "2909.20",
+    "low": "2872.83",
+    "close": "2883.61"
+  }, {
+    "date": "2019-05-15",
+    "open": "2902.64",
+    "high": "2945.39",
+    "low": "2902.64",
+    "close": "2938.68"
+  }, {
+    "date": "2019-05-16",
+    "open": "2933.50",
+    "high": "2956.17",
+    "low": "2929.06",
+    "close": "2955.71"
+  }, {
+    "date": "2019-05-17",
+    "open": "2955.77",
+    "high": "2956.78",
+    "low": "2973.80",
+    "close": "2882.30"
+  }],
+  "export": {
+    "enabled": true,
+    "position": "bottom-right"
+  }
+} );
+
+chart.addListener( "rendered", zoomChart );
+zoomChart();
+
+function zoomChart() {
+  chart.zoomToIndexes( chart.dataProvider.length - 50, chart.dataProvider.length - 1 );
+}
+</script>
+
+
+
+    <div id="title2">
+	<hr style="width:2px">
+
+	  图表分析
+
+	<hr style="width:2px">
+
+<div id="text">
+
+</div>
+
+<!--深市每股净资产-->
+<script>
+    var chart = am4core.create("chartdiv", am4charts.RadarChart);
+
+chart.data = [{
+    country: "*ST美丽",
+    visits: 0.5115
+  },
+  {
+    country: "深物业A",
+    visits: 5.6008
+  },
+  {
+    country: "南 玻Ａ",
+    visits: 3.1793
+  },
+  {
+    country: "沙河股份",
+    visits: 4.3866
+  },
+  {
+    country: "深康佳Ａ",
+    visits: 3.3658
+  },
+  {
+    country: "深中华A",
+    visits: 0.0259
+  },
+  {
+    country: "*ST神城",
+    visits: 0.1385
+  },
+  {
+    country: "深粮控股",
+    visits: 3.6203
+  },
+  {
+    country: "深华发Ａ",
+    visits: 1.1441
+  },
+  {
+    country: "中国天楹",
+    visits: 2.3967
+  },
+  {
+    country: "华联控股",
+    visits: 4.2183
+  },
+    {
+    country: "深南电A",
+    visits: 3.2813
+
+  },
+  {
+    country: "深大通",
+    visits: 5.4192
+
+  },
+  {
+    country: "中集集团",
+    visits: 11.1617
+
+
+  },
+  {
+    country: "东旭蓝天",
+    visits:9.7523
+
+
+  },
+  {
+    country: "中洲控股",
+    visits: 10.9409
+
+
+  },
+  {
+    country: "中航善达",
+    visits:7.2598
+
+
+  },
+  {
+    country: "深纺织Ａ",
+    visits: 4.642
+
+
+  },
+  {
+    country: "泛海控股",
+    visits: 3.8716
+
+
+  },
+  {
+    country: "*ST康达",
+    visits: 2.5981
+
+
+  },
+  {
+    country: "德赛电池",
+    visits:8.5286
+
+
+  },
+  {
+    country: "深天马Ａ",
+    visits: 12.6969
+
+
+  },
+  {
+    country: "方大集团",
+    visits: 4.4961
+
+
+  },
+   {
+    country: "皇庭国际",
+    visits: 4.5609
+  },
+  {
+    country: "深 赛 格",
+    visits: 1.5117
+
+  },
+  {
+    country: "华锦股份",
+    visits:8.2369
+
+
+  },
+  {
+    country: "中金岭南",
+    visits:2.8922
+
+
+  },
+  {
+    country: "农 产 品",
+    visits: 2.9038
+
+
+  },
+  {
+    country: "深圳华强",
+    visits: 6.4957
+
+
+  },
+  {
+    country: "中兴通讯",
+    visits: 5.4613
+
+
+  },
+  {
+    country: "北方国际",
+    visits: 5.4288
+
+
+  },
+  {
+    country: "中国长城",
+    visits: 2.1254
+
+
+  },
+  {
+    country: "华控赛格",
+    visits:0.5194
+
+
+  },
+  {
+    country: "华侨城Ａ",
+    visits:7.2066
+
+
+  },
+  {
+    country: "特发信息",
+    visits:3.5642
+
+
+  },
+    {
+    country: "海王生物",
+    visits:2.2469
+
+
+  },
+  {
+    country: "盐 田 港",
+    visits: 3.4692
+
+
+  },
+  {
+    country: "深圳机场",
+    visits:5.6748
+
+
+
+  },
+  {
+    country: "天健集团",
+    visits:4.8007
+
+
+
+  },
+  {
+    country: "广聚能源",
+    visits: 4.6911
+
+
+
+  },
+  {
+    country: "中信海直",
+    visits:5.0783
+
+
+
+  },
+  {
+    country: "TCL 集团",
+    visits: 2.2506
+
+
+
+  },
+  {
+    country: "宜华健康",
+    visits: 3.8476
+
+
+
+  },
+  {
+    country: "中成股份",
+    visits: 3.3799
+
+
+
+  },
+  {
+    country: "丰原药业",
+    visits:4.0642
+
+
+
+  },
+  {
+    country: "川能动力",
+    visits: 2.5669
+
+
+
+  },
+  {
+    country: "华数传媒",
+    visits:7.4496
+
+
+  },
+    {
+    country: "中联重科",
+    visits: 4.8922
+
+
+
+  },
+    {
+    country: "常山北明",
+    visits: 3.6811
+
+  },
+//  {
+//    country: "深物业A",
+//    visits: 0.45006
+//
+//
+//  },
+  {
+    country: "国际实业",
+    visits: 4.4687
+
+
+  },
+  {
+    country: "申万宏源",
+    visits: 3.0795
+
+
+  },
+  {
+    country: "东方盛虹",
+    visits: 3.2148
+
+
+  },
+  {
+    country: "美的集团",
+    visits:12.4676
+
+
+  },
+  {
+    country: "潍柴动力",
+    visits: 4.9159
+
+
+  },
+  {
+    country: "许继电气",
+    visits: 7.691
+
+
+  },
+    {
+    country: "冀东水泥",
+    visits:8.6065
+
+
+
+  },
+  {
+    country: "金 融 街",
+    visits:10.6936
+
+
+
+  },
+  {
+    country: "振兴生化",
+    visits: 2.3396
+
+
+
+  },
+  {
+    country: "长虹华意",
+    visits: 4.5959
+
+
+
+  },
+  {
+    country: "胜利股份",
+    visits: 2.581
+
+
+
+
+  }]
+
+
+chart.padding(10, 10, 10, 10);
+
+chart.radius = am4core.percent(95);
+chart.startAngle = 179.5;
+chart.endAngle = 360.5;
+
+chart.innerRadius = am4core.percent(60);
+
+var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "country";
+categoryAxis.renderer.minGridDistance = 60;
+categoryAxis.renderer.labels.template.location = 0.5;
+categoryAxis.renderer.grid.template.location = 1;
+categoryAxis.interactionsEnabled = false;
+
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.tooltip.disabled = true;
+valueAxis.renderer.minGridDistance = 20;
+valueAxis.renderer.grid.template.strokeOpacity = 0.05
+valueAxis.renderer.labels.template.fontSize = 9;
+valueAxis.interactionsEnabled = false;
+valueAxis.renderer.axisAngle = 260;
+//valueAxis.renderer.gridType = "polygons";
+valueAxis.min = 0;
+
+var series1 = chart.series.push(new am4charts.RadarColumnSeries());
+series1.columns.template.width = am4core.percent(80);
+series1.name = "Series 1";
+series1.dataFields.categoryX = "country";
+series1.columns.template.tooltipText = "{name}: {valueY.value}";
+series1.dataFields.valueY = "visits";
+series1.stacked = true;
+
+
+chart.seriesContainer.zIndex = -1;
+
+var slider = chart.createChild(am4core.Slider);
+slider.start = 0.5;
+slider.events.on("rangechanged", function () {
+
+  var start = slider.start;
+
+  chart.startAngle = 270 - start * 179 - 1;
+  chart.endAngle = 270 + start * 179 + 1;
+
+  valueAxis.renderer.axisAngle = chart.startAngle;
+})
+
+</script>
+<!--深市每股收益-->
+<script>
+    var chart = am4core.create("chartdiv2", am4charts.RadarChart);
+
+chart.data = [{
+    country: "*ST美丽",
+    visits: -3.568928
+  },
+  {
+    country: "深物业A",
+    visits: 3.978152
+  },
+  {
+    country: "南 玻Ａ",
+    visits: 0.632792
+  },
+  {
+    country: "沙河股份",
+    visits: 2.895324
+  },
+  {
+    country: "深康佳Ａ",
+    visits: 0.68322
+  },
+  {
+    country: "深中华A",
+    visits: -0.011548
+  },
+  {
+    country: "*ST神城",
+    visits: -4.015296
+  },
+  {
+    country: "深粮控股",
+    visits: 1.070096
+  },
+  {
+    country: "深华发Ａ",
+    visits: 0.046548
+  },
+  {
+    country: "中国天楹",
+    visits: 2.431268
+  },
+  {
+    country: "华联控股",
+    visits: 3.39432
+  },
+    {
+    country: "深南电A",
+    visits: 0.127772
+
+  },
+  {
+    country: "-深大通",
+    visits: -17.9783
+
+  },
+  {
+    country: "中集集团",
+    visits: 4.529916
+
+
+  },
+  {
+    country: "东旭蓝天",
+    visits:3.006932
+
+
+  },
+  {
+    country: "中洲控股",
+    visits: 2.68754
+
+
+  },
+  {
+    country: "中航善达",
+    visits:5.137408
+
+
+  },
+  {
+    country: "深纺织Ａ",
+    visits: -0.179792
+
+
+  },
+  {
+    country: "泛海控股",
+    visits: 0.716552
+
+
+  },
+  {
+    country: "*ST康达",
+    visits: 4.477276
+
+
+  },
+  {
+    country: "德赛电池",
+    visits:7.822308
+
+
+  },
+  {
+    country: "深天马Ａ",
+    visits: 1.807592
+
+
+  },
+  {
+    country: "方大集团",
+    visits: 7.775684
+
+
+  },
+   {
+    country: "皇庭国际",
+    visits: 0.308512
+  },
+  {
+    country: "深 赛 格",
+    visits: 0.090164
+
+  },
+  {
+    country: "华锦股份",
+    visits:2.639344
+
+
+  },
+  {
+    country: "中金岭南",
+    visits:1.030836
+
+
+  },
+  {
+    country: "农 产 品",
+    visits: 0.100808
+
+
+  },
+  {
+    country: "深圳华强",
+    visits: 3.801768
+
+
+  },
+  {
+    country: "中兴通讯",
+    visits: -6.662732
+
+
+  },
+  {
+    country: "北方国际",
+    visits: 3.062624
+
+
+  },
+  {
+    country: "中国长城",
+    visits: 1.344748
+
+
+  },
+  {
+    country: "华控赛格",
+    visits:-0.52802
+
+
+  },
+  {
+    country: "华侨城Ａ",
+    visits:5.163348
+
+
+  },
+  {
+    country: "特发信息",
+    visits:1.758552
+
+
+  },
+    {
+    country: "海王生物",
+    visits:0.626752
+
+
+  },
+  {
+    country: "盐 田 港",
+    visits: 0.97754
+
+
+  },
+  {
+    country: "深圳机场",
+    visits:1.30294
+
+
+
+  },
+  {
+    country: "天健集团",
+    visits:2.175064
+
+
+
+  },
+  {
+    country: "广聚能源",
+    visits: 0.81614
+
+
+
+  },
+  {
+    country: "中信海直",
+    visits:0.993012
+
+
+
+  },
+  {
+    country: "TCL 集团",
+    visits: 1.023852
+
+
+
+  },
+  {
+    country: "宜华健康",
+    visits: 1.131968
+
+
+
+  },
+  {
+    country: "中成股份",
+    visits: 1.127388
+
+
+
+  },
+  {
+    country: "丰原药业",
+    visits:0.7686
+
+
+
+  },
+  {
+    country: "川能动力",
+    visits: 0.94788
+
+
+
+  },
+  {
+    country: "华数传媒",
+    visits:1.671124
+
+
+  },
+    {
+    country: "中联重科",
+    visits: 1.034692
+
+
+
+  },
+    {
+    country: "常山北明",
+    visits: 0.45006
+
+  },
+
+  {
+    country: "国际实业",
+    visits: 0.498152
+
+
+  },
+  {
+    country: "申万宏源",
+    visits: 0.738408
+
+
+  },
+  {
+    country: "东方盛虹",
+    visits: 0.482644
+
+
+  },
+  {
+    country: "美的集团",
+    visits:12.145092
+
+
+  },
+  {
+    country: "潍柴动力",
+    visits: 4.33026
+
+
+  },
+  {
+    country: "许继电气",
+    visits: 0.792048
+
+
+  },
+    {
+    country: "冀东水泥",
+    visits:4.402832
+
+
+
+  },
+  {
+    country: "金 融 街",
+    visits:4.374236
+
+
+
+  },
+  {
+    country: "振兴生化",
+    visits: 1.173724
+
+
+
+  },
+  {
+    country: "长虹华意",
+    visits: 0.41464
+  },
+  {
+    country: "胜利股份",
+    visits: 0.466004
+
+  }]
+
+
+chart.padding(10, 10, 10, 10);
+
+chart.radius = am4core.percent(95);
+chart.startAngle = 179.5;
+chart.endAngle = 360.5;
+
+chart.innerRadius = am4core.percent(60);
+
+var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "country";
+categoryAxis.renderer.minGridDistance = 60;
+categoryAxis.renderer.labels.template.location = 0.5;
+categoryAxis.renderer.grid.template.location = 1;
+categoryAxis.interactionsEnabled = false;
+
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.tooltip.disabled = true;
+valueAxis.renderer.minGridDistance = 20;
+valueAxis.renderer.grid.template.strokeOpacity = 0.05
+valueAxis.renderer.labels.template.fontSize = 9;
+valueAxis.interactionsEnabled = false;
+valueAxis.renderer.axisAngle = 260;
+//valueAxis.renderer.gridType = "polygons";
+valueAxis.min = -10;
+
+var series1 = chart.series.push(new am4charts.RadarColumnSeries());
+series1.columns.template.width = am4core.percent(80);
+series1.name = "Series 1";
+series1.dataFields.categoryX = "country";
+series1.columns.template.tooltipText = "{name}: {valueY.value}";
+series1.dataFields.valueY = "visits";
+series1.stacked = true;
+
+
+chart.seriesContainer.zIndex = -1;
+
+var slider = chart.createChild(am4core.Slider);
+slider.start = 0.5;
+slider.events.on("rangechanged", function () {
+
+  var start = slider.start;
+
+  chart.startAngle = 270 - start * 179 - 1;
+  chart.endAngle = 270 + start * 179 + 1;
+
+  valueAxis.renderer.axisAngle = chart.startAngle;
+})
+
+</script>
+<!--深市每股现金流量-->
+<script>
+    var chart = am4core.create("chartdiv3", am4charts.RadarChart);
+
+chart.data = [{
+    country: "*ST美丽",
+    visits: -0.131
+  },
+  {
+    country: "深物业A",
+    visits: 1.529
+  },
+  {
+    country: "南 玻Ａ",
+    visits: -0.082
+  },
+  {
+    country: "沙河股份",
+    visits: 0.155
+  },
+  {
+    country: "深康佳Ａ",
+    visits: 0.14
+  },
+  {
+    country: "深中华A",
+    visits: -0.005
+  },
+  {
+    country: "*ST神城",
+    visits: -0.307
+  },
+  {
+    country: "深粮控股",
+    visits: 0.076
+  },
+  {
+    country: "深华发Ａ",
+    visits: -0.189
+  },
+  {
+    country: "中国天楹",
+    visits: -2.483
+  },
+  {
+    country: "华联控股",
+    visits: 2.864
+  },
+    {
+    country: "深南电A",
+    visits: 0.835
+
+  },
+  {
+    country: "深大通",
+    visits: -0.983
+
+  },
+  {
+    country: "中集集团",
+    visits: 1.705
+
+
+  },
+  {
+    country: "东旭蓝天",
+    visits:-1.698
+
+
+  },
+  {
+    country: "中洲控股",
+    visits: 0.691
+
+
+  },
+  {
+    country: "中航善达",
+    visits:0.279
+
+
+  },
+  {
+    country: "深纺织Ａ",
+    visits: -0.054
+
+
+  },
+  {
+    country: "泛海控股",
+    visits: -0.64
+
+
+  },
+  {
+    country: "*ST康达",
+    visits: 0.316
+
+
+  },
+  {
+    country: "德赛电池",
+    visits:0.163
+
+
+  },
+  {
+    country: "深天马Ａ",
+    visits: -0.809
+
+
+  },
+  {
+    country: "方大集团",
+    visits: 0.022
+
+
+  },
+   {
+    country: "皇庭国际",
+    visits: -0.435
+  },
+  {
+    country: "深 赛 格",
+    visits: 0.62
+
+  },
+  {
+    country: "华锦股份",
+    visits:1.446
+
+
+  },
+  {
+    country: "中金岭南",
+    visits:-0.067
+
+
+  },
+  {
+    country: "农 产 品",
+    visits: 0.022
+
+
+  },
+  {
+    country: "深圳华强",
+    visits: 0.26
+
+
+  },
+  {
+    country: "中兴通讯",
+    visits: -2.141
+
+
+  },
+  {
+    country: "北方国际",
+    visits: 0.04
+
+
+  },
+  {
+    country: "中国长城",
+    visits: 0.088
+
+
+  },
+  {
+    country: "华控赛格",
+    visits:-0.094
+
+
+  },
+  {
+    country: "华侨城Ａ",
+    visits:-0.41
+
+
+  },
+  {
+    country: "特发信息",
+    visits:0.12
+
+
+  },
+    {
+    country: "海王生物",
+    visits:-0.204
+
+
+  },
+  {
+    country: "盐 田 港",
+    visits: -0.046
+
+
+  },
+  {
+    country: "深圳机场",
+    visits:0.209
+
+
+
+  },
+  {
+    country: "天健集团",
+    visits:1.437
+
+
+
+  },
+  {
+    country: "广聚能源",
+    visits: 0.091
+
+
+
+  },
+  {
+    country: "中信海直",
+    visits:-0.228
+
+
+
+  },
+  {
+    country: "TCL 集团",
+    visits: 0.179
+
+
+
+  },
+  {
+    country: "宜华健康",
+    visits: -0.315
+
+
+
+  },
+  {
+    country: "中成股份",
+    visits: -1.554
+
+
+
+  },
+  {
+    country: "丰原药业",
+    visits:0.189
+
+
+
+  },
+  {
+    country: "川能动力",
+    visits: 0.055
+
+
+
+  },
+  {
+    country: "华数传媒",
+    visits:0.325
+
+
+  },
+    {
+    country: "中联重科",
+    visits: 0.206
+
+
+
+  },
+    {
+    country: "常山北明",
+    visits: 0.324
+
+  },
+//  {
+//    country: "深物业A",
+//    visits: 0.45006
+//
+//
+//  },
+  {
+    country: "国际实业",
+    visits: -0.107
+
+
+  },
+  {
+    country: "申万宏源",
+    visits: 0.369
+
+
+  },
+  {
+    country: "东方盛虹",
+    visits: 0.024
+
+
+  },
+  {
+    country: "美的集团",
+    visits:-0.582
+
+
+  },
+  {
+    country: "潍柴动力",
+    visits: 1.016
+
+
+  },
+  {
+    country: "许继电气",
+    visits: -0.308
+
+
+  },
+    {
+    country: "冀东水泥",
+    visits:2.356
+
+
+
+  },
+  {
+    country: "金 融 街",
+    visits:0.423
+
+
+
+  },
+  {
+    country: "振兴生化",
+    visits: 0.142
+
+
+
+  },
+  {
+    country: "长虹华意",
+    visits: 0.917
+
+
+
+  },
+  {
+    country: "胜利股份",
+    visits: 0.025
+
+
+
+
+  }]
+
+
+chart.padding(10, 10, 10, 10);
+
+chart.radius = am4core.percent(95);
+chart.startAngle = 179.5;
+chart.endAngle = 360.5;
+
+chart.innerRadius = am4core.percent(60);
+
+var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "country";
+categoryAxis.renderer.minGridDistance = 60;
+categoryAxis.renderer.labels.template.location = 0.5;
+categoryAxis.renderer.grid.template.location = 1;
+categoryAxis.interactionsEnabled = false;
+
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.tooltip.disabled = true;
+valueAxis.renderer.minGridDistance = 20;
+valueAxis.renderer.grid.template.strokeOpacity = 0.05
+valueAxis.renderer.labels.template.fontSize = 9;
+valueAxis.interactionsEnabled = false;
+valueAxis.renderer.axisAngle = 260;
+//valueAxis.renderer.gridType = "polygons";
+valueAxis.min = -2.5;
+
+var series1 = chart.series.push(new am4charts.RadarColumnSeries());
+series1.columns.template.width = am4core.percent(80);
+series1.name = "Series 1";
+series1.dataFields.categoryX = "country";
+series1.columns.template.tooltipText = "{name}: {valueY.value}";
+series1.dataFields.valueY = "visits";
+series1.stacked = true;
+
+
+chart.seriesContainer.zIndex = -1;
+
+var slider = chart.createChild(am4core.Slider);
+slider.start = 0.5;
+slider.events.on("rangechanged", function () {
+
+  var start = slider.start;
+
+  chart.startAngle = 270 - start * 179 - 1;
+  chart.endAngle = 270 + start * 179 + 1;
+
+  valueAxis.renderer.axisAngle = chart.startAngle;
+})
+
+</script>
+<!--毛利率-->
+<script>
+    var chart = am4core.create("chartdiv4", am4charts.RadarChart);
+
+chart.data = [{
+    country: "*ST美丽",
+    visits: 13.2
+  },
+  {
+    country: "深物业A",
+    visits: 52.81
+  },
+  {
+    country: "南 玻Ａ",
+    visits: 23.46
+  },
+  {
+    country: "沙河股份",
+    visits: 29.51
+  },
+  {
+    country: "深康佳Ａ",
+    visits: 6.29
+  },
+  {
+    country: "深中华A",
+    visits: 9.87
+  },
+  {
+    country: "*ST神城",
+    visits: -0.93
+  },
+  {
+    country: "深粮控股",
+    visits: 9.9
+  },
+  {
+    country: "深华发Ａ",
+    visits: 11.04
+  },
+  {
+    country: "中国天楹",
+    visits: 36.38
+  },
+  {
+    country: "华联控股",
+    visits: 72.12
+  },
+    {
+    country: "深南电A",
+    visits: 7.04
+
+  },
+  {
+    country: "深大通",
+    visits: 8.25
+
+  },
+  {
+    country: "中集集团",
+    visits: 14.88
+
+
+  },
+  {
+    country: "东旭蓝天",
+    visits:14.11
+
+
+  },
+  {
+    country: "中洲控股",
+    visits: 47.08
+
+
+  },
+  {
+    country: "中航善达",
+    visits:19.64
+
+
+  },
+  {
+    country: "深纺织Ａ",
+    visits: 10.23
+
+
+  },
+  {
+    country: "泛海控股",
+    visits: 61.17
+
+
+  },
+  {
+    country: "*ST康达",
+    visits: 42.86
+
+
+  },
+  {
+    country: "德赛电池",
+    visits:8.2
+
+
+  },
+  {
+    country: "深天马Ａ",
+    visits: 15.19
+
+
+  },
+  {
+    country: "方大集团",
+    visits: 23.31
+
+
+  },
+   {
+    country: "皇庭国际",
+    visits: 63.22
+  },
+  {
+    country: "深 赛 格",
+    visits: 34.07
+
+  },
+  {
+    country: "华锦股份",
+    visits:17.21
+
+
+  },
+  {
+    country: "中金岭南",
+    visits:13.66
+
+
+  },
+  {
+    country: "农 产 品",
+    visits: 37.07
+
+
+  },
+  {
+    country: "深圳华强",
+    visits: 15.74
+
+
+  },
+  {
+    country: "中兴通讯",
+    visits: 32.91
+
+
+  },
+  {
+    country: "北方国际",
+    visits: 14.81
+
+
+  },
+  {
+    country: "中国长城",
+    visits: 21.93
+
+
+  },
+  {
+    country: "华控赛格",
+    visits:27.28
+
+
+  },
+  {
+    country: "华侨城Ａ",
+    visits:60.35
+
+
+  },
+  {
+    country: "特发信息",
+    visits:16.3
+
+
+  },
+    {
+    country: "海王生物",
+    visits:13.13
+
+
+  },
+  {
+    country: "盐 田 港",
+    visits: 56.41
+
+
+  },
+  {
+    country: "深圳机场",
+    visits:25.88
+
+
+
+  },
+  {
+    country: "天健集团",
+    visits:21.65
+
+
+
+  },
+  {
+    country: "广聚能源",
+    visits: 9.17
+
+
+
+  },
+  {
+    country: "中信海直",
+    visits:23.86
+
+
+
+  },
+  {
+    country: "TCL 集团",
+    visits: 18.31
+
+
+
+  },
+  {
+    country: "宜华健康",
+    visits: 31.11
+
+
+
+  },
+  {
+    country: "中成股份",
+    visits: 16.42
+
+
+
+  },
+  {
+    country: "丰原药业",
+    visits:38.95
+
+
+
+  },
+  {
+    country: "川能动力",
+    visits: 11.92
+
+
+
+  },
+  {
+    country: "华数传媒",
+    visits:40.69
+
+
+  },
+    {
+    country: "中联重科",
+    visits: 27.09
+
+
+
+  },
+    {
+    country: "常山北明",
+    visits: 9.24
+
+  },
+//  {
+//    country: "深物业A",
+//    visits: 0.45006
+//
+//
+//  },
+  {
+    country: "国际实业",
+    visits: 20.78
+
+
+  },
+  {
+    country: "申万宏源",
+    visits: 100
+
+
+  },
+  {
+    country: "东方盛虹",
+    visits: 13.8
+
+
+  },
+  {
+    country: "美的集团",
+    visits:28.06
+
+
+  },
+  {
+    country: "潍柴动力",
+    visits: 22.33
+
+
+  },
+  {
+    country: "许继电气",
+    visits: 17.41
+
+
+  },
+    {
+    country: "冀东水泥",
+    visits:30.64
+
+
+
+  },
+  {
+    country: "金 融 街",
+    visits:48.6
+
+
+
+  },
+  {
+    country: "振兴生化",
+    visits: 53.33
+
+
+
+  },
+  {
+    country: "长虹华意",
+    visits: 12.02
+
+
+
+  },
+  {
+    country: "胜利股份",
+    visits: 15.81
+
+
+
+
+  }]
+
+
+chart.padding(10, 10, 10, 10);
+
+chart.radius = am4core.percent(95);
+chart.startAngle = 179.5;
+chart.endAngle = 360.5;
+
+chart.innerRadius = am4core.percent(60);
+
+var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "country";
+categoryAxis.renderer.minGridDistance = 60;
+categoryAxis.renderer.labels.template.location = 0.5;
+categoryAxis.renderer.grid.template.location = 1;
+categoryAxis.interactionsEnabled = false;
+
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.tooltip.disabled = true;
+valueAxis.renderer.minGridDistance = 20;
+valueAxis.renderer.grid.template.strokeOpacity = 0.05
+valueAxis.renderer.labels.template.fontSize = 9;
+valueAxis.interactionsEnabled = false;
+valueAxis.renderer.axisAngle = 260;
+//valueAxis.renderer.gridType = "polygons";
+valueAxis.min = -1;
+
+var series1 = chart.series.push(new am4charts.RadarColumnSeries());
+series1.columns.template.width = am4core.percent(80);
+series1.name = "Series 1";
+series1.dataFields.categoryX = "country";
+series1.columns.template.tooltipText = "{name}: {valueY.value}";
+series1.dataFields.valueY = "visits";
+series1.stacked = true;
+
+
+chart.seriesContainer.zIndex = -1;
+
+var slider = chart.createChild(am4core.Slider);
+slider.start = 0.5;
+slider.events.on("rangechanged", function () {
+
+  var start = slider.start;
+
+  chart.startAngle = 270 - start * 179 - 1;
+  chart.endAngle = 270 + start * 179 + 1;
+
+  valueAxis.renderer.axisAngle = chart.startAngle;
+})
+
+</script>
+
+
+</div>
+
+    <div id="text1" font size="120">
+		<h1 align="center"><font size="5">图1每股净资产图</font></h1>
+		<hr>
+        众所周知，净资产收益率是衡量上市公司盈利能力的重要指标，体现了企业所有者的获利能力，但是有些人在选择投资产品时略有扩大净资产收益率的作用，我们在选择的时候应该综合考虑，认识到净资产收益率的缺陷，参考其他指标综合考虑选择投资品。
+由图1每股净资产图我们可以看出，在大盘中，深天马A和美的集团明显优胜于其他所有股票，以绝对优势名列第一2名。中集集团、东旭蓝天、中洲控股、金融街等四家公司在大盘中的表现也不错，表现明显好于50支股票的绝大部分股票。因为除了净资产外，企业的管理水平、技术装备、产品的市场占有率及外部形象等等都会对企业的最终经营效益产生影响，而净资产对股票价格的影响主要来自平均利润率规律的作用。
+    </div>
+
+	<div id="text2" font size="120">
+     <h1 align="center"><font size="5">图2每股收益图</font></h1>
+		<hr>
+      该指标主要用于帮助投资者评价企业的获利能力。每股收益指标可以反映企业的经营成果，反映普通股股东所享有的利润，反映企业不同会计期间之间的业绩。由于每股收益指标是以企业发行在外的普通股的股数作为分母所计算的比值，该指标还可以用于不同企业之间的业绩比较。
+由图2每股收益图我们可以看出，在大盘中，美的集团以绝对优势优胜于其他所有的股票，位于首位。其次德赛电池、方大集团的表现也不错，明显好于大盘中50家公司的平均水平。而有6家公司每股收益是负数，最低的深大通公司的每股收益大约是是最高的美的集团的每股收益负的2.3倍。
+      </div>
+
+	<div id="text3" font size="120">
+    <h1 align="center"><font size="5">图3每股现金流量图</font></h1>
+    <hr>
+    由图3每股现金流量图我们可以看出，在大盘中，华南控股以绝对优势优胜于其他所有的股票，位于首位。其次是冀东水泥公司紧随其后，远高于大盘中50家股票中的优势股票的平均水平。在大盘中的所有股票中，一共有24家公司是负数，其中中华天楹位于末尾；还有15家公司虽然是正数但是也很接近于0。
+应该注意的是，经营活动现金净流量并不能完全替代净利润来评价企业的盈利能力，每股现金流量也不能替代每股净利润的作用。上市公司股票价格是由公司未来的每股收益和每股现金流量的净现值来决定的。盈亏已经不是决定股票价值唯一重要因素。单从财务报表所反映的信息来看，现金流量日益取代净利润，成为评价公司股票价值的一个重要标准。
+     </div>
+
+     <div id="text4" font size="120">
+       <h1 align="center"><font size="5">综合对比</font></h1>
+		 <hr>
+       经过三张图的综合比较，我们发现，将十家银行放入深市后，美的集团在每股净资产、每股收益两个方面表现突出，以绝对优势胜于其余公司，所以我们暂且将其列为优势股票。
+
+     </div>
+
+<div class="bg">
+	<table width="60%" border="0">
+    <tr>
+        <td align="center" class="biaoti" height="60" style="font-family: Microsoft Himalaya;
+            font-size: 26px;
+            border-bottom:1px dashed #CCCCCC;
+            color: #e9faff;">
+            深市六十家公司标准值
+        </td>
+    </tr>
+    <tr>
+        <td align="right" height="25">
+            2017-01-02---2017-05-02
+        </td>
+    </tr>
+</table>
+<table width="60%" border="2" cellspacing="1" cellpadding="4">
+    <tr>
+        <td colspan="2" class="btgn" rowspan="2">相关指标</td>
+        <td rowspan="2" class="btgn">每股净资产</td>
+        <td rowspan="2" class="btgn">每股收益</td>
+        <td rowspan="2" class="btgn">每股现金流量</td>
+        <td colspan="2" class="btgn">毛利率</td>
+    </tr>
+    <tr>
+
+
+    </tr>
+    <tr>
+        <td rowspan="61" >60家公司</td>
+        <td><a href="#" target="_blank"></a>ST美丽 </td>
+        <td>0.5115</td>
+        <td> -3.568928</td>
+        <td> -0.131</td>
+        <td>13.2</td>
+
+
+
+
+    </tr>
+    <tr>
+        <td><a href="#" target="_blank"></a>深物业A</td>
+        <td> 5.6008</td>
+        <td>3.978152</td>
+        <td>1.529</td>
+        <td> 52.81</td>
+
+
+
+    </tr>
+    <tr>
+        <td>南玻A</td>
+        <td>3.1793</td>
+        <td>0.632792</td>
+        <td>-0.082</td>
+        <td>23.46</td>
+
+
+
+    </tr>
+    <tr>
+        <td>沙河股份</td>
+        <td> 4.3866</td>
+        <td> 2.895324</td>
+        <td>0.155</td>
+        <td>29.51</td>
+
+
+
+    </tr>
+    <tr>
+        <td>深康佳A</td>
+        <td>3.3658</td>
+        <td>0.68322</td>
+        <td> 0.14</td>
+        <td>6.29</td>
+
+
+
+
+    </tr>
+    <tr>
+        <td>深中华A</td>
+        <td>0.0259</td>
+        <td>-0.011548</td>
+        <td>-0.005</td>
+        <td>9.87</td>
+
+
+
+    </tr>
+    <tr>
+        <td>ST神城</td>
+        <td>0.1385</td>
+        <td> -4.015296</td>
+        <td> -0.307</td>
+        <td>-0.93</td>
+
+
+
+    </tr>
+    <tr>
+        <td>深粮控股</td>
+        <td>3.6203</td>
+        <td> 1.070096</td>
+        <td> 0.076</td>
+        <td>9.9</td>
+
+
+
+    </tr>
+    <tr>
+        <td>深华发A</td>
+        <td>1.1441</td>
+        <td>0.046548</td>
+        <td> -0.189</td>
+        <td>11.04</td>
+
+
+
+    </tr>
+    <tr>
+        <td>中国天楹</td>
+        <td>2.3967</td>
+        <td>2.431268</td>
+        <td>-2.483</td>
+        <td>36.38</td>
+
+
+
+    </tr>
+   <tr>
+        <td>华联控股</td>
+        <td>4.2183</td>
+        <td>3.39432</td>
+        <td>2.864</td>
+        <td> 72.12</td>
+
+
+
+    </tr>
+    <tr>
+        <td>深南电A</td>
+        <td>3.2813</td>
+        <td>0.127772</td>
+        <td>0.835</td>
+        <td>7.04</td>
+
+
+
+    </tr>   <tr>
+        <td>深大通</td>
+        <td>5.4192</td>
+        <td> -17.9783</td>
+        <td>-0.983</td>
+        <td> 8.25</td>
+
+
+
+    </tr>   <tr>
+        <td>中集集团</td>
+        <td>11.1617</td>
+        <td>4.529916</td>
+        <td>1.705</td>
+        <td>14.88</td>
+
+
+
+    </tr>   <tr>
+        <td>东旭蓝天</td>
+        <td>9.7523</td>
+        <td>3.006932</td>
+        <td>-1.698</td>
+        <td>14.11</td>
+
+
+
+    </tr>   <tr>
+        <td>中州控股</td>
+        <td>10.9409</td>
+        <td> 2.68754</td>
+        <td>0.691</td>
+        <td>47.08</td>
+
+
+
+    </tr>   <tr>
+        <td>中航善达</td>
+        <td>7.2598</td>
+        <td>5.137408</td>
+        <td>0.279</td>
+        <td>19.64</td>
+
+
+
+    </tr>   <tr>
+        <td>深纺织A</td>
+        <td> 4.642</td>
+        <td>-0.179792</td>
+        <td>-0.054</td>
+        <td>10.23</td>
+
+
+
+    </tr>   <tr>
+        <td>泛海控股</td>
+        <td>3.8716</td>
+        <td>0.716552</td>
+        <td> -0.64</td>
+        <td>61.17</td>
+
+
+
+    </tr>   <tr>
+        <td>ST康达</td>
+        <td>2.5981</td>
+        <td>4.477276</td>
+        <td>0.316</td>
+        <td>42.86</td>
+
+
+
+    </tr>   <tr>
+        <td>德赛电池</td>
+        <td>8.5286</td>
+        <td>7.822308</td>
+        <td>0.163</td>
+        <td>8.2</td>
+
+
+
+    </tr>
+ <tr>
+        <td>深天马A</td>
+        <td>12.6969</td>
+        <td>1.807592</td>
+        <td>-0.809</td>
+        <td> 15.19</td>
+
+
+
+    </tr> <tr>
+        <td>方大集团</td>
+        <td>4.4961</td>
+        <td>7.775684</td>
+        <td>0.022</td>
+        <td>23.31</td>
+
+
+
+    </tr> <tr>
+        <td>皇庭国际</td>
+        <td>4.5609</td>
+        <td>0.308512</td>
+        <td>-0.435</td>
+        <td>63.22</td>
+
+
+
+    </tr> <tr>
+        <td>深赛格</td>
+        <td>1.5117</td>
+        <td>0.090164</td>
+        <td>0.62</td>
+        <td>34.07</td>
+
+
+
+    </tr> <tr>
+        <td>华锦股份</td>
+        <td>8.2369</td>
+        <td>2.639344</td>
+        <td>1.446</td>
+        <td>17.21</td>
+
+
+
+    </tr> <tr>
+        <td>中金岭南</td>
+        <td>2.8922</td>
+        <td>1.030836</td>
+        <td>-0.067</td>
+        <td>13.66</td>
+
+
+
+    </tr> <tr>
+        <td>农产品</td>
+        <td>2.9038</td>
+        <td>0.100808</td>
+        <td>0.022</td>
+        <td> 37.07</td>
+
+
+
+    </tr> <tr>
+        <td>深圳华强</td>
+        <td>6.4957</td>
+        <td>3.801768</td>
+        <td>0.26</td>
+        <td>15.74</td>
+
+
+
+    </tr> <tr>
+        <td>中兴通讯</td>
+        <td>5.4613</td>
+        <td>-6.662732</td>
+        <td>-2.141</td>
+        <td>32.91</td>
+
+
+
+    </tr> <tr>
+        <td>北方国际</td>
+        <td>5.4288</td>
+        <td>3.062624</td>
+        <td> 0.04</td>
+        <td>14.81</td>
+
+
+
+    </tr> <tr>
+        <td>中国长城</td>
+        <td>2.1254</td>
+        <td>1.344748</td>
+        <td> 0.088</td>
+        <td> 21.93</td>
+
+
+
+    </tr> <tr>
+        <td>华控赛格</td>
+        <td>0.5194</td>
+        <td>-0.52802</td>
+        <td>-0.094</td>
+        <td>27.28</td>
+
+
+
+    </tr> <tr>
+        <td>华侨城A</td>
+        <td>7.2066</td>
+        <td>5.163348</td>
+        <td>-0.41</td>
+        <td>60.35</td>
+
+
+
+    </tr> <tr>
+        <td>特发消息</td>
+        <td>3.5642</td>
+        <td>1.758552</td>
+        <td>0.12</td>
+        <td>16.3</td>
+
+
+
+    </tr> <tr>
+        <td>海王生物</td>
+        <td>2.2469</td>
+        <td>0.626752</td>
+        <td>-0.204</td>
+        <td>13.13</td>
+
+
+
+    </tr> <tr>
+        <td>盐田港</td>
+        <td>3.4692</td>
+        <td>0.97754</td>
+        <td>-0.046</td>
+        <td>56.41</td>
+
+
+
+    </tr> <tr>
+        <td>深圳机场</td>
+        <td>5.6748</td>
+        <td>1.30294</td>
+        <td>0.209</td>
+        <td>25.88</td>
+
+
+
+    </tr> <tr>
+        <td>天健集团</td>
+        <td>4.8007</td>
+        <td>2.175064</td>
+        <td>1.437</td>
+        <td>21.65</td>
+
+
+
+    </tr> <tr>
+        <td>广聚能源</td>
+        <td> 4.6911</td>
+        <td>0.81614</td>
+        <td>0.091</td>
+        <td> 9.17</td>
+
+
+
+    </tr> <tr>
+        <td>中信海直</td>
+        <td>5.0783</td>
+        <td>0.993012</td>
+        <td>-0.228</td>
+        <td>23.86</td>
+
+
+
+    </tr>
+<tr>
+        <td>TCL集团</td>
+        <td>2.2506</td>
+        <td>1.023852</td>
+        <td>0.179</td>
+        <td> 18.31</td>
+
+
+
+    </tr><tr>
+        <td>宜华健康</td>
+        <td> 3.8476</td>
+        <td>1.131968</td>
+        <td>-0.315</td>
+        <td> 31.11</td>
+
+
+
+    </tr><tr>
+        <td>中成股份</td>
+        <td>3.3799</td>
+        <td>1.127388</td>
+        <td> -1.554</td>
+        <td>16.42</td>
+
+
+
+    </tr><tr>
+        <td>冯原药业</td>
+        <td>4.0642</td>
+        <td>0.7686</td>
+        <td>0.189</td>
+        <td>38.95/td>
+
+
+
+    </tr><tr>
+        <td>川能动力</td>
+        <td>2.5669</td>
+        <td>0.94788</td>
+        <td>0.055</td>
+        <td>11.92</td>
+
+
+
+    </tr><tr>
+        <td>华数传媒</td>
+        <td>7.4496</td>
+        <td>1.671124</td>
+        <td>0.325</td>
+        <td>40.69</td>
+
+
+
+    </tr><tr>
+        <td>中联智科</td>
+        <td>4.8922</td>
+        <td>1.034692</td>
+        <td>0.206</td>
+        <td>27.09</td>
+
+
+
+    </tr><tr>
+        <td>常山北明</td>
+        <td>3.6811</td>
+        <td>0.45006</td>
+        <td>0.324</td>
+        <td>9.24</td>
+
+
+
+    </tr><tr>
+        <td>国际实业</td>
+        <td>4.4687</td>
+        <td>0.498152</td>
+        <td>-0.107</td>
+        <td>20.78</td>
+
+
+
+    </tr><tr>
+        <td>申方宏源</td>
+        <td>3.0795</td>
+        <td> 0.738408</td>
+        <td>0.369</td>
+        <td>100</td>
+
+
+
+    </tr><tr>
+        <td>东方盛宏</td>
+        <td>3.2148</td>
+        <td>0.482644</td>
+        <td>0.024</td>
+        <td> 13.8</td>
+
+
+
+    </tr>
+<tr>
+        <td>美的集团</td>
+        <td>12.4676</td>
+        <td>12.145092</td>
+        <td>-0.582</td>
+        <td>28.06</td>
+
+
+
+    </tr><tr>
+        <td>潍柴动力</td>
+        <td>15.691</td>
+        <td>4.33026</td>
+        <td>1.016</td>
+        <td>22.33</td>
+
+
+
+    </tr>
+<tr>
+        <td>许继电气</td>
+        <td>16.661</td>
+        <td>0.792048</td>
+        <td>-0.308</td>
+        <td> 17.41</td>
+
+
+
+    </tr>
+<tr>
+        <td>冀东水泥</td>
+        <td>8.6065</td>
+        <td>0.1603</td>
+        <td>2.356</td>
+        <td>30.64</td>
+
+
+
+    </tr><tr>
+        <td>金融街</td>
+        <td>10.6936</td>
+        <td>4.374236</td>
+        <td>0.423</td>
+        <td>48.6</td>
+
+
+
+    </tr><tr>
+        <td>振兴生化</td>
+        <td>2.3396</td>
+        <td> 1.173724</td>
+        <td>0.142</td>
+        <td>53.33</td>
+
+
+
+    </tr><tr>
+        <td>长虹华意</td>
+        <td>4.5959</td>
+        <td>0.414</td>
+        <td>0.917</td>
+        <td> 12.02</td>
+
+
+
+    </tr><tr>
+        <td>胜利股份</td>
+        <td>2.581</td>
+        <td>0.466004</td>
+        <td>0.025</td>
+        <td>15.81</td>
+
+
+
+    </tr>
+</table>
+</div>
+</div>
+<div class='login hidden' id="logbar">
+    <img src="../static/img/cha.png" style="filter: invert(80%); height: 20px" class="cha">
+	  <div class='login_title'>
+	    <span>登录</span>
+	  </div>
+	  <div class='login_fields'>
+	    <div class='login_fields__user'>
+	      <div class='icon'>
+	        <img src='../static/img/user_icon_copy.png'>
+	      </div>
+	      <input placeholder='用户名/邮箱' type='text'>
+	        <div class='validation'>
+	          <img src='../static/img/tick.png'>
+	        </div>
+	    </div>
+	    <div class='login_fields__password'>
+	      <div class='icon'>
+	        <img src='../static/img/lock_icon_copy.png'>
+	      </div>
+	      <input placeholder='密码' type='password'>
+	      <div class='validation'>
+	        <img src='../static/img/tick.png'>
+	      </div>
+	    </div>
+	    <div class='login_fields__submit'>
+	      <input type='submit' value='登录'>
+	      <div class='forgot'>
+	        <a href='#'>忘记密码?</a>
+	      </div>
+	    </div>
+	  </div>
+	  <div class='success'>
+          <h2>认证成功</h2>
+	    <p>欢迎回来</p>
+	  </div>
+	  <div class='disclaimer'>
+	    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper laoreet placerat. Nullam semper auctor justo, rutrum posuere odio vulputate nec.</p>
+	  </div>
+</div>
+	<div class='authent'>
+	  <img src='../static/img/puff.svg'>
+	  <p>认证中...</p>
+	</div>
+	<script type="text/javascript" src='../static/js/stopExecutionOnTimeout.js?t=1'></script>
+	<script type="text/javascript" src="../static/js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../static/js/jquery-ui.min.js"></script>
+	<script>
+	$('input[type="submit"]').click(function () {
+	    $('.login').addClass('test');
+	    setTimeout(function () {
+	        $('.login').addClass('testtwo');
+	    }, 300);
+	    setTimeout(function () {
+	        $('.authent').show().animate({ right: -320 }, {
+	            easing: 'easeOutQuint',
+	            duration: 600,
+	            queue: false
+	        });
+	        $('.authent').animate({ opacity: 1 }, {
+	            duration: 200,
+	            queue: false
+	        }).addClass('visible');
+	    }, 500);
+	    setTimeout(function () {
+	        $('.authent').show().animate({ right: 90 }, {
+	            easing: 'easeOutQuint',
+	            duration: 600,
+	            queue: false
+	        });
+	        $('.authent').animate({ opacity: 0 }, {
+	            duration: 200,
+	            queue: false
+	        }).addClass('visible');
+	        $('.login').removeClass('testtwo');
+	    }, 2500);
+	    setTimeout(function () {
+	        $('.login').removeClass('test');
+	        $('.login div').fadeOut(123);
+	    }, 2800);
+	    setTimeout(function () {
+	        $('.success').fadeIn();
+	    }, 3200);
+	});
+	$('input[type="text"],input[type="password"]').focus(function () {
+	    $(this).prev().animate({ 'opacity': '1' }, 200);
+	});
+	$('input[type="text"],input[type="password"]').blur(function () {
+	    $(this).prev().animate({ 'opacity': '.5' }, 200);
+	});
+	$('input[type="text"],input[type="password"]').keyup(function () {
+	    if (!$(this).val() == '') {
+	        $(this).next().animate({
+	            'opacity': '1',
+	            'right': '30'
+	        }, 200);
+	    } else {
+	        $(this).next().animate({
+	            'opacity': '0',
+	            'right': '20'
+	        }, 200);
+	    }
+	});
+	var open = 0;
+	$('.tab').click(function () {
+	    $(this).fadeOut(200, function () {
+	        $(this).parent().animate({ 'left': '0' });
+	    });
+	});
+	</script>
+<script>
+    var log=document.getElementById('login');
+    var login=document.getElementById('logbar');
+    var cha = document.getElementsByClassName('cha');
+    var body = document.getElementById('base');
+    log.addEventListener("click", function () {
+        login.classList.replace('hidden', 'show');
+		body.className='fuzzy';
+    });
+    cha[0].onclick=function () {
+        login.classList.replace('show','hidden')
+		body.className='fuz';
+    };
+
+</script>
+
+</body>
